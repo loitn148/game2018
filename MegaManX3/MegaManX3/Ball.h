@@ -2,6 +2,7 @@
 #ifndef __BALL__H__
 #define __BALL__H__
 
+#include "Bar.h"
 #include "GameObject.h"
 #include "Animation.h"
 #include "Viewport.h"
@@ -14,10 +15,12 @@ public:
 	bool isDead;
 	void Draw(float time);
 	void Update(float time);
+	void SetBar(GameObject *b);
 	Ball(VT3 position, float vx, float vy);
 	Ball();
 	~Ball();
 protected:
+	GameObject* bar;
 	Animation* listBall;
 	int currentState;
 };

@@ -4,6 +4,7 @@
 
 #include "GameSence.h"
 #include "Ball.h"
+#include "Bar.h"
 #include "GameTime.h"
 #include "Camera.h"
 #include "Map.h"
@@ -17,6 +18,7 @@ private:
 	Camera* camera;
 	Map* map;
 	Ball* ball;
+	Bar* bar;
 public:
 	void LoadContent();
 	void Update(float time);
