@@ -5,22 +5,16 @@
 //KEYBOARD
 #define KEY_DOWN(code) ( IsKeyDown(code) )
 #define KEYBOARD_BUFFER_SIZE 1024
-
-#define DIRECTINPUT_HEADER_VERSION  0x0800
-#ifndef DIRECTINPUT_VERSION
-#define DIRECTINPUT_VERSION DIRECTINPUT_HEADER_VERSION
-#pragma message(__FILE__ ": DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800")
-#endif
+#define DIRECTINPUT_VERSION 0x0800
 
 #include <dinput.h>
-#include "Global.h"
 class GameInput
 {
 protected:
 	BYTE keyStates[256];
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];
-	INPUT input;
-	INPUTDEV inputDev;
+	LPDIRECTINPUT8 input;
+	LPDIRECTINPUTDEVICE8 inputDev;
 	int isKeyDown(int keyCode);
 public:
 	virtual void OnKeyDown(int keyCode);

@@ -123,6 +123,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameGraphic.cpp" />
+    <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GameTime.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameGraphic.h" />
+    <ClInclude Include="GameInput.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSence.h" />
     <ClInclude Include="GameSprite.h" />

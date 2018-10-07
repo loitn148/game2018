@@ -32,10 +32,10 @@ Ball::Ball(VT3 position, float vx, float vy) {
 
 void Ball::Update(float time)
 {
-	Rect rectTop(-40, 0, 0, WIDTH);
-	Rect rectBot(HEIGHT, 0, HEIGHT + 40, WIDTH);
-	Rect rectLeft(0, -40, HEIGHT, 0);
-	Rect rectRight(0, WIDTH, HEIGHT, WIDTH + 40);
+	Rect rectTop(-1, 0, 0, WIDTH);
+	Rect rectBot(HEIGHT, 0, HEIGHT + 1, WIDTH);
+	Rect rectLeft(0, -1, HEIGHT, 0);
+	Rect rectRight(0, WIDTH, HEIGHT, WIDTH + 1);
 	CollisionResult collisionTop, collisionBot, collisionLeft, collisionRight;
 
 	collisionTop = Collision::SweptAABB(this->GetRect(), VT2(this->GetVx(), this->GetVy()), rectTop, VT2(0, 0), time);
@@ -56,13 +56,21 @@ void Ball::Update(float time)
 	this->position.x += this->vx*time;
 	this->position.y += this->vy*time;
 
-	if (this->position.x + this->width / 2 >= WIDTH || this->position.x - this->width / 2 <= 0) {
-		if (this->vx == 400.0f) this->vx = -400.0f;
-		else this->vx = 400.0f;
+	if (this->position.x + this->width / 2 >= WIDTH) {
+		this->position.x = WIDTH - this->width / 2;
+		this->vx = -400.0f;
 	}
-	if (this->position.y + this->height >= HEIGHT || this->position.y <= 0) {
-		if (this->vy == 400.0f) this->vy = -400.0f;
-		else this->vy = 400.0f;
+	if (this->position.x - this->width / 2 <= 0) {
+		this->position.x = this->width / 2;
+		this->vx = 400.0f;
+	}
+	if (this->position.y + this->height >= HEIGHT) {
+		this->position.y = HEIGHT - this->height;
+		this->vy = -400.0f;
+	}
+	if (this->position.y <= 0) {
+		this->position.y = 0;
+		this->vy = 400.0f;
 	}
 	UpdateRect();
 }
