@@ -13,6 +13,9 @@
 #define MATRIX D3DXMATRIX
 #define MATRIX D3DXMATRIX
 
+#define BAR1 1
+#define BAR2 2
+
 //Window
 #define WIDTH 800
 #define HEIGHT 600
@@ -59,6 +62,6 @@ struct CollisionResult
 
 //Object Path
 #define BALL_PATH "Assets/ball.png"
-#define BAR1_PATH "Assets/bar1.png"
+#define BAR_PATH "Assets/bar.png"
 #define BAR2_PATH "Assets/bar2.png"
 #define MAP_PATH "Assets/wall.png"

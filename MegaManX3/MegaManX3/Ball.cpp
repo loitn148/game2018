@@ -31,20 +31,20 @@ Ball::Ball(VT3 position, double vx, double vy) {
 	UpdateRect();
 }
 
-void Ball::Update(double time)
-{
+void Ball::Update(double time) {
 	Rect rectTop(HEIGHT + 1, 0, HEIGHT, WIDTH);
 	Rect rectBot(0, 0, -1, WIDTH);
 	Rect rectLeft(HEIGHT, -1, 0, 0);
 	Rect rectRight(HEIGHT, WIDTH, 0, WIDTH + 1);
 	CollisionResult collisionTop, collisionBot, collisionLeft, collisionRight;
-	CollisionResult colisionBar;
+	CollisionResult collisionBar, collisionBar2;
 	double entryTimeX = time, entryTimeY = time;
 	collisionTop = Collision::SweptAABB(this->GetRect(), VT2(this->GetVx(), this->GetVy()), rectTop, VT2(0, 0), time);
 	collisionBot = Collision::SweptAABB(this->GetRect(), VT2(this->GetVx(), this->GetVy()), rectBot, VT2(0, 0), time);
 	collisionLeft = Collision::SweptAABB(this->GetRect(), VT2(this->GetVx(), this->GetVy()), rectLeft, VT2(0, 0), time);
 	collisionRight = Collision::SweptAABB(this->GetRect(), VT2(this->GetVx(), this->GetVy()), rectRight, VT2(0, 0), time);
-	colisionBar = Collision::SweptAABB(this->GetRect(), VT2(this->GetVx(), this->GetVy()), bar->GetRect(), VT2(bar->GetVx(), bar->GetVy()), time);
+	collisionBar = Collision::SweptAABB(this->GetRect(), VT2(this->GetVx(), this->GetVy()), bar->GetRect(), VT2(bar->GetVx(), bar->GetVy()), time);
+	collisionBar2 = Collision::SweptAABB(this->GetRect(), VT2(this->GetVx(), this->GetVy()), bar2->GetRect(), VT2(bar->GetVx(), bar->GetVy()), time);
 	if (collisionTop.isCollision && collisionTop.directCollision == TOP) {
 		//this->vy = this->vy*collisionTop.entryTime;
 		entryTimeY = collisionTop.entryTime;
@@ -59,40 +59,41 @@ void Ball::Update(double time)
 		entryTimeX = collisionRight.entryTime;
 	}
 
-	if (colisionBar.isCollision &&
-		(colisionBar.directCollision == LEFT || colisionBar.directCollision == RIGHT))
+	if (collisionBar.isCollision)
 	{
-		entryTimeX = colisionBar.entryTime;
+		entryTimeX = collisionBar.entryTime;
+	}
+	if (collisionBar2.isCollision)
+	{
+		entryTimeX = collisionBar2.entryTime;
+	}
 
-	}
-	else if (colisionBar.isCollision)
-	{
-		entryTimeY = colisionBar.entryTime;
-	}
 	this->position.x += this->vx*entryTimeX;
 	this->position.y += this->vy*entryTimeY;
 
-	if (colisionBar.isCollision &&
-		(colisionBar.directCollision == LEFT || colisionBar.directCollision == RIGHT))
-	{
-		this->vx = 0.0f;
-		this->vy = 0.0f;
+	UpdateRect();
 
-	}
-	else if (colisionBar.isCollision)
+	if ((collisionBar.isCollision && (collisionBar.directCollision == LEFT || collisionBar.directCollision == RIGHT))
+		|| (collisionBar2.isCollision && (collisionBar2.directCollision == LEFT || collisionBar2.directCollision == RIGHT)))
 	{
-		this->vx = 0.0f;
-		this->vy = 0.0f;
+		this->vx = -this->vx;
 	}
 
+	if ((collisionBar.isCollision && (collisionBar.directCollision == TOP || collisionBar.directCollision == BOTTOM))
+		|| (collisionBar2.isCollision && (collisionBar2.directCollision == TOP || collisionBar2.directCollision == BOTTOM)))
+	{
+		this->vy = -this->vy;
+	}
 	
 	if (collisionRight.isCollision) {
 		this->position.x = WIDTH - this->width/2;
-		this->vx = -400.0f;
+		this->vx = 0;
+		this->vy = 0;
 	}
 	if (collisionLeft.isCollision) {
 		this->position.x = this->width/2;
-		this->vx = 400.0f;
+		this->vx = 0;
+		this->vy = 0;
 	}
 	if (collisionBot.isCollision) {
 		this->position.y = 0;
@@ -102,11 +103,9 @@ void Ball::Update(double time)
 		this->position.y = HEIGHT - this->height;
 		this->vy = -400.0f;
 	}
-	UpdateRect();
 }
 
-void Ball::Draw(double time)
-{
+void Ball::Draw(double time) {
 	if (!this->isDead)
 	{
 		this->transform.positionInViewport = this->GetPositionInViewport();
@@ -117,7 +116,7 @@ void Ball::Draw(double time)
 	}
 }
 
-void Ball::SetBar(GameObject *b)
-{
-	this->bar = b;
+void Ball::SetBar(Bar* bar, Bar* bar2) {
+	this->bar = bar;
+	this->bar2 = bar2;
 }

@@ -19,6 +19,7 @@ private:
 	Map* map;
 	Ball* ball;
 	Bar* bar;
+	Bar* bar2;
 public:
 	void LoadContent();
 	void Update(double time);

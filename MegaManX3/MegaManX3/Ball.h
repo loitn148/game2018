@@ -9,19 +9,22 @@
 #include "Camera.h"
 #include "Collision.h"
 
-class Ball : public GameObject
+class Bar;
+
+class Ball : public GameObject 
 {
+protected:
+	Bar* bar;
+	Bar* bar2;
+	Animation* listBall;
+	int currentState;
 public:
 	bool isDead;
 	void Draw(double time);
 	void Update(double time);
-	void SetBar(GameObject *b);
+	void SetBar(Bar* bar, Bar* bar2);
 	Ball(VT3 position, double vx, double vy);
 	Ball();
 	~Ball();
-protected:
-	GameObject* bar;
-	Animation* listBall;
-	int currentState;
 };
 #endif // !__BALL__H__

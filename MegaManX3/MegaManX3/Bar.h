@@ -7,13 +7,20 @@
 #include "Camera.h"
 #include "Collision.h"
 #include "Ball.h"
-class Bar : public GameObject
+#include "GameInput.h"
+
+class Bar : public GameObject, public GameInput
 {
 public:
 	bool isDead;
 	void Draw(double time);
 	void Update(double time);
-	Bar(VT3 position, double vx, double vy);
+	void OnKeyUp(int keyCode);
+	void OnKeyDown(int keyCode);
+	int barIdx;
+	HWND hWnd;
+	HINSTANCE hInstance;
+	Bar(VT3 position, double vx, double vy, HWND hWnd, HINSTANCE hInstance, int barIdx);
 protected:
 	Animation* listBar;
 	int currentState;
@@ -21,4 +28,4 @@ public:
 	Bar();
 	~Bar();
 };
-#endif
+#endif __BAR__H__
