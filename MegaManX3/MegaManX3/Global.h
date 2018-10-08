@@ -49,9 +49,9 @@ enum Direct {
 //Collision Result
 struct CollisionResult
 {
-	float entryTime; //Thoi gian de xay ra va cham
-	float remainingTime; //Thoi gian sau khi va cham
-	float exitTime; //Thoi gian ket thuc va cham
+	double entryTime; //Thoi gian de xay ra va cham
+	double remainingTime; //Thoi gian sau khi va cham
+	double exitTime; //Thoi gian ket thuc va cham
 	bool isCollision; //Kiem tra co xay ra va cham hay khong?
 	Direct directCollision; //Huong va cham
 	int indexObject; //Stt cua object trong list

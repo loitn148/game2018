@@ -25,16 +25,16 @@ SPRITE GameGraphic::GetSprite() {
 	return this->sprite;
 }
 
-TEXTURE GameGraphic::LoadTexture(char* fileName, COLOR transcolor) {
+TEXTURE GameGraphic::LoadTexture(char* filePath, COLOR transcolor) {
 	TEXTURE texture;
 	D3DXIMAGE_INFO info;
 	HRESULT hResult;
 
-	hResult = D3DXGetImageInfoFromFile(fileName, &info);
+	hResult = D3DXGetImageInfoFromFile(filePath, &info);
 
 	hResult = D3DXCreateTextureFromFileEx(
 		this->device,
-		fileName,
+		filePath,
 		info.Width,
 		info.Height,
 		D3DX_DEFAULT,
@@ -54,10 +54,10 @@ TEXTURE GameGraphic::LoadTexture(char* fileName, COLOR transcolor) {
 	return texture;
 }
 
-SURFACE GameGraphic::LoadSurface(char * fileName, COLOR transcolor) {
+SURFACE GameGraphic::LoadSurface(char * filePath, COLOR transcolor) {
 	SURFACE surface;
 	D3DXIMAGE_INFO info;
-	if (D3DXGetImageInfoFromFile(fileName, &info))
+	if (D3DXGetImageInfoFromFile(filePath, &info))
 		return NULL;
 
 	this->device->CreateOffscreenPlainSurface(
@@ -72,7 +72,7 @@ SURFACE GameGraphic::LoadSurface(char * fileName, COLOR transcolor) {
 		surface,
 		NULL,
 		NULL,
-		fileName,
+		filePath,
 		NULL,
 		D3DX_FILTER_TRIANGLE,
 		transcolor,

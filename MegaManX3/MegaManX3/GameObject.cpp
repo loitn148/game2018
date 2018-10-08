@@ -12,23 +12,23 @@ Object GameObject::GetId() {
 	return this->id;
 }
 
-float GameObject::GetV0() {
+double GameObject::GetV0() {
 	return this->v0;
 }
 
-float GameObject::GetVx() {
+double GameObject::GetVx() {
 	return this->vx;
 }
 
-float GameObject::GetVy() {
+double GameObject::GetVy() {
 	return this->vy;
 }
 
-float GameObject::GetAx() {
+double GameObject::GetAx() {
 	return this->ax;
 }
 
-float GameObject::GetAy() {
+double GameObject::GetAy() {
 	return this->ay;
 }
 
@@ -65,23 +65,23 @@ void GameObject::SetPosition(VT3 position) {
 	this->position = position;
 }
 
-void GameObject::SetV0(float v0) {
+void GameObject::SetV0(double v0) {
 	this->v0 = v0;
 }
 
-void GameObject::SetVx(float vx) {
+void GameObject::SetVx(double vx) {
 	this->vx = vx;
 }
 
-void GameObject::SetVy(float vy) {
+void GameObject::SetVy(double vy) {
 	this->vy = vy;
 }
 
-void GameObject::SetAx(float ax) {
+void GameObject::SetAx(double ax) {
 	this->ax = ax;
 }
 
-void GameObject::SetAy(float ay) {
+void GameObject::SetAy(double ay) {
 	this->ay = ay;
 }
 

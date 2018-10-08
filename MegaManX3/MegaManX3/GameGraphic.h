@@ -20,8 +20,8 @@ public:
 	void Begin();
 	void End();
 	void Present();
-	TEXTURE LoadTexture(char* fileName, COLOR transcolor = C_XRGB(0, 0, 0));
-	SURFACE LoadSurface(char* fileName, COLOR transcolor = C_XRGB(0, 0, 0));
+	TEXTURE LoadTexture(char* filePath, COLOR transcolor = C_XRGB(0, 0, 0));
+	SURFACE LoadSurface(char* filePath, COLOR transcolor = C_XRGB(0, 0, 0));
 	void DrawTexture(TEXTURE texture, RECT rect, VT3 center, VT3 position,
 		VT2 scale, VT2 scalingCenter, VT2 translation = VT2(0, 0));
 	void DrawSurface(SURFACE surface, RECT* sRect, RECT* dRect);

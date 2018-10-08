@@ -12,7 +12,7 @@ class Game
 private:
 	HINSTANCE hInstance;
 	HWND hWnd;
-	float timeLoop;
+	double timeLoop;
 public:
 	bool Init(HWND hWnd, HINSTANCE hInstance);
 	void Run();

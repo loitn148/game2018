@@ -10,7 +10,7 @@ Bar::Bar() {
 Bar::~Bar() {
 }
 
-Bar::Bar(VT3 position, float vx, float vy) {
+Bar::Bar(VT3 position, double vx, double vy) {
 	this->listBar = new Animation[1];
 	std::vector<Rect> temp;
 
@@ -30,7 +30,7 @@ Bar::Bar(VT3 position, float vx, float vy) {
 	UpdateRect();
 }
 
-void Bar::Update(float time)
+void Bar::Update(double time)
 {
 	Rect rectTop(-1, 0, 0, WIDTH);
 	Rect rectBot(HEIGHT, 0, HEIGHT + 1, WIDTH);
@@ -50,27 +50,10 @@ void Bar::Update(float time)
 
 	this->position.x += this->vx*time;
 	this->position.y += this->vy*time;
-
-	if (this->position.x + this->width / 2 >= WIDTH) {
-		this->position.x = WIDTH - this->width / 2;
-		this->vx = -400.0f;
-	}
-	if (this->position.x - this->width / 2 <= 0) {
-		this->position.x = this->width / 2;
-		this->vx = 400.0f;
-	}
-	if (this->position.y + this->height >= HEIGHT) {
-		this->position.y = HEIGHT - this->height;
-		this->vy = -400.0f;
-	}
-	if (this->position.y <= 0) {
-		this->position.y = 0;
-		this->vy = 400.0f;
-	}
 	UpdateRect();
 }
 
-void Bar::Draw(float time)
+void Bar::Draw(double time)
 {
 	if (!this->isDead)
 	{

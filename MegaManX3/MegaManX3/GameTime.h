@@ -8,12 +8,12 @@ class GameTime
 {
 private:
 	static GameTime* instance;
-	float start;
-	float frequency;
+	double start;
+	double frequency;
 	void Update();
 public:
-	float currentTime;
-	float totalTime;
+	double currentTime;
+	double totalTime;
 	bool Init();
 	void Run();
 

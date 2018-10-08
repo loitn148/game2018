@@ -11,7 +11,7 @@ private:
 	GameSence* currentSence;
 public:
 	static SenceManager* GetInstance();
-	void Update(float time);
+	void Update(double time);
 	GameSence* GetCurrentSence();
 	void ReplaceSence(GameSence* sence);
 

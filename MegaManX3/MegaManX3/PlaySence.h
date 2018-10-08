@@ -21,8 +21,8 @@ private:
 	Bar* bar;
 public:
 	void LoadContent();
-	void Update(float time);
-	void Draw(float time);
+	void Update(double time);
+	void Draw(double time);
 	PlaySence(HWND hWnd, HINSTANCE hInstance);
 	PlaySence();
 	~PlaySence();

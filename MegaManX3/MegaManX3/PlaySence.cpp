@@ -3,8 +3,8 @@
 
 
 void PlaySence::LoadContent() {
-	this->ball = new Ball(VT3(WIDTH / 2, HEIGHT / 2, 0), 400.0f, 400.0f);
-	this->bar = new Bar(VT3(WIDTH / 2 + 30.0f, HEIGHT / 2, 0), 0.0f, 0.0f);
+	this->ball = new Ball(VT3(200.0f, 400.0f, 0), 400.0f, 400.0f);
+	this->bar = new Bar(VT3(100.0f, 0.0f, 0.0f), 0.0f, 0.0f);
 	this->ball->SetBar(bar);
 	this->camera = Camera::GetInstance();
 	this->camera->Create(VT3(0, HEIGHT, 0), WIDTH, HEIGHT);
@@ -12,13 +12,13 @@ void PlaySence::LoadContent() {
 	this->map = new Map();
 }
 
-void PlaySence::Update(float time) {
+void PlaySence::Update(double time) {
 	this->camera->Update();
 	this->ball->Update(time);
 	this->bar->Update(time);
 }
 
-void PlaySence::Draw(float time) {
+void PlaySence::Draw(double time) {
 	this->map->Draw();
 	this->ball->Draw(time);
 	this->bar->Draw(time);

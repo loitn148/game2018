@@ -11,21 +11,21 @@ class GameObject
 {
 protected:
 	Object id;
-	float dx, dy;
+	double dx, dy;
 	VT3 position;
 	int width, height;
-	float v0, vx, vy;
-	float ax, ay;
+	double v0, vx, vy;
+	double ax, ay;
 	Direct direct;
 	Rect rectBound;
 	Transform transform;
 public:
 	Object GetId();
-	float GetV0();
-	float GetVx();
-	float GetVy();
-	float GetAx();
-	float GetAy();
+	double GetV0();
+	double GetVx();
+	double GetVy();
+	double GetAx();
+	double GetAy();
 	Rect GetRect();
 	int GetWidth();
 	int GetHeight();
@@ -35,11 +35,11 @@ public:
 
 	void SetId(Object obj);
 	void SetPosition(VT3 position);
-	void SetV0(float v0);
-	void SetVx(float vx);
-	void SetVy(float vy);
-	void SetAx(float ax);
-	void SetAy(float ay);
+	void SetV0(double v0);
+	void SetVx(double vx);
+	void SetVy(double vy);
+	void SetAx(double ax);
+	void SetAy(double ay);
 	void SetRect(Rect rect);
 	void UpdateRect();
 

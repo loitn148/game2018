@@ -13,10 +13,10 @@ class Ball : public GameObject
 {
 public:
 	bool isDead;
-	void Draw(float time);
-	void Update(float time);
+	void Draw(double time);
+	void Update(double time);
 	void SetBar(GameObject *b);
-	Ball(VT3 position, float vx, float vy);
+	Ball(VT3 position, double vx, double vy);
 	Ball();
 	~Ball();
 protected:

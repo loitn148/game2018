@@ -18,7 +18,7 @@ SenceManager * SenceManager::GetInstance() {
 	return SenceManager::instance;
 }
 
-void SenceManager::Update(float time) {
+void SenceManager::Update(double time) {
 	this->currentSence->Update(time);
 }
 

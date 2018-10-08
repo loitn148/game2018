@@ -7,9 +7,9 @@ Animation::Animation() {
 Animation::~Animation() {
 }
 
-void Animation::Create(char* fileName, int nFrame, std::vector<Rect> rect, float timeFrame, Direct direct)
+void Animation::Create(char* filePath, int nFrame, std::vector<Rect> rect, double timeFrame, Direct direct)
 {
-	this->image = GameGraphic::GetInstance()->LoadTexture(fileName, C_XRGB(0, 0, 0));
+	this->image = GameGraphic::GetInstance()->LoadTexture(filePath, C_XRGB(0, 0, 0));
 	this->nFrame = nFrame;
 	this->direct = direct;
 	this->index = 0;
@@ -18,7 +18,7 @@ void Animation::Create(char* fileName, int nFrame, std::vector<Rect> rect, float
 	this->rectSprite = rect;
 }
 
-int Animation::NextFrame(float time)
+int Animation::NextFrame(double time)
 {
 	this->totalTime += time;
 	if (this->totalTime >= this->deltaTime)
@@ -29,7 +29,7 @@ int Animation::NextFrame(float time)
 	return this->index;
 }
 
-void Animation::Draw(VT3 position, Direct direct, float time, VT2 scale, VT2 translation)
+void Animation::Draw(VT3 position, Direct direct, double time, VT2 scale, VT2 translation)
 {
 	if (direct == this->direct) {
 		GameSprite::GetInstance()->Draw(this->image, &(this->rectSprite.at(this->index)), this->rectSprite.at(this->index).GetCenter(), position, scale, VT2(position.x, position.y), translation);

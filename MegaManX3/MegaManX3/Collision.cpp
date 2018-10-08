@@ -1,13 +1,51 @@
 #include "Collision.h"
+#include <math.h>
 
 
-CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, float time)
-{
-	v1.x = (v1.x - v2.x)*time; //Gia su v1 di chuyen, v2 dung yen
-	v1.y = (v1.y - v2.y)*time;
+bool Collision::IsColliding(Rect rect1, Rect rect2) {
+	double left = rect2.left - rect1.right;
+	double top = rect2.top - rect1.bottom;
+	double right = rect2.right - rect1.left;
+	double bottom = rect2.bottom - rect1.top;
 
-	float xEntry, yEntry; //Khoang cach giua 2 vat khi chua va cham
-	float xExit, yExit; //Khoang cach giua 2 vat sau khi va cham
+	return !(left > 0.0f || right < 0.0f || top < 0.0f || bottom > 0.0f);
+}
+
+Rect Collision::GetSweptBroadphaseRect(Rect rect, VT2 velocity, double time) {
+	double dx = velocity.x*time;
+	double dy = velocity.y*time;
+
+	Rect newRect(rect.top + dy, rect.left + dx, rect.bottom + dy, rect.right + dx);
+
+	double top = rect.top > newRect.top ? rect.top : newRect.top;
+	double left = rect.left < newRect.left ? rect.left : newRect.left;
+	double bottom = rect.bottom < newRect.bottom ? rect.bottom : newRect.bottom;
+	double right = rect.right > newRect.right ? rect.right : newRect.right;
+
+	return Rect(top, left, bottom, right);
+}
+CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, double time) {
+	
+	CollisionResult collisionResult;
+
+	Rect rect = GetSweptBroadphaseRect(rect1, v1, time);
+
+	if (HEIGHT - rect1.top < abs(v1.x*time) && v1.x < 0) {
+		collisionResult.directCollision = NONE;
+	}
+
+	if (!IsColliding(rect, rect2))
+	{
+		collisionResult.directCollision = NONE;
+		collisionResult.isCollision = false;
+		return collisionResult;
+	}
+
+	v1.x = v1.x - v2.x; //Gia su v1 di chuyen, v2 dung yen
+	v1.y = v1.y - v2.y;
+
+	double xEntry, yEntry; //Khoang cach giua 2 vat khi chua va cham
+	double xExit, yExit; //Khoang cach giua 2 vat sau khi va cham
 
 	if (v1.x >= 0.0f)
 	{
@@ -31,13 +69,13 @@ CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, flo
 		yExit = rect2.bottom - rect1.top;
 	}
 
-	float txEntry, tyEntry; //Thoi gian den va cham
-	float txExit, tyExit; //Thoi gian thoat khoi va cham
+	double txEntry, tyEntry; //Thoi gian den va cham
+	double txExit, tyExit; //Thoi gian thoat khoi va cham
 
-	if (v1.x == 0)
+	if (v1.x == 0.0f)
 	{
-		txEntry = -std::numeric_limits<float>::infinity();
-		txExit = std::numeric_limits<float>::infinity();
+		txEntry = -std::numeric_limits<double>::infinity();
+		txExit = std::numeric_limits<double>::infinity();
 	}
 	else
 	{
@@ -45,10 +83,10 @@ CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, flo
 		txExit = xExit / v1.x;
 	}
 
-	if (v1.y == 0)
+	if (v1.y == 0.0f)
 	{
-		tyEntry = -std::numeric_limits<float>::infinity();
-		tyExit = std::numeric_limits<float>::infinity();
+		tyEntry = -std::numeric_limits<double>::infinity();
+		tyExit = std::numeric_limits<double>::infinity();
 	}
 	else
 	{
@@ -57,9 +95,8 @@ CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, flo
 	}
 
 	//Kiem tra va cham
-	CollisionResult collisionResult;
-	float entryTime = max(txEntry, tyEntry);
-	float exitTime = min(txExit, tyExit);
+	double entryTime = max(txEntry, tyEntry);
+	double exitTime = min(txExit, tyExit);
 
 	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f)
 	{
@@ -72,22 +109,22 @@ CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, flo
 		//Xac dinh huong va cham
 		if (txEntry > tyEntry)
 		{
-			if (xEntry < 0.0f) //Right of rect2
+			if (xEntry > 0.0f) //Right of rect1
 			{
 				collisionResult.directCollision = RIGHT;
 			}
-			else //Left of rect2
+			else //Left of rect1
 			{
 				collisionResult.directCollision = LEFT;
 			}
 		}
 		else
 		{
-			if (yEntry < 0.0f) //Top of rect2
+			if (yEntry > 0.0f) //Top of rect1
 			{
 				collisionResult.directCollision = TOP;
 			}
-			else //Bottom of rect2
+			else //Bottom of rect1
 			{
 				collisionResult.directCollision = BOTTOM;
 			}

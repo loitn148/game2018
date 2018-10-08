@@ -28,21 +28,21 @@ bool GameTime::Init()
 	{
 		return false;
 	}
-	this->frequency = (float)(i.QuadPart);
+	this->frequency = (double)(i.QuadPart);
 	this->currentTime = 0;
 	this->totalTime = 0;
 
 	QueryPerformanceCounter(&i);
-	this->start = (float)(i.QuadPart);
+	this->start = (double)(i.QuadPart);
 }
 
 void GameTime::Update()
 {
 	LARGE_INTEGER i;
 	QueryPerformanceCounter(&i);
-	this->currentTime = ((float)(i.QuadPart) - this->start) / this->frequency;
+	this->currentTime = ((double)(i.QuadPart) - this->start) / this->frequency;
 	this->totalTime += this->currentTime;
-	this->start = (float)(i.QuadPart);
+	this->start = (double)(i.QuadPart);
 }
 
 void GameTime::Run()

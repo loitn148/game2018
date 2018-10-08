@@ -14,7 +14,7 @@ private:
 	static Camera* instance;
 	VT3 position;
 	int width, height;
-	float vx, vy;
+	double vx, vy;
 public:
 
 	void CameraOnWorld();

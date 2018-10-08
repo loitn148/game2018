@@ -11,9 +11,9 @@ class Bar : public GameObject
 {
 public:
 	bool isDead;
-	void Draw(float time);
-	void Update(float time);
-	Bar(VT3 position, float vx, float vy);
+	void Draw(double time);
+	void Update(double time);
+	Bar(VT3 position, double vx, double vy);
 protected:
 	Animation* listBar;
 	int currentState;
