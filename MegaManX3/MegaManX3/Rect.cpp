@@ -2,7 +2,7 @@
 
 
 
-D3DXVECTOR3 Rect::GetCenter()
+VT3 Rect::GetCenter()
 {
 	return this->center;
 }

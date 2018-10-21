@@ -124,8 +124,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Bar.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -135,31 +133,39 @@
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="PlaySence.cpp" />
+    <ClCompile Include="MegaManCharacters.cpp" />
+    <ClCompile Include="MegaManData.cpp" />
+    <ClCompile Include="MegaManState.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Rect.cpp" />
-    <ClCompile Include="SenceManager.cpp" />
+    <ClCompile Include="RunningState.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="StandingState.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Viewport.cpp" />
-    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Bar.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameGraphic.h" />
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameSence.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="PlaySence.h" />
+    <ClInclude Include="MegaManCharacters.h" />
+    <ClInclude Include="MegaManData.h" />
+    <ClInclude Include="MegaManState.h" />
+    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Rect.h" />
-    <ClInclude Include="SenceManager.h" />
+    <ClInclude Include="RunningState.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="StandingState.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Viewport.h" />
   </ItemGroup>

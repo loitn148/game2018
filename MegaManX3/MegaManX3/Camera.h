@@ -4,6 +4,9 @@
 
 #include <DirectXMath.h>
 #include "GameGraphic.h"
+#include "MegaManCharacters.h"
+
+class MegaManCharacters;
 
 
 using namespace std;
@@ -18,7 +21,7 @@ private:
 public:
 
 	void CameraOnWorld();
-	void Update();
+	void Update(MegaManCharacters* megaMan);
 	void SetPosition(VT3 position);
 	RECT GetRect();
 	VT3 GetPosition();

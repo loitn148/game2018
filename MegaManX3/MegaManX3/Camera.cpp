@@ -9,10 +9,10 @@ Camera* Camera::GetInstance() {
 }
 
 void Camera::CameraOnWorld() {
-	D3DXVECTOR3 tl_position = this->position;
-	D3DXVECTOR3 tr_position = D3DXVECTOR3(this->position.x + this->width, this->position.y, 0);
-	D3DXVECTOR3 br_position = D3DXVECTOR3(this->position.x + this->width, this->position.y - this->height, 0);
-	D3DXVECTOR3 bl_position = D3DXVECTOR3(this->position.x, this->position.y - this->height, 0);
+	VT3 tl_position = this->position;
+	VT3 tr_position = VT3(this->position.x + this->width, this->position.y, 0);
+	VT3 br_position = VT3(this->position.x + this->width, this->position.y - this->height, 0);
+	VT3 bl_position = VT3(this->position.x, this->position.y - this->height, 0);
 
 	//TopLeft
 	if (tl_position.x < 0)
@@ -39,11 +39,38 @@ void Camera::CameraOnWorld() {
 		this->position.y = this->height;
 }
 
-void Camera::Update()
+void Camera::Update(MegaManCharacters* megaMan)
 {
-	/*
-	Add code handle camera follow character here
-	*/
+	VT3 megaManPosition = megaMan->GetPosition();
+
+	double halfWidth = (double) this->width / 2;
+	double halfHeight = (double) this->height / 2;
+
+	double cameraXCenter = this->position.x + halfWidth;
+	double cameraYCenter = this->position.y - halfHeight;
+
+	this->vx = 0;
+	this->vy = 0;
+
+	//Left
+	if (megaManPosition.x < cameraXCenter - DELTA_CAMERA)
+		this->vx = megaManPosition.x - cameraXCenter + DELTA_CAMERA;
+
+	//Right
+	if (megaManPosition.x > cameraXCenter + DELTA_CAMERA)
+		this->vx = megaManPosition.x - cameraXCenter - DELTA_CAMERA;
+
+	////Top
+	//if (megaManPosition.y < cameraYCenter - DELTA_CAMERA)
+	//	this->vy = megaManPosition.y - cameraYCenter + DELTA_CAMERA;
+
+	////Bottom
+	//if (megaManPosition.y > cameraYCenter + DELTA_CAMERA)
+	//	this->vy = megaManPosition.y - cameraYCenter - DELTA_CAMERA;
+
+
+	this->position.x += this->vx;
+	this->position.y += this->vy;
 
 	CameraOnWorld();
 }
@@ -63,12 +90,12 @@ RECT Camera::GetRect()
 	return rect;
 }
 
-D3DXVECTOR3 Camera::GetPosition()
+VT3 Camera::GetPosition()
 {
 	return this->position;
 }
 
-void Camera::Create(D3DXVECTOR3 position, int width, int height)
+void Camera::Create(VT3 position, int width, int height)
 {
 	this->position = position;
 	this->width = width;

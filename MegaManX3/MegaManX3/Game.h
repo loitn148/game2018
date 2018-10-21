@@ -3,9 +3,9 @@
 #ifndef __GAME__H__
 #define __GAME__H__
 
-#include "Ball.h"
-#include "PlaySence.h"
-#include "SenceManager.h"
+#include "GameSprite.h"
+#include "PlayScene.h"
+#include "SceneManager.h"
 
 class Game
 {

@@ -1,4 +1,5 @@
 #pragma once
+#include <d3dx9.h>
 
 //LIBRARY
 #define D3D LPDIRECT3D9
@@ -13,31 +14,42 @@
 #define MATRIX D3DXMATRIX
 #define MATRIX D3DXMATRIX
 
-#define BAR1 1
-#define BAR2 2
+#define KEYBOARD_BUFFER_SIZE 1024
 
 //Window
-#define WIDTH 800
-#define HEIGHT 600
-#define TITLE "Game PingPong"
+#define WIDTH 600
+#define HEIGHT 500
+#define GAME_TITLE "MegaMan X3"
 
-//WORLD
-#define WORLD_X 800
-#define WORLD_Y 600
+//POSITION
+#define WORLD_X 19850
+#define WORLD_Y 5125
+#define CAMERA_START_X 0
+#define CAMERA_START_Y 3200
+#define MEGAMAN_START_X 30
+#define MEGAMAN_START_Y 2775
+#define MEGAMAN_WIDTH 60
+#define MEGAMAN_HEIGHT 70
+#define DELTA_CAMERA 50
 
 //Transform
 struct Transform
 {
-	VT3 positionInViewport;
-	VT2 translation;
-	VT2 scale;
-	VT2 scalingCenter;
+	D3DXVECTOR3 positionInViewport;
+	D3DXVECTOR2 translation;
+	D3DXVECTOR2 scale;
+	D3DXVECTOR2 scalingCenter;
+};
+
+//MegaMan State
+enum CharactersStates {
+	STANDING = 0,
+	RUNNING = 1,
 };
 
 //Object Game
 enum Object {
-	BAR,
-	BALL
+	MEGAMAN
 };
 
 //Object Direct
@@ -61,7 +73,6 @@ struct CollisionResult
 };
 
 //Object Path
-#define BALL_PATH "Assets/ball.png"
-#define BAR_PATH "Assets/bar.png"
-#define BAR2_PATH "Assets/bar2.png"
-#define MAP_PATH "Assets/wall.png"
+#define MAP_PATH "Assets/map.png"
+#define STAND_PATH "Assets/standing.png"
+#define RUN_PATH "Assets/running.png"

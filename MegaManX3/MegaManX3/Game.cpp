@@ -35,15 +35,15 @@ void Game::Run() {
 			GameGraphic::GetInstance()->device->ColorFill(
 				GameGraphic::GetInstance()->GetBackBuffer(),
 				NULL,
-				D3DCOLOR_XRGB(255, 255, 0)
+				D3DCOLOR_XRGB(0, 0, 0)
 			);
 
-			SenceManager::GetInstance()->GetCurrentSence()->Update(this->timeLoop);
+			SceneManager::GetInstance()->GetCurrentScene()->Update(this->timeLoop);
 
 			GameGraphic::GetInstance()->Begin();
 			GameSprite::GetInstance()->Begin();
 
-			SenceManager::GetInstance()->GetCurrentSence()->Draw(this->timeLoop);
+			SceneManager::GetInstance()->GetCurrentScene()->Draw(this->timeLoop);
 
 			GameSprite::GetInstance()->End();
 			GameGraphic::GetInstance()->End();
@@ -56,7 +56,7 @@ void Game::Run() {
 }
 
 void Game::LoadContent() {
-	PlaySence* sence = new PlaySence(this->hWnd, this->hInstance);
-	sence->LoadContent();
-	SenceManager::GetInstance()->ReplaceSence(sence);
+	PlayScene* scene = new PlayScene(this->hWnd, this->hInstance);
+	scene->LoadContent();
+	SceneManager::GetInstance()->ReplaceScene(scene);
 }

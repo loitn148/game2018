@@ -97,11 +97,11 @@ void GameObject::UpdateRect() {
 }
 
 void GameObject::Create(VT3 position, int width, int height, Rect rect) {
-	this->position = position;
+	/*this->position = position;
 	this->width = width;
 	this->height = height;
 	this->vx = 0;
 	this->vy = 0;
 	this->direct = RIGHT;
-	this->rectBound = rect;
+	this->rectBound = rect;*/
 }

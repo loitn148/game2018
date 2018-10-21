@@ -3,7 +3,7 @@
 
 
 Map::Map() {
-	this->position = VT3(0, HEIGHT, 0);
+	this->position = VT3(0, WORLD_Y, 0);
 	LoadResource();
 }
 
@@ -20,8 +20,8 @@ void Map::LoadResource()
 {
 	this->mapRect.left = 0;
 	this->mapRect.top = 0;
-	this->mapRect.right = WIDTH;
-	this->mapRect.bottom = HEIGHT;
+	this->mapRect.right = WORLD_X;
+	this->mapRect.bottom = WORLD_Y;
 
 	this->mapTexture = GameGraphic::GetInstance()->LoadTexture(MAP_PATH, C_XRGB(0, 0, 0));
 }
@@ -33,5 +33,5 @@ void Map::Draw() {
 
 	VT3 inPosition = Viewport::GetInstance()->GetPositionInViewport(this->position);
 
-	GameGraphic::GetInstance()->DrawTexture(this->mapTexture, this->mapRect, VT3(0, 0, 0), inPosition, VT2(1, 1), VT2(inPosition.x, inPosition.y), translation);
+	GameGraphic::GetInstance()->DrawTexture(this->mapTexture, this->mapRect, VT3(0, 0, 0), inPosition, VT2(2.5, 2.5), VT2(inPosition.x, inPosition.y), translation);
 }
