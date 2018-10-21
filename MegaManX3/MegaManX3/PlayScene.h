@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Map.h"
 #include "MegaManCharacters.h"
+#include "GameMap.h"
 #include <map>
 
 class PlayScene : public GameScene
@@ -19,6 +20,7 @@ private:
 	Map* map;
 	MegaManCharacters *megaMan;
 	std::map<int, bool> keys;
+	GameMap *mMap;
 
 public:
 	void LoadContent();

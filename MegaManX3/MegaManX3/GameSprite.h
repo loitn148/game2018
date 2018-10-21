@@ -23,6 +23,7 @@ public:
 
 	static GameSprite* GetInstance();
 	GameSprite();
+	GameSprite(const char* filePath);
 	~GameSprite();
 };
 #endif // !__GAMESPRITE__H__

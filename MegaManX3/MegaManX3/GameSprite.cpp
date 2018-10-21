@@ -74,3 +74,7 @@ void GameSprite::FlipY(int width, int height, VT3 position) {
 	matrixFlip._42 = (position.y + height / 2) * 2;
 	this->sprite->SetTransform(&(matrix * matrixFlip));
 }
+
+GameSprite::GameSprite(const char* filePath) {
+	this->sprite = NULL;
+}

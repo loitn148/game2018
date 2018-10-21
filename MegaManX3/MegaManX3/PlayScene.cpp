@@ -3,22 +3,23 @@
 
 
 void PlayScene::LoadContent() {
-	this->camera = Camera::GetInstance();
-	this->camera->Create(VT3(CAMERA_START_X, CAMERA_START_Y, 0), WIDTH, HEIGHT);
+	//this->camera = Camera::GetInstance();
+	//this->camera->Create(VT3(CAMERA_START_X, CAMERA_START_Y, 0), WIDTH, HEIGHT);
 	this->megaMan = MegaManCharacters::GetInstance();
 	this->megaMan->Init(this->hInstance, this->hWnd);
-
-	this->map = new Map();
+	mMap = new GameMap("Assets//untitled.tmx");
+	//this->map = new Map();
 }
 
 void PlayScene::Update(double time) {
 	this->megaMan->Update(time);
-	this->camera->Update(this->megaMan);
+	//this->camera->Update(this->megaMan);
 	//this->megaMan->HandleKeyboard(this->keys);
 }
 
 void PlayScene::Draw(double time) {
-	this->map->Draw();
+	//this->map->Draw();
+	mMap->Draw();
 	this->megaMan->Draw(time);
 }
 

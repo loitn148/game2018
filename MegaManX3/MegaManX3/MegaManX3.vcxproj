@@ -74,16 +74,18 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <CallingConvention>StdCall</CallingConvention>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -91,9 +93,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <CallingConvention>StdCall</CallingConvention>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3dx9.lib;d3d9.lib;dxguid.lib;dinput8.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dx9.lib;d3d9.lib;dxguid.lib;dinput8.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,10 +132,31 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameGraphic.cpp" />
     <ClCompile Include="GameInput.cpp" />
+    <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapReader\base64.cpp" />
+    <ClCompile Include="MapReader\miniz.c" />
+    <ClCompile Include="MapReader\tinyxml2.cpp" />
+    <ClCompile Include="MapReader\TmxEllipse.cpp" />
+    <ClCompile Include="MapReader\TmxImage.cpp" />
+    <ClCompile Include="MapReader\TmxImageLayer.cpp" />
+    <ClCompile Include="MapReader\TmxLayer.cpp" />
+    <ClCompile Include="MapReader\TmxMap.cpp" />
+    <ClCompile Include="MapReader\TmxObject.cpp" />
+    <ClCompile Include="MapReader\TmxObjectGroup.cpp" />
+    <ClCompile Include="MapReader\TmxPolygon.cpp" />
+    <ClCompile Include="MapReader\TmxPolyline.cpp" />
+    <ClCompile Include="MapReader\TmxPropertySet.cpp" />
+    <ClCompile Include="MapReader\TmxTerrain.cpp" />
+    <ClCompile Include="MapReader\TmxTerrainArray.cpp" />
+    <ClCompile Include="MapReader\TmxTile.cpp" />
+    <ClCompile Include="MapReader\TmxTileLayer.cpp" />
+    <ClCompile Include="MapReader\TmxTileOffset.cpp" />
+    <ClCompile Include="MapReader\TmxTileset.cpp" />
+    <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="MegaManCharacters.cpp" />
     <ClCompile Include="MegaManData.cpp" />
     <ClCompile Include="MegaManState.cpp" />
@@ -140,6 +164,7 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="RunningState.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StandingState.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Viewport.cpp" />
@@ -152,12 +177,36 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameGraphic.h" />
     <ClInclude Include="GameInput.h" />
+    <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapReader\base64.h" />
+    <ClInclude Include="MapReader\tinyxml2.h" />
+    <ClInclude Include="MapReader\TmxEllipse.h" />
+    <ClInclude Include="MapReader\TmxImage.h" />
+    <ClInclude Include="MapReader\TmxImageLayer.h" />
+    <ClInclude Include="MapReader\TmxLayer.h" />
+    <ClInclude Include="MapReader\TmxMap.h" />
+    <ClInclude Include="MapReader\TmxMapTile.h" />
+    <ClInclude Include="MapReader\TmxObject.h" />
+    <ClInclude Include="MapReader\TmxObjectGroup.h" />
+    <ClInclude Include="MapReader\TmxPoint.h" />
+    <ClInclude Include="MapReader\TmxPolygon.h" />
+    <ClInclude Include="MapReader\TmxPolyline.h" />
+    <ClInclude Include="MapReader\TmxPropertySet.h" />
+    <ClInclude Include="MapReader\TmxTerrain.h" />
+    <ClInclude Include="MapReader\TmxTerrainArray.h" />
+    <ClInclude Include="MapReader\TmxTile.h" />
+    <ClInclude Include="MapReader\TmxTileLayer.h" />
+    <ClInclude Include="MapReader\TmxTileOffset.h" />
+    <ClInclude Include="MapReader\TmxTileset.h" />
+    <ClInclude Include="MapReader\TmxUtil.h" />
+    <ClInclude Include="MapReader\zconf.h" />
+    <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="MegaManCharacters.h" />
     <ClInclude Include="MegaManData.h" />
     <ClInclude Include="MegaManState.h" />
@@ -165,9 +214,13 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="RunningState.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="StandingState.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Viewport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MapReader\Tmx.h.in" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
