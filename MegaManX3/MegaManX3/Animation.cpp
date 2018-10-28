@@ -9,7 +9,7 @@ Animation::~Animation() {
 
 void Animation::Create(char* filePath, int nFrame, std::vector<Rect> rect, double timeFrame, Direct direct)
 {
-	this->image = GameGraphic::GetInstance()->LoadTexture(filePath, C_XRGB(0, 0, 0));
+	this->sprite = new GameSprite(filePath, C_XRGB(0, 0, 0));
 	this->nFrame = nFrame;
 	this->direct = direct;
 	this->index = 0;
@@ -32,11 +32,10 @@ int Animation::NextFrame(double time)
 void Animation::Draw(VT3 position, Direct direct, double time, VT2 scale, VT2 translation)
 {
 	if (direct == this->direct) {
-		GameSprite::GetInstance()->Draw(this->image, &(this->rectSprite.at(this->index)), this->rectSprite.at(this->index).GetCenter(), position, scale, VT2(position.x, position.y), translation);
+		this->sprite->Draw(position, translation, this->rectSprite.at(this->index).GetCenter(), this->rectSprite.at(this->index), scale, 0.0f, VT2(position.x, position.y));
 	}
 	else {
-		GameSprite::GetInstance()->Draw(this->image, &(this->rectSprite.at(this->index)), this->rectSprite.at(this->index).GetCenter(), position, VT2(-scale.x, scale.y),
-			D3DXVECTOR2(position.x, position.y), translation);
+		this->sprite->Draw(position, translation, this->rectSprite.at(this->index).GetCenter(), this->rectSprite.at(this->index), VT2(-scale.x, scale.y), 0.0f, VT2(position.x, position.y));
 	}
 	this->index = NextFrame(time);
 }

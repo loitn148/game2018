@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "Sprite.h"
+#include "GameSprite.h"
 #include "MapReader/Tmx.h.in"
 #include "Global.h"
 
@@ -28,9 +29,10 @@ public:
 
 private:
     void LoadMap(char* filePath);
-
-    Tmx::Map                        *mMap;
-	std::map<int, Sprite*>          mListTileset;
+	VT3 position;
+	RECT mapRect;
+    Tmx::Map                        *map;
+	std::map<int, GameSprite*>          listTileset;
 };
 
 #endif

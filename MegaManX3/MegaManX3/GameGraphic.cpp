@@ -133,9 +133,11 @@ void GameGraphic::Clear(DWORD color) {
 
 void GameGraphic::Begin() {
 	this->device->BeginScene();
+	this->sprite->Begin(D3DXSPRITE_ALPHABLEND);
 }
 
 void GameGraphic::End() {
+	this->sprite->End();
 	this->device->EndScene();
 }
 

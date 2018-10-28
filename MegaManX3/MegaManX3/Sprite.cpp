@@ -20,7 +20,7 @@ void Sprite::InitWithSprite(const char* filePath, RECT sourceRect, int width, in
 {
     HRESULT result;
 	mSpriteHandler = GameGraphic::GetInstance()->GetSprite();
-    mPosition = D3DXVECTOR3(0, 0, 0);
+    mPosition = D3DXVECTOR3(CAMERA_START_X, CAMERA_START_Y, 0);
     mRotation = 0;
     mRotationCenter = D3DXVECTOR2(mPosition.x, mPosition.y);
     mTranslation = D3DXVECTOR2(0, 0);
@@ -99,9 +99,9 @@ int Sprite::GetHeight()
     return mHeight;
 }
 
-void Sprite::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey)
+void Sprite::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform, D3DXVECTOR3 inPosition, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey)
 {
-    D3DXVECTOR3 inPosition = mPosition;
+    //D3DXVECTOR3 inPosition = mPosition;
     RECT inSourceRect = mSourceRect;
     float inRotation = mRotation;
     D3DXVECTOR2 inCcale = mScale;

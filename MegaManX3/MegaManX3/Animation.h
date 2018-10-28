@@ -12,6 +12,7 @@ class Animation
 {
 private:
 	TEXTURE image;
+	GameSprite* sprite;
 	int width, height;
 	int nFrame;
 	double deltaTime;

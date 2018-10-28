@@ -10,13 +10,13 @@ GameMap::GameMap(char* filePath)
 
 GameMap::~GameMap()
 {
-    delete mMap;
+    delete map;
 }
 
 void GameMap::LoadMap(char* filePath)
 {
-    mMap = new Tmx::Map();
-    mMap->ParseFile(filePath);
+    map = new Tmx::Map();
+    map->ParseFile(filePath);
 
     RECT r;
     r.left = 0;
@@ -24,48 +24,46 @@ void GameMap::LoadMap(char* filePath)
     r.right = this->GetWidth();
     r.bottom = this->GetHeight();
 
-    for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
+    for (size_t i = 0; i < map->GetNumTilesets(); i++)
     {
-        const Tmx::Tileset *tileset = mMap->GetTileset(i);
+        const Tmx::Tileset *tileset = map->GetTileset(i);
 
-        Sprite *sprite = new Sprite(tileset->GetImage()->GetSource().c_str());
+		GameSprite *sprite = new GameSprite(MAP_PATH);
 
-        mListTileset.insert(std::pair<int, Sprite*>(i, sprite));
+        listTileset.insert(std::pair<int, GameSprite*>(i, sprite));
     }
 }
 
 Tmx::Map* GameMap::GetMap()
 {
-    return mMap;
+    return map;
 }
 
 int GameMap::GetWidth()
 {
-    return mMap->GetWidth() * mMap->GetTileWidth();
+    return map->GetWidth() * map->GetTileWidth();
 }
 
 int GameMap::GetHeight()
 {
-    return mMap->GetHeight() * mMap->GetTileHeight();
+    return map->GetHeight() * map->GetTileHeight();
 }
 
 int GameMap::GetTileWidth()
 {
-    return mMap->GetTileWidth();
+    return map->GetTileWidth();
 }
 
 int GameMap::GetTileHeight()
 {
-    return mMap->GetTileHeight();
+    return map->GetTileHeight();
 }
 
 void GameMap::Draw()
 {
-
-
-    for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
+    for (size_t i = 0; i < map->GetNumTileLayers(); i++)
     {
-        const Tmx::TileLayer *layer = mMap->GetTileLayer(i);
+        const Tmx::TileLayer *layer = map->GetTileLayer(i);
 
         if (!layer->IsVisible())
         {
@@ -74,8 +72,8 @@ void GameMap::Draw()
 
         RECT sourceRECT;
 
-        int tileWidth = mMap->GetTileWidth();
-        int tileHeight = mMap->GetTileHeight();
+        int tileWidth = map->GetTileWidth();
+        int tileHeight = map->GetTileHeight();
 
         for (size_t m = 0; m < layer->GetHeight(); m++)
         {
@@ -85,12 +83,12 @@ void GameMap::Draw()
 
                 if (tilesetIndex != -1)
                 {
-                    const Tmx::Tileset *tileSet = mMap->GetTileset(tilesetIndex);
+                    const Tmx::Tileset *tileSet = map->GetTileset(tilesetIndex);
 
                     int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
                     int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
 
-                    Sprite* sprite = mListTileset[layer->GetTileTilesetIndex(n, m)];
+                    GameSprite *sprite = listTileset[layer->GetTileTilesetIndex(n, m)];
 
                     //tile index
                     int tileID = layer->GetTileId(n, m);
@@ -98,18 +96,22 @@ void GameMap::Draw()
                     int y = tileID / tileSetWidth;
                     int x = tileID - y * tileSetWidth;
 
-                    sourceRECT.top = y * tileHeight;
-                    sourceRECT.bottom = sourceRECT.top + tileHeight;
-                    sourceRECT.left = x * tileWidth;
-                    sourceRECT.right = sourceRECT.left + tileWidth;
+					sourceRECT.top = y * tileHeight;
+					sourceRECT.bottom = sourceRECT.top + tileHeight;
+					sourceRECT.left = x * tileWidth;
+					sourceRECT.right = sourceRECT.left + tileWidth;
 
                     //tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
                     //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
                     D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
 
-                    sprite->SetWidth(tileWidth);
-                    sprite->SetHeight(tileHeight);
-					sprite->Draw(position, sourceRECT, D3DXVECTOR2());
+					VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
+
+					VT2 translation = VT2(-cameraPosition.x, -cameraPosition.y);
+
+					VT3 inPosition = Viewport::GetInstance()->GetPositionInViewport(VT3(x * tileWidth, y * tileHeight, 0));
+
+					sprite->Draw(VT3(x * tileWidth, y * tileHeight, 0), VT2(0, 0), VT3(0, 0, 0), sourceRECT);
                 }
             }
         }

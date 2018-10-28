@@ -21,7 +21,7 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 	this->hWnd = hWnd;
 	this->id = MEGAMAN;
 	this->direct = RIGHT;
-	this->position = VT3(MEGAMAN_START_X, MEGAMAN_START_Y, 0);
+	this->position = VT3(WIDTH, HEIGHT, 0);
 	this->vx = this->vy = 0;
 	this->ax = this->ay = 0;
 	this->width = MEGAMAN_WIDTH;
