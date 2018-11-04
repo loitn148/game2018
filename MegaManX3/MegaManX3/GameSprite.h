@@ -26,7 +26,7 @@ public:
 	bool Init(DEVICE);
 	void Begin();
 	void End();
-	void Draw(VT3 inPosition = VT3(0, 0, 0), VT2 translation = VT2(), VT3 center = VT3(), RECT rect = RECT(), VT2 scale = VT2(),
+	void Draw(VT3 position = VT3(0, 0, 0), VT2 translation = VT2(), VT3 center = VT3(), RECT rect = RECT(), VT2 scale = VT2(1, 1),
 		float angle = 0, VT2 rotationCenter = VT2(), COLOR transcolor = C_XRGB(255, 255, 255));
 
 	void ResetTranform();

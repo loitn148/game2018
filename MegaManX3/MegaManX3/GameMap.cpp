@@ -28,7 +28,7 @@ void GameMap::LoadMap(char* filePath)
     {
         const Tmx::Tileset *tileset = map->GetTileset(i);
 
-		GameSprite *sprite = new GameSprite(MAP_PATH);
+		GameSprite *sprite = new GameSprite(tileset->GetImage()->GetSource().c_str());
 
         listTileset.insert(std::pair<int, GameSprite*>(i, sprite));
     }
@@ -101,17 +101,14 @@ void GameMap::Draw()
 					sourceRECT.left = x * tileWidth;
 					sourceRECT.right = sourceRECT.left + tileWidth;
 
-                    //tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
-                    //dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-                    D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+                    D3DXVECTOR3 position(n * tileWidth, WORLD_Y - m * tileHeight, 0);
 
+					VT3 positionInViewPort = Viewport::GetInstance()->GetPositionInViewport(position);
 					VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 
 					VT2 translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-					VT3 inPosition = Viewport::GetInstance()->GetPositionInViewport(VT3(x * tileWidth, y * tileHeight, 0));
-
-					sprite->Draw(VT3(x * tileWidth, y * tileHeight, 0), VT2(0, 0), VT3(0, 0, 0), sourceRECT);
+					sprite->Draw(positionInViewPort, translation, VT3(0, 0, 0), sourceRECT);
                 }
             }
         }

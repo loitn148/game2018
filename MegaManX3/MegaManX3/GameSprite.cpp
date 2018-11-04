@@ -97,11 +97,11 @@ void GameSprite::End() {
 }
 
 
-void GameSprite::Draw(VT3 inPosition, VT2 translation, VT3 center, RECT rect, VT2 scale, float angle, VT2 rotationCenter, COLOR transcolor) {
+void GameSprite::Draw(VT3 position, VT2 translation, VT3 center, RECT rect, VT2 scale, float angle, VT2 rotationCenter, COLOR transcolor) {
 	MATRIX oldMatrix;
 	MATRIX matrix;
 
-	VT2 scalingCenter = VT2(inPosition.x, inPosition.y);
+	VT2 scalingCenter = VT2(position.x, position.y);
 
 	D3DXMatrixTransformation2D(
 		&matrix,
@@ -121,7 +121,7 @@ void GameSprite::Draw(VT3 inPosition, VT2 translation, VT3 center, RECT rect, VT
 		this->texture,
 		&rect,
 		&center,
-		&inPosition,
+		&position,
 		D3DCOLOR_XRGB(255, 255, 255));
 	this->sprite->End();
 
