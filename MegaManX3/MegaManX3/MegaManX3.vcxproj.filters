@@ -147,6 +147,9 @@
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>MapReader</Filter>
     </ClCompile>
+    <ClCompile Include="WriteLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="MapReader\zlib.h">
       <Filter>MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="WriteLog.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

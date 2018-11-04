@@ -40,7 +40,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -169,6 +168,7 @@
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="WriteLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -218,6 +218,7 @@
     <ClInclude Include="StandingState.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Viewport.h" />
+    <ClInclude Include="WriteLog.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MapReader\Tmx.h.in" />

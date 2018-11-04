@@ -1,6 +1,6 @@
 #pragma once
 #include <d3dx9.h>
-
+#include "WriteLog.h"
 //LIBRARY
 #define D3D LPDIRECT3D9
 #define DEVICE LPDIRECT3DDEVICE9
