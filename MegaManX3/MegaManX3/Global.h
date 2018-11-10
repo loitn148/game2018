@@ -22,14 +22,14 @@
 #define GAME_TITLE "MegaMan X3"
 
 //POSITION
-#define WORLD_X 600 //19850
-#define WORLD_Y 500 //5125
+#define WORLD_X 1280 //19850
+#define WORLD_Y 512 //5125
 #define CAMERA_START_X 0
 #define CAMERA_START_Y 500
 #define MEGAMAN_START_X 30
 #define MEGAMAN_START_Y 300
-#define MEGAMAN_WIDTH 60
-#define MEGAMAN_HEIGHT 70
+#define MEGAMAN_WIDTH 35
+#define MEGAMAN_HEIGHT 20
 #define DELTA_CAMERA 50
 
 //Transform
@@ -45,6 +45,7 @@ struct Transform
 enum CharactersStates {
 	STANDING = 0,
 	RUNNING = 1,
+	JUMPING = 2,
 };
 
 //Object Game
@@ -73,6 +74,9 @@ struct CollisionResult
 };
 
 //Object Path
-#define MAP_PATH "Assets/map.png"
-#define STAND_PATH "Assets/standing.png"
-#define RUN_PATH "Assets/running.png"
+#define MAP_PATH "Assets/map/map.tmx"
+#define STAND_PATH "Assets/megaman/standing.png"
+#define RUN_PATH "Assets/megaman/running.png"
+#define JUMP_PATH "Assets/megaman/jumping.png"
+
+#define ENEMIES_1 "Assets/enemies/running.png"

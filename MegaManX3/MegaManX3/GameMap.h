@@ -28,11 +28,11 @@ public:
     ~GameMap();
 
 private:
-    void LoadMap(char* filePath);
+    void LoadMap(char *filePath);
 	VT3 position;
 	RECT mapRect;
-    Tmx::Map                        *map;
-	std::map<int, GameSprite*>          listTileset;
+    Tmx::Map *map;
+	std::map<int, GameSprite*> listTileset;
 };
 
 #endif

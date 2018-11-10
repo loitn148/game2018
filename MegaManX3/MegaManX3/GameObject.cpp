@@ -36,6 +36,10 @@ Rect GameObject::GetRect() {
 	return this->rectBound;
 }
 
+Direct GameObject::GetDirect() {
+	return this->direct;
+}
+
 int GameObject::GetWidth() {
 	return this->width;
 }
@@ -87,6 +91,10 @@ void GameObject::SetAy(double ay) {
 
 void GameObject::SetRect(Rect rect) {
 	this->rectBound = rect;
+}
+
+void GameObject::SetDirect(Direct direct) {
+	this->direct = direct;
 }
 
 void GameObject::UpdateRect() {

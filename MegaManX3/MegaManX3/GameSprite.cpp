@@ -123,6 +123,7 @@ void GameSprite::Draw(VT3 position, VT2 translation, VT3 center, RECT rect, VT2 
 		&center,
 		&position,
 		D3DCOLOR_XRGB(255, 255, 255));
+
 	this->sprite->End();
 
 	this->sprite->SetTransform(&oldMatrix);

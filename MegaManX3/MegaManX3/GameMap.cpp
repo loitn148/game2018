@@ -13,7 +13,7 @@ GameMap::~GameMap()
     delete map;
 }
 
-void GameMap::LoadMap(char* filePath)
+void GameMap::LoadMap(char *filePath)
 {
     map = new Tmx::Map();
     map->ParseFile(filePath);

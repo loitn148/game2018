@@ -11,6 +11,7 @@
 #include "MegaManState.h"
 #include "StandingState.h"
 #include "RunningState.h"
+#include "JumpingState.h"
 
 #include <iostream>
 #include <vector>

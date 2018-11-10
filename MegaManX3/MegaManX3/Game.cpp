@@ -35,7 +35,7 @@ void Game::Run() {
 			GameGraphic::GetInstance()->device->ColorFill(
 				GameGraphic::GetInstance()->GetBackBuffer(),
 				NULL,
-				D3DCOLOR_XRGB(255, 255, 255)
+				D3DCOLOR_XRGB(28, 53, 45)
 			);
 
 			SceneManager::GetInstance()->GetCurrentScene()->Update(this->timeLoop);

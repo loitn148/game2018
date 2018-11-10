@@ -27,6 +27,7 @@ public:
 	double GetAx();
 	double GetAy();
 	Rect GetRect();
+	Direct GetDirect();
 	int GetWidth();
 	int GetHeight();
 
@@ -41,6 +42,7 @@ public:
 	void SetAx(double ax);
 	void SetAy(double ay);
 	void SetRect(Rect rect);
+	void SetDirect(Direct direct);
 	void UpdateRect();
 
 	void Create(VT3 position, int width, int height, Rect rect);
