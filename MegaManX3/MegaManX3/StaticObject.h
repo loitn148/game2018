@@ -3,11 +3,11 @@
 #define __STATICOBJECT__H__
 
 #include <vector>
+#include "GameObject.h"
 
-class StaticObject
+class StaticObject : public GameObject
 {
 private:
-
 public:
 	StaticObject();
 	~StaticObject();

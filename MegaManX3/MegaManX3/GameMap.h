@@ -10,6 +10,7 @@
 #include "GameSprite.h"
 #include "MapReader/Tmx.h.in"
 #include "Global.h"
+#include "StaticObject.h"
 
 class GameMap
 {
@@ -30,6 +31,7 @@ public:
 private:
     void LoadMap(char *filePath);
 	VT3 position;
+	vector<StaticObject*> m_vtStaticObject;
 	RECT mapRect;
     Tmx::Map *map;
 	std::map<int, GameSprite*> listTileset;

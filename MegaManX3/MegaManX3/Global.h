@@ -54,7 +54,8 @@ enum CharactersStates {
 
 //Object Game
 enum Object {
-	MEGAMAN
+	MEGAMAN,
+	STATICOBJECT
 };
 
 //Object Direct

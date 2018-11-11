@@ -4,8 +4,8 @@
 
 StaticObject::StaticObject()
 {
+	id = Object::STATICOBJECT;
 }
-
 
 StaticObject::~StaticObject()
 {

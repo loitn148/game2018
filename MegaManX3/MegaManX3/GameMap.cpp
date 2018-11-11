@@ -115,5 +115,36 @@ void GameMap::Draw()
                 }
             }
         }
-    }    
+    }  
+#pragma region -OBJECTGROUP, STATIC OBJECT-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "Static")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = (object->GetX() + object->GetWidth() / 2) * 3;
+				int posY = WORLD_Y - (object->GetY() + object->GetHeight() / 2) * 3;
+				StaticObject *staitc = new StaticObject();
+				VT3 positionInViewPort(posX, posY, 0);
+				staitc->SetPosition(positionInViewPort);
+				Rect StaticRect = {
+					posY,
+					posX,
+					posY - object->GetHeight(),
+					posX + object->GetWidth()
+				};
+				staitc->SetRect(StaticRect);
+				m_vtStaticObject.push_back(staitc);
+				//entity->Tag = Entity::EntityTypes::Static;
+				//mQuadTree->insertEntity(entity);
+			}
+		}
+	}
+#pragma endregion
 }
