@@ -95,7 +95,7 @@ void MegaManCharacters::OnKeyUp(int keyCode) {
 	}
 	if (keyCode == VK_UP) {
 		if (currentState == STANDING) {
-			//this->SetState(new JumpingState(this->megaManData));
+			this->SetState(new JumpingState(this->megaManData));
 		}
 	}
 }
@@ -105,7 +105,7 @@ void MegaManCharacters::Draw(double time) {
 	VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 	this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-	this->listAnimation[this->currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2, 2.5), transform.translation);
+	this->listAnimation[this->currentState].Draw(transform.positionInViewport, this->direct, time, VT2(3, 3), transform.translation);
 }
 
 void MegaManCharacters::SetListAnimation() {
@@ -132,7 +132,7 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(0, 35, 33, 69));
 	temp.push_back(Rect(34, 31, 67, 60));
 
-	this->listAnimation[RUNNING].Create(RUN_PATH, temp.size(), temp, 0.02f, RIGHT);
+	this->listAnimation[RUNNING].Create(RUN_PATH, temp.size(), temp, 0.015f, RIGHT);
 	temp.clear();
 
 	//JUMPING

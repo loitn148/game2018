@@ -17,7 +17,8 @@ void GameMap::LoadMap(char *filePath)
 {
     map = new Tmx::Map();
     map->ParseFile(filePath);
-
+	this->mapRect = { 0, WORLD_Y, WORLD_X, 0 };
+	this->position = VT3(0, WORLD_Y, 0);
     RECT r;
     r.left = 0;
     r.top = 0;
@@ -70,8 +71,6 @@ void GameMap::Draw()
             continue;
         }
 
-        RECT sourceRECT;
-
         int tileWidth = map->GetTileWidth();
         int tileHeight = map->GetTileHeight();
 
@@ -96,21 +95,16 @@ void GameMap::Draw()
                     int y = tileID / tileSetWidth;
                     int x = tileID - y * tileSetWidth;
 
-					/*sourceRECT.top = y * tileHeight * 3;
-					sourceRECT.bottom = sourceRECT.top + tileHeight * 3;
-					sourceRECT.left = x * tileWidth * 3;
-					sourceRECT.right = sourceRECT.left + tileWidth * 3;*/
+					RECT sourceRECT;
+					sourceRECT.top = y * tileHeight;
+					sourceRECT.bottom = sourceRECT.top + tileHeight;
+					sourceRECT.left = x * tileWidth;
+					sourceRECT.right = sourceRECT.left + tileWidth;
 
 					int posX = n * tileWidth * 3;
 					int posY = WORLD_Y - m * tileHeight * 3;
 
                     D3DXVECTOR3 position(posX, posY, 0);
-
-					sourceRECT.top = posY;
-					sourceRECT.bottom = posY - tileHeight*3;
-					sourceRECT.left = posX;
-					sourceRECT.right = posX + tileSetWidth*3;
-
 
 					VT3 positionInViewPort = Viewport::GetInstance()->GetPositionInViewport(position);
 					VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());

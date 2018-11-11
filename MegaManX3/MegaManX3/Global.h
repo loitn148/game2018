@@ -22,15 +22,19 @@
 #define GAME_TITLE "MegaMan X3"
 
 //POSITION
-#define WORLD_X 17664  //5888
-#define WORLD_Y 4590  //1530
+#define WORLD_X 18336  //6112
+#define WORLD_Y 4512  //1504
 #define CAMERA_START_X 0
-#define CAMERA_START_Y 4590 //2865
-#define MEGAMAN_START_X 30
-#define MEGAMAN_START_Y 2580
+#define CAMERA_START_Y 2784 //2862
+#define MEGAMAN_START_X 100
+#define MEGAMAN_START_Y 2390
 #define MEGAMAN_WIDTH 35
 #define MEGAMAN_HEIGHT 20
 #define DELTA_CAMERA 50
+
+//MEGAMAN SPEED
+#define RUN_SPEED 500
+#define SWEEP_SPPED 1000
 
 //Transform
 struct Transform

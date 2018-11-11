@@ -5,7 +5,7 @@
 
 RunningState::RunningState(MegaManData *megaManData) {
 	this->megaManData = megaManData;
-	this->megaManData->megaMan->SetVx(200);
+	this->megaManData->megaMan->SetVx(RUN_SPEED);
 	this->megaManData->megaMan->SetVy(0);
 }
 

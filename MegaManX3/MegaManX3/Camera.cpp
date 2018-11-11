@@ -103,7 +103,7 @@ void Camera::Create(VT3 position, int width, int height)
 }
 
 Camera::Camera() {
-	this->position = VT3(0, HEIGHT, 0);
+	this->position = VT3(CAMERA_START_X, CAMERA_START_Y, 0);
 	this->width = WIDTH;
 	this->height = HEIGHT;
 }
