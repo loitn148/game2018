@@ -96,19 +96,28 @@ void GameMap::Draw()
                     int y = tileID / tileSetWidth;
                     int x = tileID - y * tileSetWidth;
 
-					sourceRECT.top = y * tileHeight;
-					sourceRECT.bottom = sourceRECT.top + tileHeight;
-					sourceRECT.left = x * tileWidth;
-					sourceRECT.right = sourceRECT.left + tileWidth;
+					/*sourceRECT.top = y * tileHeight * 3;
+					sourceRECT.bottom = sourceRECT.top + tileHeight * 3;
+					sourceRECT.left = x * tileWidth * 3;
+					sourceRECT.right = sourceRECT.left + tileWidth * 3;*/
 
-                    D3DXVECTOR3 position(n * tileWidth, WORLD_Y - m * tileHeight, 0);
+					int posX = n * tileWidth * 3;
+					int posY = WORLD_Y - m * tileHeight * 3;
+
+                    D3DXVECTOR3 position(posX, posY, 0);
+
+					sourceRECT.top = posY;
+					sourceRECT.bottom = posY - tileHeight*3;
+					sourceRECT.left = posX;
+					sourceRECT.right = posX + tileSetWidth*3;
+
 
 					VT3 positionInViewPort = Viewport::GetInstance()->GetPositionInViewport(position);
 					VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 
 					VT2 translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-					sprite->Draw(positionInViewPort, translation, VT3(0, 0, 0), sourceRECT);
+					sprite->Draw(positionInViewPort, translation, VT3(0, 0, 0), sourceRECT, VT2(3, 3));
                 }
             }
         }
