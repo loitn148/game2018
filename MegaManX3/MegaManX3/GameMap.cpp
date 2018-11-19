@@ -3,27 +3,49 @@
 #include "Camera.h"
 
 
-GameMap::GameMap(char* filePath)
-{
-    LoadMap(filePath);
+GameMap::GameMap(){
 }
 
 GameMap::~GameMap()
 {
-    delete map;
+	delete map;
+
+	for (size_t i = 0; i < vtStaticObject.size(); i++)
+	{
+		if (vtStaticObject[i])
+			delete vtStaticObject[i];
+	}
+	vtStaticObject.clear();
+
+	delete quadtree;
+}
+
+void GameMap::Init(char* filePath)
+{
+    LoadMap(filePath);
+}
+
+
+GameMap* GameMap::instance = NULL;
+GameMap* GameMap::GetInstance() {
+	if (!GameMap::instance) {
+		GameMap::instance = new GameMap();
+	}
+	return GameMap::instance;
 }
 
 void GameMap::LoadMap(char *filePath)
 {
     map = new Tmx::Map();
     map->ParseFile(filePath);
-	this->mapRect = { 0, WORLD_Y, WORLD_X, 0 };
-	this->position = VT3(0, WORLD_Y, 0);
-    RECT r;
+	
+    Rect r;
     r.left = 0;
-    r.top = 0;
+    r.top = this->GetHeight();
     r.right = this->GetWidth();
-    r.bottom = this->GetHeight();
+    r.bottom = 0;
+
+	quadtree = new Quadtree(1, r);
 
     for (size_t i = 0; i < map->GetNumTilesets(); i++)
     {
@@ -33,6 +55,37 @@ void GameMap::LoadMap(char *filePath)
 
         listTileset.insert(std::pair<int, GameSprite*>(i, sprite));
     }
+
+#pragma region -OBJECTGROUP, STATIC OBJECT-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "Static")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = (object->GetX()) * 3;
+				int posY = WORLD_Y - (object->GetY()) * 3;
+				GameObject* staticObj = new GameObject();
+				VT3 position(posX, posY, 0);
+				staticObj->SetPosition(position);
+				Rect StaticRect = {
+					posY,
+					posX,
+					posY - object->GetHeight(),
+					posX + object->GetWidth()
+				};
+				staticObj->SetRect(StaticRect);
+				
+				quadtree->InsertObject(staticObj);
+			}
+		}
+	}
+#pragma endregion
 }
 
 Tmx::Map* GameMap::GetMap()
@@ -115,36 +168,9 @@ void GameMap::Draw()
                 }
             }
         }
-    }  
-#pragma region -OBJECTGROUP, STATIC OBJECT-
+    } 
+}
 
-	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
-	{
-		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
-		if (objectGroup->GetName() == "Static")
-		{
-			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
-			{
-				//lay object group chu khong phai layer
-				//object group se chua nhung body
-				Tmx::Object *object = objectGroup->GetObjects().at(j);
-				int posX = (object->GetX() + object->GetWidth() / 2) * 3;
-				int posY = WORLD_Y - (object->GetY() + object->GetHeight() / 2) * 3;
-				StaticObject *staitc = new StaticObject();
-				VT3 positionInViewPort(posX, posY, 0);
-				staitc->SetPosition(positionInViewPort);
-				Rect StaticRect = {
-					posY,
-					posX,
-					posY - object->GetHeight(),
-					posX + object->GetWidth()
-				};
-				staitc->SetRect(StaticRect);
-				m_vtStaticObject.push_back(staitc);
-				//entity->Tag = Entity::EntityTypes::Static;
-				//mQuadTree->insertEntity(entity);
-			}
-		}
-	}
-#pragma endregion
+Quadtree* GameMap::GetQuadtree() {
+	return quadtree;
 }

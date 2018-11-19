@@ -30,10 +30,6 @@ CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, dou
 
 	Rect rect = GetSweptBroadphaseRect(rect1, v1, time);
 
-	if (HEIGHT - rect1.top < abs(v1.x*time) && v1.x < 0) {
-		collisionResult.directCollision = NONE;
-	}
-
 	if (!IsColliding(rect, rect2))
 	{
 		collisionResult.directCollision = NONE;

@@ -9,9 +9,15 @@
 
 #include "MegaManData.h"
 #include "MegaManState.h"
+#include "Start1State.h"
+#include "Start2State.h"
+#include "StandingState.h"
 #include "StandingState.h"
 #include "RunningState.h"
 #include "JumpingState.h"
+#include "StaticObject.h"
+#include "Collision.h"
+#include "GameMap.h"
 
 #include <iostream>
 #include <vector>
@@ -36,9 +42,13 @@ public:
 	void SetState(MegaManState* state);
 	void SetListAnimation();
 
+	Animation* GetListAnimation();
 	void OnKeyDown(int keyCode);
 	void OnKeyUp(int keyCode);
 	void HandleKeyboard(std::map<int, bool> keys);
+
+	vector<GameObject*> listCollision;
+
 	MegaManCharacters();
 	~MegaManCharacters();
 };

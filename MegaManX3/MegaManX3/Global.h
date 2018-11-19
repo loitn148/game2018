@@ -27,14 +27,16 @@
 #define CAMERA_START_X 0
 #define CAMERA_START_Y 2784 //2862
 #define MEGAMAN_START_X 100
-#define MEGAMAN_START_Y 2390
-#define MEGAMAN_WIDTH 35
-#define MEGAMAN_HEIGHT 20
+#define MEGAMAN_START_Y 2600
+#define MAP_BASE_Y 2386
+#define MEGAMAN_WIDTH 70
+#define MEGAMAN_HEIGHT 100
 #define DELTA_CAMERA 50
 
 //MEGAMAN SPEED
 #define RUN_SPEED 500
 #define SWEEP_SPPED 1000
+#define START_SPEED_Y -3000
 
 //Transform
 struct Transform
@@ -47,9 +49,12 @@ struct Transform
 
 //MegaMan State
 enum CharactersStates {
-	STANDING = 0,
-	RUNNING = 1,
-	JUMPING = 2,
+	START1 = 0,
+	START2 = 1,
+	STANDING = 2,
+	RUNNING = 3,
+	JUMPING = 4,
+	SWEEPING = 5
 };
 
 //Object Game
@@ -80,8 +85,11 @@ struct CollisionResult
 
 //Object Path
 #define MAP_PATH "Assets/map/map.tmx"
+#define START1_PATH "Assets/megaman/start_1.png"
+#define START2_PATH "Assets/megaman/start_2.png"
 #define STAND_PATH "Assets/megaman/standing.png"
 #define RUN_PATH "Assets/megaman/running.png"
 #define JUMP_PATH "Assets/megaman/jumping.png"
+#define SWEEP_PATH "Assets/megaman/sweeping.png"
 
 #define ENEMIES_1 "Assets/enemies/running.png"

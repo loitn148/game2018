@@ -7,7 +7,8 @@ void PlayScene::LoadContent() {
 	this->camera->Create(VT3(CAMERA_START_X, CAMERA_START_Y, 0), WIDTH, HEIGHT);
 	this->megaMan = MegaManCharacters::GetInstance();
 	this->megaMan->Init(this->hInstance, this->hWnd);
-	mMap = new GameMap("Assets/map/map.tmx");
+	mMap = GameMap::GetInstance();
+	mMap->Init("Assets/map/map.tmx");
 }
 
 void PlayScene::Update(double time) {

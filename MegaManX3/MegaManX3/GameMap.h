@@ -10,12 +10,22 @@
 #include "GameSprite.h"
 #include "MapReader/Tmx.h.in"
 #include "Global.h"
-#include "StaticObject.h"
+#include "Quadtree.h"
 
 class GameMap
 {
+protected:
+	static GameMap* instance;
+	void LoadMap(char *filePath);
+	VT3 position;
+	RECT mapRect;
+	Tmx::Map *map;
+	std::map<int, GameSprite*> listTileset;
+	Quadtree* quadtree;
 public:
-    GameMap(char* filePath);
+	static GameMap* GetInstance();
+    void Init(char* filePath);
+	GameMap();
 
     Tmx::Map* GetMap();
 
@@ -23,18 +33,11 @@ public:
     int GetHeight();
     int GetTileWidth();
     int GetTileHeight();
-
+	vector<GameObject*> vtStaticObject;
     void Draw();
+	Quadtree* GetQuadtree();
 
     ~GameMap();
-
-private:
-    void LoadMap(char *filePath);
-	VT3 position;
-	vector<StaticObject*> m_vtStaticObject;
-	RECT mapRect;
-    Tmx::Map *map;
-	std::map<int, GameSprite*> listTileset;
 };
 
 #endif
