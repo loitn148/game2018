@@ -61,7 +61,7 @@ bool Quadtree::IsContain(GameObject *obj)
 {
 	RECT r = obj->GetRect();
 
-	if (r.left >= rectBound.left && r.right <= rectBound.right && r.top >= rectBound.top && r.bottom <= rectBound.bottom)
+	if (r.left >= rectBound.left && r.right <= rectBound.right && r.top <= rectBound.top && r.bottom >= rectBound.bottom)
 	{
 		return true;
 	}
@@ -77,34 +77,34 @@ void Quadtree::Split()
 	Rect bound;
 
 	int width = (rectBound.right - rectBound.left) / 2;
-	int height = (rectBound.bottom - rectBound.top) / 2;
+	int height = (rectBound.top - rectBound.bottom) / 2;
 
 	//phan goc trai tren
 	bound.left = rectBound.left;
 	bound.right = bound.left + width;
 	bound.top = rectBound.top;
-	bound.bottom = bound.top + height;
+	bound.bottom = bound.top - height;
 	Nodes[0] = new Quadtree(level + 1, bound);
 
 	//phan goc phai tren
 	bound.left = rectBound.left + width;
 	bound.right = bound.left + width;
 	bound.top = rectBound.top;
-	bound.bottom = bound.top + height;
+	bound.bottom = bound.top - height;
 	Nodes[1] = new Quadtree(level + 1, bound);
 
 	//phan goc trai duoi
 	bound.left = rectBound.left;
 	bound.right = bound.left + width;
-	bound.top = rectBound.top + height;
-	bound.bottom = bound.top + height;
+	bound.top = rectBound.top - height;
+	bound.bottom = bound.top - height;
 	Nodes[2] = new Quadtree(level + 1, bound);
 
 	//phan goc phai duoi
 	bound.left = rectBound.left + width;
 	bound.right = bound.left + width;
-	bound.top = rectBound.top + height;
-	bound.bottom = bound.top + height;
+	bound.top = rectBound.top - height;
+	bound.bottom = bound.top - height;
 	Nodes[3] = new Quadtree(level + 1, bound);
 }
 
@@ -133,9 +133,9 @@ int Quadtree::GetIndex(Rect body)
 	-1: bi dinh > 2 node con*/
 
 	float middleVerticle = rectBound.left + (rectBound.right - rectBound.left) / 2.0f;
-	float middleHorizontal = rectBound.top + (rectBound.bottom - rectBound.top) / 2.0f;
+	float middleHorizontal = rectBound.top - (rectBound.top - rectBound.bottom) / 2.0f;
 
-	if (body.top > rectBound.top && body.bottom < middleHorizontal)
+	if (body.top < rectBound.top && body.bottom > middleHorizontal)
 	{
 		//nam phia ben tren
 		if (body.left > rectBound.left && body.right < middleVerticle)
@@ -149,7 +149,7 @@ int Quadtree::GetIndex(Rect body)
 			return 1;
 		}
 	}
-	else if (body.top > middleHorizontal && body.bottom < rectBound.bottom)
+	else if (body.top < middleHorizontal && body.bottom > rectBound.bottom)
 	{
 		//nam phia ben duoi
 		if (body.left > rectBound.left && body.right < middleVerticle)

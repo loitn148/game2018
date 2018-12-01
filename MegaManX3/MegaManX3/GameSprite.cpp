@@ -3,7 +3,8 @@
 
 
 GameSprite::GameSprite() {
-	this->sprite = NULL;
+	this->sprite = GameGraphic::GetInstance()->GetSprite();
+	this->texture = NULL;
 }
 
 
@@ -72,7 +73,7 @@ void GameSprite::InitWithSprite(const char* filePath, COLOR transcolor) {
 		&this->texture);
 
 	if (hResult != D3D_OK) {
-		MessageBox(NULL, "Create Texture Error!", "Error", MB_OK);
+		//MessageBox(NULL, "Create Texture Error!", "Error", MB_OK);
 		return;
 	}
 }
@@ -122,7 +123,7 @@ void GameSprite::Draw(VT3 position, VT2 translation, VT3 center, RECT rect, VT2 
 		&rect,
 		&center,
 		&position,
-		D3DCOLOR_XRGB(255, 255, 255));
+		transcolor);
 
 	this->sprite->End();
 

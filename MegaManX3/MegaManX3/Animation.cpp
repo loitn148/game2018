@@ -29,13 +29,13 @@ int Animation::NextFrame(double time)
 	return this->index;
 }
 
-void Animation::Draw(VT3 position, Direct direct, double time, VT2 scale, VT2 translation)
+void Animation::Draw(VT3 position, Direct direct, double time, VT2 scale, VT2 translation, COLOR transcolor)
 {
 	if (direct == this->direct) {
-		this->sprite->Draw(position, translation, this->rectSprite.at(this->index).GetCenter(), this->rectSprite.at(this->index), scale, 0.0f, VT2(position.x, position.y));
+		this->sprite->Draw(position, translation, this->rectSprite.at(this->index).GetCenter(), this->rectSprite.at(this->index), scale, 0.0f, VT2(position.x, position.y), transcolor);
 	}
 	else {
-		this->sprite->Draw(position, translation, this->rectSprite.at(this->index).GetCenter(), this->rectSprite.at(this->index), VT2(-scale.x, scale.y), 0.0f, VT2(position.x, position.y));
+		this->sprite->Draw(position, translation, this->rectSprite.at(this->index).GetCenter(), this->rectSprite.at(this->index), VT2(-scale.x, scale.y), 0.0f, VT2(position.x, position.y), transcolor);
 	}
 	this->index = NextFrame(time);
 }

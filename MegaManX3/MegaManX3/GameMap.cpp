@@ -41,8 +41,8 @@ void GameMap::LoadMap(char *filePath)
 	
     Rect r;
     r.left = 0;
-    r.top = this->GetHeight();
-    r.right = this->GetWidth();
+    r.top = this->GetHeight()* 3;
+    r.right = this->GetWidth() * 3;
     r.bottom = 0;
 
 	quadtree = new Quadtree(1, r);
@@ -68,16 +68,16 @@ void GameMap::LoadMap(char *filePath)
 				//lay object group chu khong phai layer
 				//object group se chua nhung body
 				Tmx::Object *object = objectGroup->GetObjects().at(j);
-				int posX = (object->GetX()) * 3;
-				int posY = WORLD_Y - (object->GetY()) * 3;
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
 				GameObject* staticObj = new GameObject();
 				VT3 position(posX, posY, 0);
 				staticObj->SetPosition(position);
 				Rect StaticRect = {
 					posY,
 					posX,
-					posY - object->GetHeight(),
-					posX + object->GetWidth()
+					posY - object->GetHeight() * 3,
+					posX + object->GetWidth() * 3
 				};
 				staticObj->SetRect(StaticRect);
 				
@@ -169,6 +169,23 @@ void GameMap::Draw()
             }
         }
     } 
+
+	/*vector<GameObject*> listCollision;
+	MegaManCharacters* mm = MegaManCharacters::GetInstance();
+	this->GetQuadtree()->GetEntitiesCollideAble(listCollision, mm);
+
+	for (int i = 0; i < listCollision.size(); i++) {
+		VT3 positionInViewPort = Viewport::GetInstance()->GetPositionInViewport(listCollision[i]->GetPosition());
+		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
+
+		VT2 translation = VT2(-cameraPosition.x, -cameraPosition.y);
+		GameSprite *sprite = new GameSprite("Assets/Picture1.png");
+
+		int height = listCollision[i]->GetRect().bottom - listCollision[i]->GetRect().top;
+		int width = listCollision[i]->GetRect().right - listCollision[i]->GetRect().left;
+
+		sprite->Draw(positionInViewPort, translation, VT3(0, height, 0), Rect(0, 0, height, width), VT2(1, 1), 0.0f, VT2(0, 0), C_XRGB(255, 0, 0));
+	}*/
 }
 
 Quadtree* GameMap::GetQuadtree() {

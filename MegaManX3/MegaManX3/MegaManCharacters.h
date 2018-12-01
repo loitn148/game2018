@@ -12,9 +12,17 @@
 #include "Start1State.h"
 #include "Start2State.h"
 #include "StandingState.h"
-#include "StandingState.h"
 #include "RunningState.h"
 #include "JumpingState.h"
+#include "SweepingState.h"
+#include "StandingAttackState.h"
+#include "RunningAttackState.h"
+#include "JumpingAttackState.h"
+#include "SweepingAttackState.h"
+#include "SweepingWallState.h"
+#include "SweepingWallAttackState.h"
+#include "JumpingFromWallState.h"
+#include "JumpingFromWallAttackState.h"
 #include "StaticObject.h"
 #include "Collision.h"
 #include "GameMap.h"
@@ -32,6 +40,10 @@ protected:
 	Animation* listAnimation;
 	MegaManData* megaManData;
 	CharactersStates currentState;
+	int positionBeforeJump;
+	bool isAttacking;
+	bool isJumping;
+	bool isFalling;
 public:
 	static MegaManCharacters* GetInstance();
 
@@ -46,8 +58,7 @@ public:
 	void OnKeyDown(int keyCode);
 	void OnKeyUp(int keyCode);
 	void HandleKeyboard(std::map<int, bool> keys);
-
-	vector<GameObject*> listCollision;
+	bool isRightLeftKeyDown;
 
 	MegaManCharacters();
 	~MegaManCharacters();

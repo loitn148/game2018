@@ -22,7 +22,7 @@ private:
 	std::vector<Rect> rectSprite;
 public:
 	int NextFrame(double time);
-	void Draw(VT3 position, Direct direct, double, VT2 scale, VT2 translation);
+	void Draw(VT3 position, Direct direct, double, VT2 scale, VT2 translation, COLOR transcolor = C_XRGB(255, 255, 255));
 	void Create(char* filePath, int nFrame, std::vector<Rect> rect, double timeFrame, Direct direct);
 	int GetIndex();
 	void SetIndex(int inx);

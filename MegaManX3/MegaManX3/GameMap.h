@@ -11,6 +11,7 @@
 #include "MapReader/Tmx.h.in"
 #include "Global.h"
 #include "Quadtree.h"
+#include "MegaManCharacters.h"
 
 class GameMap
 {

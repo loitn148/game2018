@@ -2,6 +2,8 @@
 
 
 GameObject::GameObject() {
+	this->vx = 0;
+	this->vy = 0;
 }
 
 GameObject::~GameObject() {

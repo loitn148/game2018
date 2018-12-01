@@ -1,7 +1,6 @@
 #include "Collision.h"
 #include <math.h>
 
-
 bool Collision::IsColliding(Rect rect1, Rect rect2) {
 	double left = rect2.left - rect1.right;
 	double top = rect2.top - rect1.bottom;
@@ -24,6 +23,7 @@ Rect Collision::GetSweptBroadphaseRect(Rect rect, VT2 velocity, double time) {
 
 	return Rect(top, left, bottom, right);
 }
+
 CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, double time) {
 	
 	CollisionResult collisionResult;
@@ -96,6 +96,7 @@ CollisionResult Collision::SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, dou
 
 	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f)
 	{
+		
 		collisionResult.directCollision = NONE;
 		collisionResult.isCollision = false;
 	}

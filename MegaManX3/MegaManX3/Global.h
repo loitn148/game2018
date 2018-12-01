@@ -27,16 +27,22 @@
 #define CAMERA_START_X 0
 #define CAMERA_START_Y 2784 //2862
 #define MEGAMAN_START_X 100
-#define MEGAMAN_START_Y 2600
+#define MEGAMAN_START_Y 2500
 #define MAP_BASE_Y 2386
-#define MEGAMAN_WIDTH 70
-#define MEGAMAN_HEIGHT 100
+#define MEGAMAN_WIDTH 50
+#define MEGAMAN_HEIGHT 80
 #define DELTA_CAMERA 50
 
 //MEGAMAN SPEED
 #define RUN_SPEED 500
-#define SWEEP_SPPED 1000
-#define START_SPEED_Y -3000
+#define JUMP_SPEED 1200
+#define SWEEP_SPEED 2000
+#define SWEEP_WALL_SPEED 500
+#define START_SPEED_Y -2500
+
+//KEY CODE
+#define VK_A 0x41
+#define VK_S 0x53
 
 //Transform
 struct Transform
@@ -52,9 +58,17 @@ enum CharactersStates {
 	START1 = 0,
 	START2 = 1,
 	STANDING = 2,
-	RUNNING = 3,
-	JUMPING = 4,
-	SWEEPING = 5
+	STANDING_ATTACK = 3,
+	RUNNING = 4,
+	RUNNING_ATTACK = 5,
+	JUMPING = 6,
+	JUMPING_ATTACK = 7,
+	SWEEPING = 8,
+	SWEEPING_ATTACK = 9,
+	SWEEPING_WALL = 10,
+	SWEEPING_WALL_ATTACK = 11,
+	JUMPING_FROM_WALL = 12,
+	JUMPING_FROM_WALL_ATTACK = 13
 };
 
 //Object Game
@@ -88,8 +102,16 @@ struct CollisionResult
 #define START1_PATH "Assets/megaman/start_1.png"
 #define START2_PATH "Assets/megaman/start_2.png"
 #define STAND_PATH "Assets/megaman/standing.png"
+#define STAND_ATTACK_PATH "Assets/megaman/stand-attack.png"
 #define RUN_PATH "Assets/megaman/running.png"
+#define RUN_ATTACK_PATH "Assets/megaman/run_attack.png"
 #define JUMP_PATH "Assets/megaman/jumping.png"
+#define JUMP_ATTACK_PATH "Assets/megaman/jump_attack.png"
 #define SWEEP_PATH "Assets/megaman/sweeping.png"
+#define SWEEP_ATTACK_PATH "Assets/megaman/sweep_attack.png"
+#define SWEEP_WALL_PATH "Assets/megaman/sweep_wall.png"
+#define SWEEP_WALL_ATTACK_PATH "Assets/megaman/sweep_wall_attack.png"
+#define JUMP_FROM_WALL_PATH "Assets/megaman/jump_from_wall.png"
+#define JUMP_FROM_WALL_ATTACK_PATH "Assets/megaman/jump_from_wall_attack.png"
 
 #define ENEMIES_1 "Assets/enemies/running.png"

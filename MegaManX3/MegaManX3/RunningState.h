@@ -7,7 +7,7 @@
 class RunningState : public MegaManState
 {
 public:
-	RunningState(MegaManData *megaManData);
+	RunningState(MegaManData *megaManData, bool isStart = true);
 	~RunningState();
 
 	void Update(double time);

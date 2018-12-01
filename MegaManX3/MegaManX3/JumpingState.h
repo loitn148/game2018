@@ -7,7 +7,7 @@
 class JumpingState : public MegaManState
 {
 public:
-	JumpingState(MegaManData *megaManData);
+	JumpingState(MegaManData *megaManData, bool isStart = true);
 	~JumpingState();
 
 	void Update(double time);

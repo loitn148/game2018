@@ -14,7 +14,7 @@ void PlayScene::LoadContent() {
 void PlayScene::Update(double time) {
 	this->megaMan->Update(time);
 	this->camera->Update(this->megaMan);
-	//this->megaMan->HandleKeyboard(this->keys);
+	this->megaMan->HandleKeyboard(this->keys);
 }
 
 void PlayScene::Draw(double time) {

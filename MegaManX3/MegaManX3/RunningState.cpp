@@ -3,10 +3,14 @@
 
 
 
-RunningState::RunningState(MegaManData *megaManData) {
+RunningState::RunningState(MegaManData *megaManData, bool isStart) {
 	this->megaManData = megaManData;
-	this->megaManData->megaMan->SetVx(RUN_SPEED);
-	this->megaManData->megaMan->SetVy(0);
+	listAnimation = this->megaManData->megaMan->GetListAnimation();
+	if (isStart == true) {
+		listAnimation[RUNNING].SetIndex(0);
+		this->megaManData->megaMan->SetVx(this->megaManData->megaMan->GetDirect()*RUN_SPEED);
+		this->megaManData->megaMan->SetVy(0);
+	}
 }
 
 
@@ -16,10 +20,13 @@ RunningState::~RunningState()
 
 void RunningState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[VK_LEFT] || keys[VK_RIGHT])
-	{
-		//this->megaManData->megaMan->SetState();
-		return;
+	if (keys[VK_A]) {
+		int index = listAnimation[RUNNING].GetIndex();
+		listAnimation[RUNNING_ATTACK].SetIndex(index);
+		this->megaManData->megaMan->SetState(new RunningAttackState(this->megaManData, false));
+	}
+	if (keys[VK_SPACE]) {
+		this->megaManData->megaMan->SetState(new JumpingState(this->megaManData));
 	}
 }
 
