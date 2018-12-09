@@ -8,8 +8,8 @@ JumpingAttackState::JumpingAttackState(MegaManData *megaManData, bool isStart) {
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
 	if (isStart == true) {
 		listAnimation[JUMPING_ATTACK].SetIndex(0);
-		this->megaManData->megaMan->SetVy(1000);
-		this->megaManData->megaMan->SetAy(-100);
+		this->megaManData->megaMan->SetVy(JUMP_SPEED);
+		this->megaManData->megaMan->isJumping = true;
 	}
 }
 
@@ -36,7 +36,7 @@ void JumpingAttackState::Update(double time) {
 	if (this->megaManData->megaMan->GetVy() > 0 && listAnimation[JUMPING_ATTACK].GetIndex() == 3) {
 		listAnimation[JUMPING_ATTACK].SetIndex(2);
 	}
-	else if (this->megaManData->megaMan->GetVy() <= 0 && this->megaManData->megaMan->GetAy() != 0 && listAnimation[JUMPING_ATTACK].GetIndex() == 5) {
+	else if (this->megaManData->megaMan->GetVy() <= 0 && this->megaManData->megaMan->isJumping == true && listAnimation[JUMPING_ATTACK].GetIndex() == 5) {
 		listAnimation[JUMPING_ATTACK].SetIndex(4);
 	}
 	if (listAnimation[JUMPING_ATTACK].GetIndex() == (listAnimation[JUMPING_ATTACK].GetTotalFrame() - 1)) {

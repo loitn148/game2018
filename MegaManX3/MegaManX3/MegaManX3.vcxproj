@@ -126,8 +126,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BulletLv1.cpp" />
+    <ClCompile Include="BulletLv2.cpp" />
+    <ClCompile Include="BulletLv3.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="FallingAttackState.cpp" />
+    <ClCompile Include="FallingState.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameGraphic.cpp" />
     <ClCompile Include="GameInput.cpp" />
@@ -185,8 +190,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="BulletLv1.h" />
+    <ClInclude Include="BulletLv2.h" />
+    <ClInclude Include="BulletLv3.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="FallingAttackState.h" />
+    <ClInclude Include="FallingState.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameGraphic.h" />
     <ClInclude Include="GameInput.h" />

@@ -8,8 +8,9 @@ RunningState::RunningState(MegaManData *megaManData, bool isStart) {
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
 	if (isStart == true) {
 		listAnimation[RUNNING].SetIndex(0);
-		this->megaManData->megaMan->SetVx(this->megaManData->megaMan->GetDirect()*RUN_SPEED);
 		this->megaManData->megaMan->SetVy(0);
+		this->megaManData->megaMan->SetVx(this->megaManData->megaMan->GetDirect()*RUN_SPEED);
+		
 	}
 }
 

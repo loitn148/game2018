@@ -7,8 +7,10 @@ StandingAttackState::StandingAttackState(MegaManData *megaManData, bool isStart)
 	this->megaManData = megaManData;
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
 	if (isStart == true) {
-		this->megaManData->megaMan->SetVx(0); 
+		this->megaManData->megaMan->SetVx(0);
+		this->megaManData->megaMan->SetVy(0);
 		this->megaManData->megaMan->SetAx(0);
+		this->megaManData->megaMan->SetAy(-200);
 	}
 }
 

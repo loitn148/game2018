@@ -23,14 +23,15 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 	this->direct = RIGHT;
 	this->position = VT3(MEGAMAN_START_X, MEGAMAN_START_Y, 0);
 	this->vx = this->vy = 0;
-	this->ax = this->ay = 0;
+	this->ax = 0;
+	this->ay = -200;
 	this->width = MEGAMAN_WIDTH;
 	this->height = MEGAMAN_HEIGHT;
 	this->isAttacking = false;
 	this->isJumping = false;
 	this->isFalling = false;
 	this->isRightLeftKeyDown = false;
-	this->listAnimation = new Animation[14];
+	this->listAnimation = new Animation[16];
 
 	this->megaManData = new MegaManData();
 	this->megaManData->megaMan = this;
@@ -50,8 +51,8 @@ void MegaManCharacters::UpdatePosition(double time)
 
 	this->UpdateRect();
 
-	this->vy += this->ay;
 	this->vx += this->ax;
+	this->vy += this->ay;
 }
 
 void MegaManCharacters::Update(double time)
@@ -64,51 +65,75 @@ void MegaManCharacters::Update(double time)
 	for (int i = 0; i < listCollision.size(); i++) {
 		staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
 		if (staticCollision.isCollision) {
-			if (staticCollision.directCollision == BOTTOM) {
-				deltaBottom = listCollision[i]->GetRect().right - this->rectBound.left;
-			}
+
 			entryTime = staticCollision.entryTime;
-			break;
-		}
-	}
 
-	this->UpdatePosition(entryTime);
+			switch (staticCollision.directCollision)
+			{
+			case BOTTOM:
+				this->position.y += this->vy * entryTime;
+				this->UpdateRect();
 
-	
-	if (staticCollision.isCollision) {
-		if (staticCollision.directCollision == BOTTOM) {
-			if (this->currentState == START1) {
-				this->SetState(new Start2State(this->megaManData));
-			}
-			else if (this->currentState == JUMPING || this->currentState == JUMPING_ATTACK) {
+				if (this->direct == RIGHT) {
+					deltaBottom = listCollision[i]->GetRect().right - this->rectBound.left;
+				}
+				else if (this->direct == LEFT) {
+					deltaBottom = this->rectBound.right - listCollision[i]->GetRect().left;
+				}
+
+				//Start 1 -> Start2
+				if (this->currentState == START1) {
+					this->SetState(new Start2State(this->megaManData));
+				}
+				//jumping, jumping attack, falling, falling attack -> vy = 0
+				else if (this->currentState == JUMPING || this->currentState == JUMPING_ATTACK || 
+					this->currentState == FALLING || this->currentState == FALLING_ATTACK ||
+					this->currentState == JUMPING_FROM_WALL || this->currentState == JUMPING_FROM_WALL_ATTACK) {
+					this->vy = 0;
+					this->isFalling = false;
+					this->isJumping = false;
+				}
+				//running, running attack -> falling
+				else if ((this->currentState == RUNNING_ATTACK || this->currentState == RUNNING || this->currentState == STANDING || this->currentState == STANDING_ATTACK)
+					&& deltaBottom <= MEGAMAN_WIDTH / 5) {
+					this->SetState(new FallingState(this->megaManData));
+				}
+				else if (this->currentState == RUNNING) {
+					this->vy = 0;
+				}
+				//else ->standing
+				else {
+					this->SetState(new StandingState(this->megaManData));
+				}
+				break;
+			case TOP:
+				this->position.y += this->vy * entryTime;
+				this->UpdateRect();
+
 				this->vy = 0;
-				this->ay = 0;
-			}
-			else if ((this->currentState == STANDING || this->currentState == RUNNING) && deltaBottom < MEGAMAN_WIDTH/5) {
-				this->SetState(new JumpingState(this->megaManData));
-			}
-			else {
-				this->SetState(new StandingState(this->megaManData));
-			}
-		}
+				break;
+			case RIGHT:
+			case LEFT:
+				this->position.x += this->vx * entryTime;
+				this->UpdateRect();
 
-		if (staticCollision.directCollision == TOP) {
-			this->vy = 0;
-		}
-
-		if (staticCollision.directCollision == LEFT || staticCollision.directCollision == RIGHT) {
-			if (this->currentState == JUMPING) {
-				this->SetState(new SweepingWallState(this->megaManData));
+				if (this->currentState == JUMPING) {
+					this->SetState(new SweepingWallState(this->megaManData));
+				}
+				else if (this->currentState == JUMPING_ATTACK) {
+					this->SetState(new SweepingWallAttackState(this->megaManData));
+				}
+				this->vx = 0;
+			default:
+				break;
 			}
-			else if (this->currentState == JUMPING_ATTACK) {
-				this->SetState(new SweepingWallAttackState(this->megaManData));
-			}
-			this->vx = 0;
 		}
 	}
+
+	this->UpdatePosition(time);
 
 	if (this->megaManData->megaManState) {
-		this->megaManData->megaManState->Update(entryTime);
+		this->megaManData->megaManState->Update(time);
 	}
 }
 
@@ -163,12 +188,6 @@ void MegaManCharacters::OnKeyUp(int keyCode) {
 		if (currentState == JUMPING || currentState == JUMPING_ATTACK)
 		{
 			this->vx = 0;
-		}
-	}
-
-	if (keyCode == VK_A) {
-		if (currentState == STANDING_ATTACK) {
-			this->SetState(new StandingState(this->megaManData));
 		}
 	}
 }
@@ -311,7 +330,7 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(40, 0, 78, 24));
 	temp.push_back(Rect(0, 31, 32, 61));
 
-	this->listAnimation[JUMPING_FROM_WALL].Create(JUMP_FROM_WALL_PATH, temp.size(), temp, 0.05f, RIGHT);
+	this->listAnimation[JUMPING_FROM_WALL].Create(JUMP_FROM_WALL_PATH, temp.size(), temp, 0.01f, RIGHT);
 	temp.clear();
 
 	//JUMPING_FROM_WALL_ATTACK
@@ -322,7 +341,23 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(40, 32, 78, 62));
 	temp.push_back(Rect(0, 0, 32, 36));
 
-	this->listAnimation[JUMPING_FROM_WALL_ATTACK].Create(JUMP_FROM_WALL_ATTACK_PATH, temp.size(), temp, 0.05f, RIGHT);
+	this->listAnimation[JUMPING_FROM_WALL_ATTACK].Create(JUMP_FROM_WALL_ATTACK_PATH, temp.size(), temp, 0.01f, RIGHT);
+	temp.clear();
+
+	//FALLING
+	temp.push_back(Rect(0, 31, 42, 58));
+	temp.push_back(Rect(0, 59, 38, 83));
+	temp.push_back(Rect(0, 0, 32, 30));
+
+	this->listAnimation[FALLING].Create(JUMP_PATH, temp.size(), temp, 0.01f, RIGHT);
+	temp.clear();
+
+	//FALLING_ATTACK
+	temp.push_back(Rect(0, 37, 42, 68));
+	temp.push_back(Rect(33, 0, 71, 30));
+	temp.push_back(Rect(0, 0, 32, 36));
+
+	this->listAnimation[FALLING_ATTACK].Create(JUMP_ATTACK_PATH, temp.size(), temp, 0.01f, RIGHT);
 	temp.clear();
 }
 

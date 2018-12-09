@@ -9,7 +9,7 @@ JumpingState::JumpingState(MegaManData *megaManData, bool isStart) {
 	if (isStart == true) {
 		listAnimation[JUMPING].SetIndex(0);
 		this->megaManData->megaMan->SetVy(JUMP_SPEED);
-		this->megaManData->megaMan->SetAy(-200);
+		this->megaManData->megaMan->isJumping = true;
 	}
 }
 
@@ -37,7 +37,7 @@ void JumpingState::Update(double time) {
 	if (this->megaManData->megaMan->GetVy() > 0 && listAnimation[JUMPING].GetIndex() == 3) {
 		listAnimation[JUMPING].SetIndex(2);
 	}
-	else if (this->megaManData->megaMan->GetVy() <= 0 && this->megaManData->megaMan->GetAy() != 0 && listAnimation[JUMPING].GetIndex() == 5) {
+	else if (this->megaManData->megaMan->GetVy() <= 0 && this->megaManData->megaMan->isJumping == true && listAnimation[JUMPING].GetIndex() == 5) {
 		listAnimation[JUMPING].SetIndex(4);
 	}
 	if (listAnimation[JUMPING].GetIndex() == (listAnimation[JUMPING].GetTotalFrame() - 1)) {

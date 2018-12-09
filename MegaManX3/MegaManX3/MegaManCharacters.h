@@ -23,6 +23,8 @@
 #include "SweepingWallAttackState.h"
 #include "JumpingFromWallState.h"
 #include "JumpingFromWallAttackState.h"
+#include "FallingState.h"
+#include "FallingAttackState.h"
 #include "StaticObject.h"
 #include "Collision.h"
 #include "GameMap.h"
@@ -41,9 +43,6 @@ protected:
 	MegaManData* megaManData;
 	CharactersStates currentState;
 	int positionBeforeJump;
-	bool isAttacking;
-	bool isJumping;
-	bool isFalling;
 public:
 	static MegaManCharacters* GetInstance();
 
@@ -53,12 +52,16 @@ public:
 	void Update(double time);
 	void SetState(MegaManState* state);
 	void SetListAnimation();
+	//void AddPosition
 
 	Animation* GetListAnimation();
 	void OnKeyDown(int keyCode);
 	void OnKeyUp(int keyCode);
 	void HandleKeyboard(std::map<int, bool> keys);
 	bool isRightLeftKeyDown;
+	bool isAttacking;
+	bool isJumping;
+	bool isFalling;
 
 	MegaManCharacters();
 	~MegaManCharacters();
