@@ -9,8 +9,10 @@ JumpingFromWallState::JumpingFromWallState(MegaManData *megaManData, bool isStar
 	if (isStart == true) {
 		listAnimation[JUMPING_FROM_WALL].SetIndex(0);
 		this->megaManData->megaMan->SetVy(JUMP_SPEED);
-		this->megaManData->megaMan->SetVx(500*this->megaManData->megaMan->GetDirect());
-		this->megaManData->megaMan->SetAy(-200);
+
+		VT3 position = this->megaManData->megaMan->GetPosition();
+		this->megaManData->megaMan->SetPosition(VT3(position.x + 10 * this->megaManData->megaMan->GetDirect(), position.y, 0));
+		this->megaManData->megaMan->SetAy(ACCELERATION_Y);
 		this->megaManData->megaMan->isJumping = true;
 	}
 }
@@ -19,11 +21,11 @@ JumpingFromWallState::~JumpingFromWallState() {}
 
 void JumpingFromWallState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[VK_A]) {
+	/*if (keys[VK_A]) {
 		int index = listAnimation[JUMPING_FROM_WALL].GetIndex();
 		listAnimation[JUMPING_FROM_WALL_ATTACK].SetIndex(index);
 		this->megaManData->megaMan->SetState(new JumpingFromWallAttackState(this->megaManData, false));
-	}
+	}*/
 }
 
 CharactersStates JumpingFromWallState::GetState()

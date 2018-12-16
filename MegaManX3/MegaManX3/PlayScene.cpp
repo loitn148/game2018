@@ -9,7 +9,7 @@ void PlayScene::LoadContent() {
 	this->megaMan->Init(this->hInstance, this->hWnd);
 	mMap = GameMap::GetInstance();
 	mMap->Init("Assets/map/map.tmx");
-	bossNormal = new BossNormal(VT3(300,2400,0), 0, 0);
+	bossNormal = new BossNormal(VT3(0, 2400, 0), 0, 0);
 }
 
 void PlayScene::Update(double time) {

@@ -16,6 +16,7 @@ protected:
 	int width, height;
 	double v0, vx, vy;
 	double ax, ay;
+	bool isDead;
 	Direct direct;
 	Rect rectBound;
 	Transform transform;
@@ -30,6 +31,7 @@ public:
 	Direct GetDirect();
 	int GetWidth();
 	int GetHeight();
+	bool GetIsDead();
 
 	VT3 GetPosition();
 	VT3 GetCenterPosition();
@@ -44,6 +46,10 @@ public:
 	void SetRect(Rect rect);
 	void SetDirect(Direct direct);
 	void UpdateRect();
+	void SetIsDead(bool isDead);
+
+	void Update(double time);
+	void Draw(double time);
 
 	void Create(VT3 position, int width, int height, Rect rect);
 

@@ -10,7 +10,7 @@ StandingState::StandingState(MegaManData *megaManData, bool isStart) {
 		this->megaManData->megaMan->SetVx(0);
 		this->megaManData->megaMan->SetVy(0);
 		this->megaManData->megaMan->SetAx(0);
-		this->megaManData->megaMan->SetAy(-200);
+		this->megaManData->megaMan->SetAy(ACCELERATION_Y);
 	}
 }
 
@@ -21,13 +21,8 @@ StandingState::~StandingState()
 
 void StandingState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[VK_S])
-	{
+	if (keys[VK_S]) {
 		this->megaManData->megaMan->SetState(new SweepingState(this->megaManData));
-	}
-	if (keys[VK_A])
-	{
-		this->megaManData->megaMan->SetState(new StandingAttackState(this->megaManData));
 	}
 	if (keys[VK_SPACE]) {
 		this->megaManData->megaMan->SetState(new JumpingState(this->megaManData));

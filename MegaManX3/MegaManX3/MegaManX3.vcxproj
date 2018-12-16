@@ -169,6 +169,7 @@
     <ClCompile Include="MegaManCharacters.cpp" />
     <ClCompile Include="MegaManData.cpp" />
     <ClCompile Include="MegaManState.cpp" />
+    <ClCompile Include="PlayerBullets.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Rect.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="MegaManCharacters.h" />
     <ClInclude Include="MegaManData.h" />
     <ClInclude Include="MegaManState.h" />
+    <ClInclude Include="PlayerBullets.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Rect.h" />

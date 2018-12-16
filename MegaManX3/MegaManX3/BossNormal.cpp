@@ -10,7 +10,7 @@ BossNormal::~BossNormal()
 {
 }
 
-BossNormal::BossNormal(D3DXVECTOR3 position, float vx, float vy)
+BossNormal::BossNormal(D3DXVECTOR3 position, double vx, double vy)
 {
 	animation = new Animation();
 
@@ -24,27 +24,26 @@ BossNormal::BossNormal(D3DXVECTOR3 position, float vx, float vy)
 
 	this->id = NORMALBOSS;
 	this->position = position;
-	this->angle = 0.0f;
+	this->angle = 0.1f;
 	this->vx = vx;
 	this->vy = vy;
 	this->isDead = false;
 	this->width = 98;
 	this->height = 98;
-	this->rotateCenter = VT2(0,0);
+	this->rotateCenter = VT2(2300, 100);
 	UpdateRect();
 }
 
-void BossNormal::Update(float time)
+void BossNormal::Update(double time)
 {
 	CollisionResult result;
 	position.x += vx*time;
 	position.y += vy*time;
-	this->angle += 0.5f;
 
 	UpdateRect();
 }
 
-void BossNormal::Draw(float time)
+void BossNormal::Draw(double time)
 {
 	if (!isDead)
 	{

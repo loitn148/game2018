@@ -15,11 +15,11 @@ FallingState::~FallingState() {}
 
 void FallingState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[VK_A]) {
+	/*if (keys[VK_A]) {
 		int index = listAnimation[FALLING].GetIndex();
 		listAnimation[FALLING_ATTACK].SetIndex(index);
 		this->megaManData->megaMan->SetState(new FallingAttackState(this->megaManData, false));
-	}
+	}*/
 
 	/*if (keys[VK_SPACE]) {
 	this->megaManData->megaMan->SetState(new FallingState(this->megaManData));

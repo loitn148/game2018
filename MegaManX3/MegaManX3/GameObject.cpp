@@ -50,6 +50,10 @@ int GameObject::GetHeight() {
 	return this->height;
 }
 
+bool GameObject::GetIsDead() {
+	return this->isDead;
+}
+
 VT3 GameObject::GetPosition() {
 	return this->position;
 }
@@ -98,6 +102,17 @@ void GameObject::SetRect(Rect rect) {
 void GameObject::SetDirect(Direct direct) {
 	this->direct = direct;
 }
+
+void GameObject::SetIsDead(bool isDead) {
+	this->isDead = isDead;
+}
+
+void GameObject::Update(double time) {
+	this->position.x += this->vx*time;
+	this->position.y += this->vy*time;
+}
+
+void GameObject::Draw(double time) {}
 
 void GameObject::UpdateRect() {
 	this->rectBound.top = this->position.y + this->height;

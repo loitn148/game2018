@@ -9,7 +9,7 @@ SweepingAttackState::SweepingAttackState(MegaManData *megaManData, bool isStart)
 	if (isStart == true) {
 		listAnimation[SWEEPING_ATTACK].SetIndex(0);
 		this->megaManData->megaMan->SetVx(this->megaManData->megaMan->GetDirect()*SWEEP_SPEED);
-		this->megaManData->megaMan->SetAx(-this->megaManData->megaMan->GetDirect() * 300);
+		this->megaManData->megaMan->SetAx(-this->megaManData->megaMan->GetDirect() * ACCELERATION_X);
 	}
 }
 
@@ -20,11 +20,11 @@ SweepingAttackState::~SweepingAttackState()
 
 void SweepingAttackState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (!keys[VK_A]) {
+	/*if (!keys[VK_A]) {
 		int index = listAnimation[SWEEPING_ATTACK].GetIndex();
 		listAnimation[SWEEPING].SetIndex(index);
 		this->megaManData->megaMan->SetState(new SweepingState(this->megaManData, false));
-	}
+	}*/
 }
 
 CharactersStates SweepingAttackState::GetState()
@@ -37,6 +37,11 @@ void SweepingAttackState::Update(double time) {
 		listAnimation[SWEEPING_ATTACK].SetIndex(listAnimation[SWEEPING_ATTACK].GetTotalFrame() - 1);
 	}
 	if (this->megaManData->megaMan->GetVx() * this->megaManData->megaMan->GetDirect() <= 0) {
-		this->megaManData->megaMan->SetState(new StandingState(this->megaManData));
+		if (this->megaManData->megaMan->isRightLeftKeyDown == true) {
+			this->megaManData->megaMan->SetState(new RunningState(this->megaManData));
+		}
+		else {
+			this->megaManData->megaMan->SetState(new StandingState(this->megaManData));
+		}
 	}
 }

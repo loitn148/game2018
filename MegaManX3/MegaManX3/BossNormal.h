@@ -11,9 +11,9 @@ class BossNormal :
 	public GameObject
 {
 public:
-	void Draw(float time);
-	void Update(float time);
-	BossNormal(D3DXVECTOR3 position, float vx, float vy);
+	void Draw(double time);
+	void Update(double time);
+	BossNormal(D3DXVECTOR3 position, double vx, double vy);
 	bool isDead;
 	double angle;
 	VT2 rotateCenter;

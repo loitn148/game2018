@@ -19,11 +19,11 @@ FallingAttackState::~FallingAttackState()
 
 void FallingAttackState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (!keys[VK_A]) {
+	/*if (!keys[VK_A]) {
 		int index = listAnimation[FALLING_ATTACK].GetIndex();
 		listAnimation[FALLING].SetIndex(index);
 		this->megaManData->megaMan->SetState(new JumpingState(this->megaManData, false));
-	}
+	}*/
 }
 
 CharactersStates FallingAttackState::GetState()
@@ -43,10 +43,10 @@ void FallingAttackState::Update(double time) {
 	}
 	if (listAnimation[FALLING_ATTACK].GetIndex() == (listAnimation[FALLING_ATTACK].GetTotalFrame() - 1)) {
 		if (this->megaManData->megaMan->isRightLeftKeyDown == true) {
-			this->megaManData->megaMan->SetState(new RunningAttackState(this->megaManData));
+			this->megaManData->megaMan->SetState(new RunningState(this->megaManData));
 		}
 		else {
-			this->megaManData->megaMan->SetState(new StandingAttackState(this->megaManData));
+			this->megaManData->megaMan->SetState(new StandingState(this->megaManData));
 		}
 	}
 }

@@ -25,6 +25,10 @@
 #include "JumpingFromWallAttackState.h"
 #include "FallingState.h"
 #include "FallingAttackState.h"
+#include "PlayerBullets.h"
+#include "BulletLv1.h"
+#include "BulletLv2.h"
+#include "BulletLv3.h"
 #include "StaticObject.h"
 #include "Collision.h"
 #include "GameMap.h"
@@ -43,6 +47,7 @@ protected:
 	MegaManData* megaManData;
 	CharactersStates currentState;
 	int positionBeforeJump;
+	PlayerBullets* myBullet;
 public:
 	static MegaManCharacters* GetInstance();
 
@@ -62,6 +67,9 @@ public:
 	bool isAttacking;
 	bool isJumping;
 	bool isFalling;
+	double holdAttack;
+
+	void CreateBullet(int level);
 
 	MegaManCharacters();
 	~MegaManCharacters();
