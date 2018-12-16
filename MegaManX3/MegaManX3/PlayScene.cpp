@@ -9,17 +9,20 @@ void PlayScene::LoadContent() {
 	this->megaMan->Init(this->hInstance, this->hWnd);
 	mMap = GameMap::GetInstance();
 	mMap->Init("Assets/map/map.tmx");
+	bossNormal = new BossNormal(VT3(300,2400,0), 0, 0);
 }
 
 void PlayScene::Update(double time) {
 	this->megaMan->Update(time);
 	this->camera->Update(this->megaMan);
 	this->megaMan->HandleKeyboard(this->keys);
+	this->bossNormal->Update(time);
 }
 
 void PlayScene::Draw(double time) {
 	mMap->Draw();
 	this->megaMan->Draw(time);
+	this->bossNormal->Draw(time);
 }
 
 PlayScene::PlayScene(HWND hWnd, HINSTANCE hInstance) {

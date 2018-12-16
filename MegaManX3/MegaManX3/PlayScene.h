@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "MegaManCharacters.h"
 #include "GameMap.h"
+#include "BossNormal.h"
 #include <map>
 
 class PlayScene : public GameScene
@@ -21,6 +22,7 @@ private:
 	MegaManCharacters *megaMan;
 	std::map<int, bool> keys;
 	GameMap *mMap;
+	BossNormal *bossNormal;
 
 public:
 	void LoadContent();

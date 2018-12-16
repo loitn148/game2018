@@ -204,6 +204,9 @@
     <ClCompile Include="BulletLv3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BossNormal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -402,6 +405,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BulletLv3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BossNormal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

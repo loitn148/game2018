@@ -77,7 +77,8 @@ enum CharactersStates {
 enum Object {
 	MEGAMAN,
 	STATICOBJECT,
-	BULLET
+	BULLET,
+	NORMALBOSS,
 };
 
 //Object Direct
@@ -122,3 +123,5 @@ struct CollisionResult
 #define BULLET_LV3_PATH ""
 
 #define ENEMIES_1 "Assets/enemies/running.png"
+
+#define BOSSNORMAL "Assets/MMX3ShurikeinF.png"
