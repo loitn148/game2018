@@ -14,16 +14,15 @@ BulletLv1::BulletLv1(D3DXVECTOR3 position, float vx, float vy)
 {
 	bulletLv1 = new Animation();
 
-	std::vector<Rect> _temp;
+	std::vector<Rect> temp;
 
-	_temp.push_back(Rect(28, 51, 38, 58));
-	_temp.push_back(Rect(28, 30, 46, 50));
-	_temp.push_back(Rect(26, 0, 48, 29));
-	_temp.push_back(Rect(0, 0, 25, 31));
-	_temp.push_back(Rect(0, 32, 27, 62));
+	temp.push_back(Rect(16, 13, 22, 21));
+	temp.push_back(Rect(16, 0, 28, 12));
+	temp.push_back(Rect(0, 16, 13, 29));
+	temp.push_back(Rect(0, 0, 15, 15));
 
-	bulletLv1->Create(BULLET_LV1_PATH, _temp.size(), _temp, 0.05f, RIGHT);
-	_temp.clear();
+	bulletLv1->Create(BULLET_LV1_PATH, temp.size(), temp, 0.05f, RIGHT);
+	temp.clear();
 
 	this->id = BULLET;
 	this->position = position;
