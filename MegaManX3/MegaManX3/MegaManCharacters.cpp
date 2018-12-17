@@ -82,6 +82,8 @@ void MegaManCharacters::Update(double time)
 					deltaBottom = this->rectBound.right - listCollision[i]->GetRect().left;
 				}
 
+				this->ay = ACCELERATION_Y;
+				this->vy = 0;
 				//Start 1 -> Start2
 				if (this->currentState == START1) {
 					this->SetState(new Start2State(this->megaManData));
@@ -439,15 +441,19 @@ Animation* MegaManCharacters::GetListAnimation() {
 MegaManCharacters::~MegaManCharacters() {
 }
 
+MegaManData* MegaManCharacters::GetMegaManData() {
+	return this->megaManData;
+}
+
 void MegaManCharacters::CreateBullet(int level) {
 	if (level == 1) {
-		this->myBullet = new BulletLv1(VT3(this->position.x, this->position.y + 43, 0), 2000 * direct);
+		this->myBullet = new BulletLv1(VT3(this->position.x, this->position.y + 43, 0), 2000 * direct, direct);
 	}
 	else if (level == 2) {
-		this->myBullet = new BulletLv2(VT3(this->position.x, this->position.y + 35, 0), 2000 * direct);
+		this->myBullet = new BulletLv2(VT3(this->position.x, this->position.y + 35, 0), 2000 * direct, direct);
 	}
 	else if (level == 3) {
-		this->myBullet = new BulletLv3(VT3(this->position.x, this->position.y + 25, 0), 2000 * direct);
+		this->myBullet = new BulletLv3(VT3(this->position.x, this->position.y + 25, 0), 2000 * direct, direct);
 	}
 }
 

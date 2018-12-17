@@ -12,7 +12,7 @@ class BulletLv3 :
 	public PlayerBullets
 {
 public:
-	BulletLv3(D3DXVECTOR3 position, double vx);
+	BulletLv3(D3DXVECTOR3 position, double vx, Direct direct);
 	void Draw(double time);
 	void Update(double time);
 	bool isCollision;

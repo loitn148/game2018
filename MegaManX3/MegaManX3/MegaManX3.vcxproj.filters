@@ -210,6 +210,9 @@
     <ClCompile Include="PlayerBullets.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Elevator1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -414,6 +417,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBullets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Elevator1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

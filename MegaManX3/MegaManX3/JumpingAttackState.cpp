@@ -9,6 +9,7 @@ JumpingAttackState::JumpingAttackState(MegaManData *megaManData, bool isStart) {
 	if (isStart == true) {
 		listAnimation[JUMPING_ATTACK].SetIndex(0);
 		this->megaManData->megaMan->SetVy(JUMP_SPEED);
+		this->megaManData->megaMan->SetAy(ACCELERATION_Y);
 		this->megaManData->megaMan->isJumping = true;
 	}
 }

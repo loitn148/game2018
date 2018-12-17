@@ -10,7 +10,7 @@ BulletLv3::~BulletLv3()
 {
 }
 
-BulletLv3::BulletLv3(D3DXVECTOR3 position, double vx)
+BulletLv3::BulletLv3(D3DXVECTOR3 position, double vx, Direct direct)
 {
 	animation = new Animation();
 
@@ -42,11 +42,11 @@ BulletLv3::BulletLv3(D3DXVECTOR3 position, double vx)
 	this->id = BULLET;
 	this->position = position;
 	this->vx = vx;
-	this->vy = vy;
 	this->isDead = false;
-	this->direct = RIGHT;
-	this->width = 10;
-	this->height = 10;
+	this->isCollision = false;
+	this->direct = direct;
+	this->width = 25;
+	this->height = 25;
 	UpdateRect();
 }
 
@@ -55,24 +55,29 @@ void BulletLv3::Update(double time)
 	position.x += vx*time;
 	position.y += vy*time;
 
-	if (this->animation->GetIndex() == 1 && this->isDead == false) {
+	if (this->animation->GetIndex() == 1 && this->isCollision == false) {
 		this->animation->SetIndex(0);
 	}
-	else if (this->isCollision == true && this->animation->GetIndex() == 0) {
-		this->isDead = true;
+	if (this->isCollision == true) {
+		this->vx = 0;
+		if (this->animation->GetIndex() == 0) {
+			this->isDead = true;
+		}
 	}
 
 	vector<GameObject*> listCollision;
 	GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
 	CollisionResult staticCollision;
 	double entryTime = time;
-	int deltaBottom = MEGAMAN_WIDTH;
 	for (int i = 0; i < listCollision.size(); i++) {
 		staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
 		if (staticCollision.isCollision) {
+			entryTime = staticCollision.entryTime;
 			this->isCollision = true;
 		}
 	}
+
+	position.x += vx*entryTime;
 
 	UpdateRect();
 }

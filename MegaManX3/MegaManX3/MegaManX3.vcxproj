@@ -132,6 +132,7 @@
     <ClCompile Include="BulletLv3.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Elevator1.cpp" />
     <ClCompile Include="FallingAttackState.cpp" />
     <ClCompile Include="FallingState.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="BulletLv3.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Elevator1.h" />
     <ClInclude Include="FallingAttackState.h" />
     <ClInclude Include="FallingState.h" />
     <ClInclude Include="Game.h" />

@@ -9,6 +9,7 @@
 #include "MegaManCharacters.h"
 #include "GameMap.h"
 #include "BossNormal.h"
+#include "Elevator1.h"
 #include <map>
 
 class PlayScene : public GameScene
@@ -22,7 +23,7 @@ private:
 	MegaManCharacters *megaMan;
 	std::map<int, bool> keys;
 	GameMap *mMap;
-	BossNormal *bossNormal;
+	Elevator1 *elevator1;
 
 public:
 	void LoadContent();
@@ -30,6 +31,7 @@ public:
 	void Draw(double time);
 	void OnKeyDown(int keyCode);
 	void OnKeyUp(int keyCode);
+	CollisionResult CheckCollision(GameObject* obj1, GameObject* obj2, double time);
 	PlayScene(HWND hWnd, HINSTANCE hInstance);
 	PlayScene();
 	~PlayScene();

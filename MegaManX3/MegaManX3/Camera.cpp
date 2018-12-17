@@ -37,6 +37,14 @@ void Camera::CameraOnWorld() {
 		this->position.x = 0;
 	if (bl_position.y < 0)
 		this->position.y = this->height;
+
+	//Row 1
+	if (tl_position.x < 1700) {
+		if (tl_position.y > 2784 || bl_position.y < 2284) {
+			this->position.y = 2784;
+		}
+	}
+
 }
 
 void Camera::Update(MegaManCharacters* megaMan)
@@ -60,13 +68,13 @@ void Camera::Update(MegaManCharacters* megaMan)
 	if (megaManPosition.x > cameraXCenter + DELTA_CAMERA)
 		this->vx = megaManPosition.x - cameraXCenter - DELTA_CAMERA;
 
-	////Top
-	//if (megaManPosition.y < cameraYCenter - DELTA_CAMERA)
-	//	this->vy = megaManPosition.y - cameraYCenter + DELTA_CAMERA;
+	//Top
+	if (megaManPosition.y < cameraYCenter - DELTA_CAMERA)
+		this->vy = megaManPosition.y - cameraYCenter + DELTA_CAMERA;
 
-	////Bottom
-	//if (megaManPosition.y > cameraYCenter + DELTA_CAMERA)
-	//	this->vy = megaManPosition.y - cameraYCenter - DELTA_CAMERA;
+	//Bottom
+	if (megaManPosition.y > cameraYCenter + DELTA_CAMERA)
+		this->vy = megaManPosition.y - cameraYCenter - DELTA_CAMERA;
 
 
 	this->position.x += this->vx;

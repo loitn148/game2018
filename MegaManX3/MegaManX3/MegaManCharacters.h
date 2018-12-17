@@ -69,6 +69,8 @@ public:
 	bool isFalling;
 	double holdAttack;
 
+	MegaManData* GetMegaManData();
+
 	void CreateBullet(int level);
 
 	MegaManCharacters();

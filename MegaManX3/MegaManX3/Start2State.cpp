@@ -6,7 +6,7 @@
 Start2State::Start2State(MegaManData *megaManData) {
 	this->megaManData = megaManData;
 	this->megaManData->megaMan->SetVx(0);
-	this->megaManData->megaMan->SetVy(0);
+	//this->megaManData->megaMan->SetVy(0);
 }
 
 

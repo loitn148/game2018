@@ -8,9 +8,9 @@ StandingState::StandingState(MegaManData *megaManData, bool isStart) {
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
 	if (isStart == true) {
 		this->megaManData->megaMan->SetVx(0);
-		this->megaManData->megaMan->SetVy(0);
+		//this->megaManData->megaMan->SetVy(0);
 		this->megaManData->megaMan->SetAx(0);
-		this->megaManData->megaMan->SetAy(ACCELERATION_Y);
+		//this->megaManData->megaMan->SetAy(ACCELERATION_Y);
 	}
 }
 

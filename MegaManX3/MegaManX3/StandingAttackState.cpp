@@ -9,9 +9,9 @@ StandingAttackState::StandingAttackState(MegaManData *megaManData, bool isStart)
 	if (isStart == true) {
 		listAnimation[STANDING_ATTACK].SetIndex(1);
 		this->megaManData->megaMan->SetVx(0);
-		this->megaManData->megaMan->SetVy(0);
+		//this->megaManData->megaMan->SetVy(0);
 		this->megaManData->megaMan->SetAx(0);
-		this->megaManData->megaMan->SetAy(ACCELERATION_SWEEP_Y);
+		//this->megaManData->megaMan->SetAy(ACCELERATION_Y);
 	}
 }
 

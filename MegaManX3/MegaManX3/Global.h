@@ -17,14 +17,14 @@
 #define KEYBOARD_BUFFER_SIZE 1024
 
 //Window
-#define WIDTH 600
+#define WIDTH 565
 #define HEIGHT 500
 #define GAME_TITLE "MegaMan X3"
 
 //POSITION
 #define WORLD_X 18336  //6112
 #define WORLD_Y 4512  //1504
-#define CAMERA_START_X 0
+#define CAMERA_START_X 1
 #define CAMERA_START_Y 2784 //2862
 #define MEGAMAN_START_X 100
 #define MEGAMAN_START_Y 2500
@@ -82,6 +82,7 @@ enum Object {
 	STATICOBJECT,
 	BULLET,
 	NORMALBOSS,
+	ELEVATOR
 };
 
 //Object Direct
@@ -128,3 +129,4 @@ struct CollisionResult
 #define ENEMIES_1 "Assets/enemies/running.png"
 
 #define BOSSNORMAL "Assets/MMX3ShurikeinF.png"
+#define ELEVATOR1 "Assets/map/elevator1.png"
