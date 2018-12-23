@@ -10,19 +10,23 @@ void PlayScene::LoadContent() {
 	mMap = GameMap::GetInstance();
 	mMap->Init("Assets/map/map.tmx");
 	elevator1 = new Elevator1(VT3(1987, 2320, 0), 0, 0);
+	bossNormal = new BossNormal(VT3(1400, 2200, 0), 0, 0);
 }
 
 void PlayScene::Update(double time) {
+	double entryTime = time;
 	CollisionResult collisiontResult = CheckCollision(this->megaMan, this->elevator1, time);
 	if (collisiontResult.isCollision && collisiontResult.directCollision == BOTTOM) {
 		if (this->elevator1->GetIsActive() == false) {
 			this->elevator1->SetIsActive(true);
-			this->elevator1->SetVy(100);
+			this->elevator1->SetVy(300);
+			this->camera->SetPosition(VT3(1705, 2785, 0));
 		}
-		this->megaMan->SetVy(100);
+		this->megaMan->SetVy(this->elevator1->GetVy());
 		this->megaMan->SetAy(0);
+		entryTime = collisiontResult.entryTime;
 
-		int deltaBottom = MEGAMAN_WIDTH;
+		/*int deltaBottom = MEGAMAN_WIDTH;
 		if (this->megaMan->GetDirect() == RIGHT) {
 			deltaBottom = this->elevator1->GetRect().right - this->megaMan->GetRect().left;
 		}
@@ -32,18 +36,21 @@ void PlayScene::Update(double time) {
 
 		if (deltaBottom <= MEGAMAN_WIDTH / 5) {
 			this->megaMan->SetState(new FallingState(this->megaMan->GetMegaManData()));
-		}
+		}*/
 	}
-	this->megaMan->Update(time);
+
+	this->megaMan->Update(entryTime);
+	this->elevator1->Update(time);
 	this->camera->Update(this->megaMan);
 	this->megaMan->HandleKeyboard(this->keys);
-	this->elevator1->Update(time);
+	this->bossNormal->Update(time);
 }
 
 void PlayScene::Draw(double time) {
 	mMap->Draw();
 	this->megaMan->Draw(time);
 	this->elevator1->Draw(time);
+	this->bossNormal->Draw(time);
 }
 
 PlayScene::PlayScene(HWND hWnd, HINSTANCE hInstance) {

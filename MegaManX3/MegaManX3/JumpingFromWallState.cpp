@@ -5,13 +5,21 @@
 
 JumpingFromWallState::JumpingFromWallState(MegaManData *megaManData, bool isStart) {
 	this->megaManData = megaManData;
+
+	if (this->megaManData->megaMan->GetDirect() == LEFT) {
+		this->megaManData->megaMan->SetDirect(RIGHT);
+	}
+	else {
+		this->megaManData->megaMan->SetDirect(LEFT);
+	}
+
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
 	if (isStart == true) {
 		listAnimation[JUMPING_FROM_WALL].SetIndex(0);
 		this->megaManData->megaMan->SetVy(JUMP_SPEED);
 
 		VT3 position = this->megaManData->megaMan->GetPosition();
-		this->megaManData->megaMan->SetPosition(VT3(position.x + 10 * this->megaManData->megaMan->GetDirect(), position.y, 0));
+		this->megaManData->megaMan->SetPosition(VT3(position.x + -10 * this->megaManData->megaMan->GetDirect(), position.y, 0));
 		this->megaManData->megaMan->SetAy(ACCELERATION_Y);
 		this->megaManData->megaMan->isJumping = true;
 	}

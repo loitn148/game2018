@@ -21,7 +21,7 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 	this->hWnd = hWnd;
 	this->id = MEGAMAN;
 	this->direct = RIGHT;
-	this->position = VT3(MEGAMAN_START_X, MEGAMAN_START_Y, 0);
+	this->position = VT3(1600, MEGAMAN_START_Y, 0);
 	this->vx = this->vy = 0;
 	this->ax = 0;
 	this->ay = ACCELERATION_Y;
@@ -123,7 +123,8 @@ void MegaManCharacters::Update(double time)
 				this->position.x += this->vx * entryTime;
 				this->UpdateRect();
 
-				if (this->currentState == JUMPING || this->currentState == JUMPING_ATTACK) {
+				if (this->currentState == JUMPING || this->currentState == JUMPING_ATTACK
+					|| this->currentState == JUMPING_FROM_WALL || this->currentState == JUMPING_FROM_WALL_ATTACK) {
 					this->SetState(new SweepingWallState(this->megaManData));
 				}
 				this->vx = 0;
@@ -403,7 +404,7 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(40, 0, 78, 24));
 	temp.push_back(Rect(0, 31, 32, 61));
 
-	this->listAnimation[JUMPING_FROM_WALL].Create(JUMP_FROM_WALL_PATH, temp.size(), temp, 0.01f, LEFT);
+	this->listAnimation[JUMPING_FROM_WALL].Create(JUMP_FROM_WALL_PATH, temp.size(), temp, 0.01f, RIGHT);
 	temp.clear();
 
 	//JUMPING_FROM_WALL_ATTACK
@@ -414,7 +415,7 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(40, 32, 78, 62));
 	temp.push_back(Rect(0, 0, 32, 36));
 
-	this->listAnimation[JUMPING_FROM_WALL_ATTACK].Create(JUMP_FROM_WALL_ATTACK_PATH, temp.size(), temp, 0.01f, LEFT);
+	this->listAnimation[JUMPING_FROM_WALL_ATTACK].Create(JUMP_FROM_WALL_ATTACK_PATH, temp.size(), temp, 0.01f, RIGHT);
 	temp.clear();
 
 	//FALLING

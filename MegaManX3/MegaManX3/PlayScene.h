@@ -24,6 +24,7 @@ private:
 	std::map<int, bool> keys;
 	GameMap *mMap;
 	Elevator1 *elevator1;
+	BossNormal *bossNormal;
 
 public:
 	void LoadContent();

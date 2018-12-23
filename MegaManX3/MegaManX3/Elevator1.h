@@ -14,6 +14,7 @@ public:
 	void Update(double time);
 	void Draw(double time);
 	bool isActive;
+	bool isStop;
 	Elevator1(VT3 position, double vx, double vy);
 	Elevator1();
 	~Elevator1();

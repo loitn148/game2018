@@ -31,7 +31,7 @@
 #define MAP_BASE_Y 2386
 #define MEGAMAN_WIDTH 50
 #define MEGAMAN_HEIGHT 80
-#define DELTA_CAMERA 50
+#define DELTA_CAMERA 20
 
 //MEGAMAN SPEED
 #define RUN_SPEED 500
@@ -128,5 +128,5 @@ struct CollisionResult
 
 #define ENEMIES_1 "Assets/enemies/running.png"
 
-#define BOSSNORMAL "Assets/MMX3ShurikeinF.png"
+#define BOSSNORMAL "Assets/boss/boss_normal.png"
 #define ELEVATOR1 "Assets/map/elevator1.png"
