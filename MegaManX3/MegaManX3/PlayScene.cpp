@@ -12,7 +12,7 @@ void PlayScene::LoadContent() {
 	elevator1 = new Elevator1(VT3(1987, 2320, 0), 0, 0);
 	Sweep = new EnemySweeping();
 	Sweep->Init(VT3(1800, 2600, 0), 0, 0,RIGHT);
-	bossNormal = new BossNormal(VT3(1400, 2200, 0), 0, 0);
+	//bossNormal = new BossNormal(VT3(1400, 2200, 0), 0, 0);
 }
 
 void PlayScene::Update(double time) {
@@ -53,7 +53,7 @@ void PlayScene::Update(double time) {
 	this->elevator1->Update(time);
 	this->camera->Update(this->megaMan);
 	this->megaMan->HandleKeyboard(this->keys);
-	this->bossNormal->Update(time);
+	//this->bossNormal->Update(time);
 }
 
 void PlayScene::Draw(double time) {
@@ -69,7 +69,7 @@ void PlayScene::Draw(double time) {
 	Sweep->Draw(time);
 	this->megaMan->Draw(time);
 	this->elevator1->Draw(time);
-	this->bossNormal->Draw(time);
+	//this->bossNormal->Draw(time);
 }
 
 PlayScene::PlayScene(HWND hWnd, HINSTANCE hInstance) {
