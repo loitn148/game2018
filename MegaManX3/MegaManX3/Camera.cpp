@@ -262,7 +262,7 @@ RECT Camera::GetRect()
 	rect.left = position.x;
 	rect.top = position.y;
 	rect.right = rect.left + width;
-	rect.bottom = rect.top + height;
+	rect.bottom = rect.top - height;
 	return rect;
 }
 

@@ -98,66 +98,6 @@ void GameMap::LoadMap(char *filePath)
 		}
 	}
 #pragma endregion
-#pragma region -ONEHIT-
-
-	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
-	{
-		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
-		if (objectGroup->GetName() == "Onehit")
-		{
-			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
-			{
-				//lay object group chu khong phai layer
-				//object group se chua nhung body
-				Tmx::Object *object = objectGroup->GetObjects().at(j);
-				int posX = object->GetX() * 3;
-				int posY = WORLD_Y - object->GetY() * 3;
-				GameObject* staticObj = new GameObject();
-				VT3 position(posX, posY, 0);
-				staticObj->SetPosition(position);
-				Rect StaticRect = {
-					posY,
-					posX,
-					posY - object->GetHeight() * 3,
-					posX + object->GetWidth() * 3
-				};
-				staticObj->SetRect(StaticRect);
-
-				quadtree->InsertObject(staticObj);
-			}
-		}
-	}
-#pragma endregion
-#pragma region -CAUTHANG-
-
-	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
-	{
-		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
-		if (objectGroup->GetName() == "cauthang")
-		{
-			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
-			{
-				//lay object group chu khong phai layer
-				//object group se chua nhung body
-				Tmx::Object *object = objectGroup->GetObjects().at(j);
-				int posX = object->GetX() * 3;
-				int posY = WORLD_Y - object->GetY() * 3;
-				GameObject* staticObj = new GameObject();
-				VT3 position(posX, posY, 0);
-				staticObj->SetPosition(position);
-				Rect StaticRect = {
-					posY,
-					posX,
-					posY - object->GetHeight() * 3,
-					posX + object->GetWidth() * 3
-				};
-				staticObj->SetRect(StaticRect);
-
-				quadtree->InsertObject(staticObj);
-			}
-		}
-	}
-#pragma endregion
 #pragma region -One Gun-
 
 	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
