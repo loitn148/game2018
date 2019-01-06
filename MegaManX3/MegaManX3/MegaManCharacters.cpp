@@ -1,5 +1,6 @@
 #include "MegaManCharacters.h"
 #include "SmokeEffect.h"
+#include "HoldAttackEffect.h"
 
 
 
@@ -170,6 +171,15 @@ void MegaManCharacters::Update(double time)
 		}
 	}
 
+	if (this->holdAttackEffect) {
+		this->holdAttackEffect->SetPosition(this->position);
+
+		if (this->holdAttackEffect->GetIsDead() == true) {
+			free(this->holdAttackEffect);
+			this->holdAttackEffect = nullptr;
+		}
+	}
+
 	if (this->megaManData->megaManState) {
 		this->megaManData->megaManState->Update(time);
 	}
@@ -216,6 +226,16 @@ void MegaManCharacters::OnKeyDown(int keyCode) {
 	}
 	if (keyCode == VK_A) {
 		this->holdAttack += 0.25f;
+
+		if (this->holdAttack >= 0.5f) {
+			if (!this->holdAttackEffect) {
+				this->holdAttackEffect = new HoldAttackEffect(VT3(this->position.x, this->position.y + 40, 0), 0);
+			}
+		}
+
+		if (this->holdAttack >= 3.5f) {
+			this->holdAttackEffect->ChangeAnimation(1);
+		}
 	}
 	if (keyCode == VK_UP) {
 		this->SetState(new HurtState(this->megaManData, currentState));
@@ -273,16 +293,19 @@ void MegaManCharacters::OnKeyUp(int keyCode) {
 			break;
 		}
 
-		if (this->holdAttack >= 3.0f) {
+		if (this->holdAttack >= 3.5f) {
 			this->CreateBullet(3);
 		}
-		else if (this->holdAttack >= 1.25f) {
+		else if (this->holdAttack >= 1.0f) {
 			this->CreateBullet(2);
 		}
-		else if (this->holdAttack < 1.25f) {
+		else if (this->holdAttack < 1.0f) {
 			this->CreateBullet(1);
 		}
 		this->holdAttack = 0.0f;
+		if (this->holdAttackEffect) {
+			this->holdAttackEffect->SetIsDead(true);
+		}
 	}
 }
 
@@ -307,6 +330,11 @@ void MegaManCharacters::Draw(double time) {
 		{
 			this->listSmokeEff[i]->Draw(time);
 		}
+	}
+
+	if (this->holdAttackEffect)
+	{
+		this->holdAttackEffect->Draw(time);
 	}
 }
 

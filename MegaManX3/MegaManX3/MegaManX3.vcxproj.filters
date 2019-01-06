@@ -282,6 +282,9 @@
     <ClCompile Include="HurtState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HoldAttackEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -558,6 +561,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HurtState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HoldAttackEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

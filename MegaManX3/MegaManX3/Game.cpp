@@ -27,7 +27,7 @@ void Game::Run() {
 	GameTime::GetInstance()->Run();
 
 	this->timeLoop += GameTime::GetInstance()->currentTime;
-	if (this->timeLoop >= 1.0f / 60)
+	if (this->timeLoop >= 1.0f / 30)
 	{
 		if (GameGraphic::GetInstance()->device->BeginScene()) {
 

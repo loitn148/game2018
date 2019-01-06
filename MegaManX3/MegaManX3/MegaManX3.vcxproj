@@ -160,6 +160,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="HoldAttackEffect.cpp" />
     <ClCompile Include="HurtState.cpp" />
     <ClCompile Include="JumpingAttackState.cpp" />
     <ClCompile Include="JumpingFromWallAttackState.cpp" />
@@ -252,6 +253,7 @@
     <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="HoldAttackEffect.h" />
     <ClInclude Include="HurtState.h" />
     <ClInclude Include="JumpingAttackState.h" />
     <ClInclude Include="JumpingFromWallAttackState.h" />

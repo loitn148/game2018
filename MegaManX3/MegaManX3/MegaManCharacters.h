@@ -39,6 +39,7 @@
 #include <map>
 
 class SmokeEffect;
+class HoldAttackEffect;
 
 class MegaManCharacters : public GameObject
 {
@@ -50,7 +51,7 @@ protected:
 	MegaManData* megaManData;
 	CharactersStates currentState;
 	int positionBeforeJump;
-	PlayerBullets* myBullet;
+	HoldAttackEffect* holdAttackEffect;
 	vector<PlayerBullets*> listBullet;
 	vector<SmokeEffect*> listSmokeEff;
 public:

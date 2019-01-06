@@ -89,7 +89,8 @@ enum Object {
 	ENEMYROCKET,
 	ELEVATOR,
 	BULLETENEMY,
-	SMOKE
+	SMOKE,
+	HOLDATTACK
 };
 
 enum OneGunStates{
@@ -155,6 +156,8 @@ struct CollisionResult
 #define BULLET_LV3_PATH "Assets/megaman/bullet_lv3.png"
 
 #define SMOKE_EFFECT_PATH "Assets/megaman/smoke_effect.png"
+#define HOLD_1_EFFECT_PATH "Assets/megaman/hold_bullet_2.png"
+#define HOLD_2_EFFECT_PATH "Assets/megaman/hold_bullet_3.png"
 
 #define ENEMIES_1 "Assets/enemies/running.png"
 

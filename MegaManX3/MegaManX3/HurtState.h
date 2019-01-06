@@ -10,9 +10,6 @@ public:
 	HurtState(MegaManData *megaManData, CharactersStates previousState);
 	~HurtState();
 
-	double duration;
-	CharactersStates previousState;
-
 	void Update(double time);
 
 	void HandleKeyboard(std::map<int, bool> keys);
