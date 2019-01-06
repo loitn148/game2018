@@ -82,9 +82,31 @@ enum Object {
 	STATICOBJECT,
 	BULLET,
 	NORMALBOSS,
+	ONEGUN,
+	ENEMYROCKET,
 	ELEVATOR
 };
 
+enum OneGunStates{
+	ENEMYJUMPING = 0,
+	ENEMYSTANDING,
+	ENEMYATTACK1,
+	ENEMYATTACK2,
+
+};
+
+enum EnemyRocketStates{
+	ENEMYROCKETSTANDING = 0,
+	ENEMYROCKETATTACK1,
+	ENEMYROCKETATTACK2,
+
+};
+
+enum EnemySweepingStates{
+	ENEMYSWEEPINGNORMAL = 0,
+	ENEMYSWEEPINGSHOOTING,
+
+};
 //Object Direct
 enum Direct {
 	LEFT = -1,
@@ -130,3 +152,16 @@ struct CollisionResult
 
 #define BOSSNORMAL "Assets/boss/boss_normal.png"
 #define ELEVATOR1 "Assets/map/elevator1.png"
+
+#define ENEMIES_1_JUMP		 "Assets/enemies/jump.png"
+#define ENEMIES_1_STAND		 "Assets/enemies/stand.png"
+#define ENEMIES_1_ATTACK1	 "Assets/enemies/attack1.png"
+#define ENEMIES_1_ATTACK2	 "Assets/enemies/attack2.png"
+
+#define ENEMIES_ROCKET_SHOOTING		 "Assets/enemies/shooting.png"
+#define ENEMIES_ROCKET_STAND		 "Assets/enemies/EnemyRocketStand.png"
+
+#define ENEMIES_SWEEPING_NORMAL		 "Assets/enemies/normal.png"
+#define ENEMIES_SWEEPING_SHOOTING	 "Assets/enemies/Sweepingshooting.png"
+
+
