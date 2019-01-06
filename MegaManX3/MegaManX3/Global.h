@@ -80,6 +80,8 @@ enum CharactersStates {
 enum Object {
 	MEGAMAN,
 	STATICOBJECT,
+	ONEHITOBJECT,
+	CAUTHANG,
 	BULLET,
 	NORMALBOSS,
 	ONEGUN,

@@ -37,8 +37,6 @@ public:
     int GetTileWidth();
     int GetTileHeight();
 	vector<GameObject*> vtStaticObject;
-	vector<GameObject*> vtOneHitObject;
-	vector<GameObject*> vtCauthangObject;
     void Draw();
 	Quadtree* GetQuadtree();
 

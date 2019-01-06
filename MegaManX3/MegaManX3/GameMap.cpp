@@ -19,20 +19,6 @@ GameMap::~GameMap()
 	}
 	vtStaticObject.clear();
 
-	for (size_t i = 0; i < vtOneHitObject.size(); i++)
-	{
-		if (vtOneHitObject[i])
-			delete vtOneHitObject[i];
-	}
-	vtOneHitObject.clear();
-
-	for (size_t i = 0; i < vtCauthangObject.size(); i++)
-	{
-		if (vtCauthangObject[i])
-			delete vtCauthangObject[i];
-	}
-	vtCauthangObject.clear();
-
 	delete quadtree;
 }
 
@@ -77,7 +63,7 @@ void GameMap::LoadMap(char *filePath)
 	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
 	{
 		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
-		if (objectGroup->GetName() == "Static")
+		if (objectGroup->GetName() == "Static" || objectGroup->GetName() == "Onehit" || objectGroup->GetName() == "cauthang")
 		{
 			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
 			{
@@ -96,7 +82,77 @@ void GameMap::LoadMap(char *filePath)
 					posX + object->GetWidth() * 3
 				};
 				staticObj->SetRect(StaticRect);
+				if (objectGroup->GetName() == "Static") {
+					staticObj->SetId(STATICOBJECT);
+				}
+				else if (objectGroup->GetName() == "Onehit") {
+					staticObj->SetId(ONEHITOBJECT);
+				}
+				else if (objectGroup->GetName() == "cauthang") {
+					staticObj->SetHeight(object->GetHeight() * 3);
+					staticObj->SetId(CAUTHANG);
+				}
 				
+				quadtree->InsertObject(staticObj);
+			}
+		}
+	}
+#pragma endregion
+#pragma region -ONEHIT-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "Onehit")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				GameObject* staticObj = new GameObject();
+				VT3 position(posX, posY, 0);
+				staticObj->SetPosition(position);
+				Rect StaticRect = {
+					posY,
+					posX,
+					posY - object->GetHeight() * 3,
+					posX + object->GetWidth() * 3
+				};
+				staticObj->SetRect(StaticRect);
+
+				quadtree->InsertObject(staticObj);
+			}
+		}
+	}
+#pragma endregion
+#pragma region -CAUTHANG-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "cauthang")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				GameObject* staticObj = new GameObject();
+				VT3 position(posX, posY, 0);
+				staticObj->SetPosition(position);
+				Rect StaticRect = {
+					posY,
+					posX,
+					posY - object->GetHeight() * 3,
+					posX + object->GetWidth() * 3
+				};
+				staticObj->SetRect(StaticRect);
+
 				quadtree->InsertObject(staticObj);
 			}
 		}

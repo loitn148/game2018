@@ -278,7 +278,7 @@ void Camera::Create(VT3 position, int width, int height)
 	this->height = height;
 	allowMoveX = true;
 	allowMoveY = false;
-	state = 1;
+	state = 7;
 }
 
 Camera::Camera() {

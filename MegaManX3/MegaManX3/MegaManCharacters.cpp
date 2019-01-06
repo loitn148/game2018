@@ -21,7 +21,7 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 	this->hWnd = hWnd;
 	this->id = MEGAMAN;
 	this->direct = RIGHT;
-	this->position = VT3(1600, MEGAMAN_START_Y, 0);
+	this->position = VT3(6600, 2500, 0);
 	this->vx = this->vy = 0;
 	this->ax = 0;
 	this->ay = ACCELERATION_Y;
@@ -122,6 +122,12 @@ void MegaManCharacters::Update(double time)
 			case LEFT:
 				this->position.x += this->vx * entryTime;
 				this->UpdateRect();
+
+				if (listCollision[i]->GetId() == CAUTHANG) {
+					this->position.y += listCollision[i]->GetHeight() + 5;
+					this->position.x += this->direct*5;
+					this->UpdateRect();
+				}
 
 				if (this->currentState == JUMPING || this->currentState == JUMPING_ATTACK
 					|| this->currentState == JUMPING_FROM_WALL || this->currentState == JUMPING_FROM_WALL_ATTACK) {

@@ -43,6 +43,8 @@ public:
 	void SetVy(double vy);
 	void SetAx(double ax);
 	void SetAy(double ay);
+	void SetHeight(int height);
+	void SetWidth(int width);
 	void SetRect(Rect rect);
 	void SetDirect(Direct direct);
 	void UpdateRect();

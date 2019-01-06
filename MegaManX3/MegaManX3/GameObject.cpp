@@ -95,6 +95,14 @@ void GameObject::SetAy(double ay) {
 	this->ay = ay;
 }
 
+void GameObject::SetHeight(int height) {
+	this->height = height;
+}
+
+void GameObject::SetWidth(int width) {
+	this->width = width;
+}
+
 void GameObject::SetRect(Rect rect) {
 	this->rectBound = rect;
 }
