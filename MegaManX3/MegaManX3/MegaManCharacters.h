@@ -63,6 +63,7 @@ public:
 	void SetState(MegaManState* state);
 	void SetListAnimation();
 	void AddSmokeEffect(VT3 smokePosition);
+	void AddPosition(VT3 distance);
 	//void AddPosition
 
 	Animation* GetListAnimation();

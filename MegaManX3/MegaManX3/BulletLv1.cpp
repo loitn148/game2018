@@ -37,9 +37,6 @@ BulletLv1::BulletLv1(D3DXVECTOR3 position, double vx, Direct direct)
 
 void BulletLv1::Update(double time)
 {
-	position.x += vx*time;
-	position.y += vy*time;
-
 	if (this->animation->GetIndex() == 1 && this->isCollision == false) {
 		this->animation->SetIndex(0);
 	}

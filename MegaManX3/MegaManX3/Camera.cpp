@@ -103,8 +103,9 @@ void Camera::CameraOnWorld() {
 	//}
 
 	if (state == 1) {
+		position.y = 2784;
 		allowMove(true, false);
-	}
+	} 
 	else if (state == 2) {
 		allowMove(false, true);
 		if (position.y < 2784) {
@@ -217,8 +218,7 @@ void Camera::Update(MegaManCharacters* megaMan)
 		if (megaManPosition.y > cameraYCenter + DELTA_CAMERA)
 			vy = megaManPosition.y - cameraYCenter - DELTA_CAMERA;
 	}
-
-	if (position.x < 1705 && position.y == 2784) {
+	if(position.x < 1705 && position.y != 3910) {
 		state = 1;
 	}
 	else if (position.x == 1705 && position.y > 2784 && position.y < 3910) {
@@ -278,7 +278,7 @@ void Camera::Create(VT3 position, int width, int height)
 	this->height = height;
 	allowMoveX = true;
 	allowMoveY = false;
-	state = 7;
+	state = 1;
 }
 
 Camera::Camera() {

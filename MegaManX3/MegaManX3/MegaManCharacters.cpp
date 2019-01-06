@@ -45,11 +45,8 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 
 void MegaManCharacters::UpdatePosition(double time)
 {
-	this->dx = this->vx * time;
-	this->dy = this->vy * time;
-
-	this->position.x += this->dx;
-	this->position.y += this->dy;
+	this->position.x += this->vx * time;
+	this->position.y += this->vy * time;
 
 	this->UpdateRect();
 
@@ -138,6 +135,7 @@ void MegaManCharacters::Update(double time)
 					}
 					this->vx = 0;
 				}
+				break;
 			default:
 				break;
 			}
@@ -492,17 +490,40 @@ MegaManData* MegaManCharacters::GetMegaManData() {
 }
 
 void MegaManCharacters::CreateBullet(int level) {
+	int distancey1, distancey2, distancey3, distancex;
+	switch (currentState)
+	{
+	case STANDING_ATTACK:
+		distancey1 = 43;
+		distancey2 = 35;
+		distancey3 = 25;
+		distancex = 10;
+		break;
+	case SWEEPING_ATTACK:
+		distancey1 = 25;
+		distancey2 = 15;
+		distancey3 = 5;
+		distancex = 35;
+		break;
+	default:
+		distancey1 = 50;
+		distancey2 = 40;
+		distancey3 = 30;
+		distancex = 10;
+		break;
+	}
+
 	PlayerBullets *bullet;
 	if (level == 1) {
-		bullet = new BulletLv1(VT3(this->position.x, this->position.y + 43, 0), 100 * direct, direct);
+		bullet = new BulletLv1(VT3(this->position.x + direct * distancex, this->position.y + distancey1, 0), 1500 * direct, direct);
 		listBullet.push_back(bullet);
 	}
 	else if (level == 2) {
-		bullet = new BulletLv2(VT3(this->position.x, this->position.y + 35, 0), 100 * direct, direct);
+		bullet = new BulletLv2(VT3(this->position.x + direct * distancex, this->position.y + distancey2, 0), 1500 * direct, direct);
 		listBullet.push_back(bullet);
 	}
 	else if (level == 3) {
-		bullet = new BulletLv3(VT3(this->position.x, this->position.y + 25, 0), 100 * direct, direct);
+		bullet = new BulletLv3(VT3(this->position.x + direct * distancex, this->position.y + distancey3, 0), 1500 * direct, direct);
 		listBullet.push_back(bullet);
 	}
 }
@@ -510,5 +531,10 @@ void MegaManCharacters::CreateBullet(int level) {
 void MegaManCharacters::AddSmokeEffect(VT3 smokePosition) {
 	SmokeEffect *smoke = new SmokeEffect(smokePosition);
 	this->listSmokeEff.push_back(smoke);
+}
+
+void MegaManCharacters::AddPosition(VT3 distance) {
+	this->position.x += distance.x;
+	this->position.y += distance.y;
 }
 
