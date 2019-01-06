@@ -10,12 +10,27 @@ GameMap::~GameMap()
 {
 	delete map;
 
+	//static
 	for (size_t i = 0; i < vtStaticObject.size(); i++)
 	{
 		if (vtStaticObject[i])
 			delete vtStaticObject[i];
 	}
 	vtStaticObject.clear();
+
+	for (size_t i = 0; i < vtOneHitObject.size(); i++)
+	{
+		if (vtOneHitObject[i])
+			delete vtOneHitObject[i];
+	}
+	vtOneHitObject.clear();
+
+	for (size_t i = 0; i < vtCauthangObject.size(); i++)
+	{
+		if (vtCauthangObject[i])
+			delete vtCauthangObject[i];
+	}
+	vtCauthangObject.clear();
 
 	delete quadtree;
 }
