@@ -73,7 +73,8 @@ enum CharactersStates {
 	JUMPING_FROM_WALL = 12,
 	JUMPING_FROM_WALL_ATTACK = 13,
 	FALLING = 14,
-	FALLING_ATTACK = 15
+	FALLING_ATTACK = 15,
+	HURT = 16
 };
 
 //Object Game
@@ -88,6 +89,7 @@ enum Object {
 	ENEMYROCKET,
 	ELEVATOR,
 	BULLETENEMY,
+	SMOKE
 };
 
 enum OneGunStates{
@@ -146,10 +148,13 @@ struct CollisionResult
 #define SWEEP_WALL_ATTACK_PATH "Assets/megaman/sweep_wall_attack.png"
 #define JUMP_FROM_WALL_PATH "Assets/megaman/jump_from_wall.png"
 #define JUMP_FROM_WALL_ATTACK_PATH "Assets/megaman/jump_from_wall_attack.png"
+#define HURT_PATH "Assets/megaman/hurt.png"
 
-#define BULLET_LV1_PATH ""
-#define BULLET_LV2_PATH ""
-#define BULLET_LV3_PATH ""
+#define BULLET_LV1_PATH "Assets/megaman/bullet_lv1.png"
+#define BULLET_LV2_PATH "Assets/megaman/bullet_lv2.png"
+#define BULLET_LV3_PATH "Assets/megaman/bullet_lv3.png"
+
+#define SMOKE_EFFECT_PATH "Assets/megaman/smoke_effect.png"
 
 #define ENEMIES_1 "Assets/enemies/running.png"
 

@@ -161,6 +161,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="HurtState.cpp" />
     <ClCompile Include="JumpingAttackState.cpp" />
     <ClCompile Include="JumpingFromWallAttackState.cpp" />
     <ClCompile Include="JumpingFromWallState.cpp" />
@@ -199,6 +200,7 @@
     <ClCompile Include="RunningAttackState.cpp" />
     <ClCompile Include="RunningState.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SmokeEffect.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StandingAttackState.cpp" />
     <ClCompile Include="StandingState.cpp" />
@@ -252,6 +254,7 @@
     <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="HurtState.h" />
     <ClInclude Include="JumpingAttackState.h" />
     <ClInclude Include="JumpingFromWallAttackState.h" />
     <ClInclude Include="JumpingFromWallState.h" />
@@ -293,6 +296,7 @@
     <ClInclude Include="RunningAttackState.h" />
     <ClInclude Include="RunningState.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SmokeEffect.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StandingAttackState.h" />
     <ClInclude Include="StandingState.h" />

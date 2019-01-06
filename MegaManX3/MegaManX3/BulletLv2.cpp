@@ -33,7 +33,7 @@ BulletLv2::BulletLv2(D3DXVECTOR3 position, double vx, Direct direct)
 	temp.push_back(Rect(61, 25, 83, 47));
 	temp.push_back(Rect(36, 64, 60, 88));
 
-	animation->Create("Assets/megaman/bullet_lv2.png", temp.size(), temp, 0.005f, RIGHT);
+	animation->Create(BULLET_LV2_PATH, temp.size(), temp, 0.005f, RIGHT);
 	temp.clear();
 
 	this->id = BULLET;
