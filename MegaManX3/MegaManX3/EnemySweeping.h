@@ -9,7 +9,7 @@
 #include "EnemySweepingData.h"
 #include "EnemySweepingState.h"
 
-#include "Rocket.h"
+#include "RocketEnemy3.h"
 
 #include <iostream>
 #include <vector>
@@ -22,7 +22,7 @@ class EnemySweeping :
 	EnemySweepingStates currentState;
 	void UpdatePosition(double time);
 public:
-	Rocket* rocket;
+	RocketEnemy3* rocket;
 	VT3 oldPosition;
 	Animation* listAnimation;
 	void Init(VT3 position, int width, int height, Direct direct);

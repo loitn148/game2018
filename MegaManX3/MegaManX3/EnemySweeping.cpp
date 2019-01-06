@@ -107,19 +107,20 @@ void EnemySweeping::SetState(EnemySweepingState* state)
 void EnemySweeping::SetListAnimation()
 {
 	std::vector<Rect> temp;
-	temp.push_back(Rect(0, 95, 37, 124));
-	temp.push_back(Rect(0, 33, 37, 63));
-	temp.push_back(Rect(0, 0, 37, 32));
-	temp.push_back(Rect(0, 64, 37, 94));
-	this->listAnimation[ENEMYSWEEPINGNORMAL].Create(ENEMIES_SWEEPING_NORMAL, temp.size(), temp, 0.01f, LEFT);
+	temp.push_back(Rect(0, 96, 36, 120));
+	temp.push_back(Rect(0, 40, 36, 67));
+	temp.push_back(Rect(0, 0, 36, 39));
+	temp.push_back(Rect(0, 68, 36, 95));
+	temp.push_back(Rect(37, 0, 73, 24));
+	this->listAnimation[ENEMYSWEEPINGNORMAL].Create(ENEMIES_SWEEPING_NORMAL, temp.size(), temp, 0.005f, LEFT);
 
 	temp.clear();
-	temp.push_back(Rect(42, 32, 79, 63));
-	temp.push_back(Rect(0, 81, 37, 114));
-	temp.push_back(Rect(42, 0, 83, 31));
-	temp.push_back(Rect(0, 0, 41, 43));
-	temp.push_back(Rect(0, 44, 41, 80));
-	this->listAnimation[ENEMYSWEEPINGSHOOTING].Create(ENEMIES_SWEEPING_SHOOTING, temp.size(), temp, 0.1f, LEFT);
+	temp.push_back(Rect(0, 96, 36, 120));
+	temp.push_back(Rect(0, 40, 36, 67));
+	temp.push_back(Rect(0, 0, 36, 39));
+	temp.push_back(Rect(0, 68, 36, 95));
+	temp.push_back(Rect(37, 0, 73, 24));
+	this->listAnimation[ENEMYSWEEPINGSHOOTING].Create(ENEMIES_SWEEPING_SHOOTING, temp.size(), temp, 0.005f, LEFT);
 
 
 

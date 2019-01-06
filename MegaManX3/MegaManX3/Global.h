@@ -84,7 +84,8 @@ enum Object {
 	NORMALBOSS,
 	ONEGUN,
 	ENEMYROCKET,
-	ELEVATOR
+	ELEVATOR,
+	BULLETENEMY,
 };
 
 enum OneGunStates{

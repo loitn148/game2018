@@ -10,7 +10,9 @@ void PlayScene::LoadContent() {
 	mMap = GameMap::GetInstance();
 	mMap->Init("Assets/map/map.tmx");
 	elevator1 = new Elevator1(VT3(1987, 2320, 0), 0, 0);
-	//bossNormal = new BossNormal(VT3(1400, 2200, 0), 0, 0);
+	Sweep = new EnemySweeping();
+	Sweep->Init(VT3(1800, 2600, 0), 0, 0,RIGHT);
+	bossNormal = new BossNormal(VT3(1400, 2200, 0), 0, 0);
 }
 
 void PlayScene::Update(double time) {
@@ -38,19 +40,36 @@ void PlayScene::Update(double time) {
 			this->megaMan->SetState(new FallingState(this->megaMan->GetMegaManData()));
 		}*/
 	}
-
+	for (int i = 0; i < mMap->vecOneGun.size(); i++)
+	{
+		mMap->vecOneGun[i]->Update(time);
+	}
+	for (int i = 0; i < mMap->vecEnemyRocket.size(); i++)
+	{
+		mMap->vecEnemyRocket[i]->Update(time);
+	}
+	Sweep->Update(time);
 	this->megaMan->Update(entryTime);
 	this->elevator1->Update(time);
 	this->camera->Update(this->megaMan);
 	this->megaMan->HandleKeyboard(this->keys);
-	//this->bossNormal->Update(time);
+	this->bossNormal->Update(time);
 }
 
 void PlayScene::Draw(double time) {
 	mMap->Draw();
+	for (int i = 0; i < mMap->vecOneGun.size(); i++)
+	{
+		mMap->vecOneGun[i]->Draw(time);
+	}
+	for (int i = 0; i < mMap->vecEnemyRocket.size(); i++)
+	{
+		mMap->vecEnemyRocket[i]->Draw(time);
+	}
+	Sweep->Draw(time);
 	this->megaMan->Draw(time);
 	this->elevator1->Draw(time);
-	//this->bossNormal->Draw(time);
+	this->bossNormal->Draw(time);
 }
 
 PlayScene::PlayScene(HWND hWnd, HINSTANCE hInstance) {

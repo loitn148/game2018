@@ -11,6 +11,9 @@
 #include "BossNormal.h"
 #include "Elevator1.h"
 #include <map>
+#include "EnemyOneGun.h"
+#include "EnemyRocket.h"
+#include "EnemySweeping.h"
 
 class PlayScene : public GameScene
 {
@@ -25,6 +28,7 @@ private:
 	GameMap *mMap;
 	Elevator1 *elevator1;
 	BossNormal *bossNormal;
+	EnemySweeping *Sweep;
 
 public:
 	void LoadContent();

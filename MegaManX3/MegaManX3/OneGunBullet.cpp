@@ -39,33 +39,33 @@ OneGunBullet::OneGunBullet(D3DXVECTOR3 position, double vy, double ay, double vx
 
 void OneGunBullet::Update(double time)
 {
-
-
-
-	if (this->animation->GetIndex() == 1 && this->isCollision == false) {
-		this->animation->SetIndex(0);
-	}
-	if (this->isCollision == true) {
-		this->vx = 0;
-		if (this->animation->GetIndex() == 0) {
-			this->isDead = true;
+	if (!isDead)
+	{
+		if (this->animation->GetIndex() == 1 && this->isCollision == false) {
+			this->animation->SetIndex(0);
 		}
-	}
-
-	vector<GameObject*> listCollision;
-	GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
-	CollisionResult staticCollision;
-	double entryTime = time;
-	for (int i = 0; i < listCollision.size(); i++) {
-		staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
-		if (staticCollision.isCollision) {
-			entryTime = staticCollision.entryTime;
-			this->isCollision = true;
+		if (this->isCollision == true) {
+			this->vx = 0;
+			if (this->animation->GetIndex() == 0) {
+				this->isDead = true;
+			}
 		}
-	}
-	UpdatePosition(time);
 
-	UpdateRect();
+		vector<GameObject*> listCollision;
+		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
+		CollisionResult staticCollision;
+		double entryTime = time;
+		for (int i = 0; i < listCollision.size(); i++) {
+			staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
+			if (staticCollision.isCollision) {
+				entryTime = staticCollision.entryTime;
+				this->isCollision = true;
+			}
+		}
+		UpdatePosition(time);
+
+		UpdateRect();
+	}
 }
 
 void OneGunBullet::Draw(double time)
