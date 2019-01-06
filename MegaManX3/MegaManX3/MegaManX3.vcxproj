@@ -154,7 +154,6 @@
     <ClCompile Include="FallingAttackState.cpp" />
     <ClCompile Include="FallingState.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameEnemy.cpp" />
     <ClCompile Include="GameGraphic.cpp" />
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -245,7 +244,6 @@
     <ClInclude Include="FallingAttackState.h" />
     <ClInclude Include="FallingState.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameEnemy.h" />
     <ClInclude Include="GameGraphic.h" />
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="GameMap.h" />

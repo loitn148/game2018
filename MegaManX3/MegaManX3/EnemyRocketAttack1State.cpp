@@ -21,7 +21,7 @@ void EnemyRocketAttack1State::Update(double time)
 	if (this->enemyRocketData->m_EnemyRocket->listAnimation[ENEMYROCKETATTACK1].GetIndex() == (this->enemyRocketData->m_EnemyRocket->listAnimation[ENEMYROCKETATTACK1].GetTotalFrame() - 1))
 	{
 		this->enemyRocketData->m_EnemyRocket->rocket = new Rocket(VT3(this->enemyRocketData->m_EnemyRocket->GetPosition().x, this->enemyRocketData->m_EnemyRocket->GetPosition().y+85, 0), 
-																	500 * this->enemyRocketData->m_EnemyRocket->GetDirect(),
+																	800 * this->enemyRocketData->m_EnemyRocket->GetDirect(),
 																	this->enemyRocketData->m_EnemyRocket->GetDirect());
 		this->enemyRocketData->m_EnemyRocket->SetState(new EnemyRocketStandingState(enemyRocketData));
 	}

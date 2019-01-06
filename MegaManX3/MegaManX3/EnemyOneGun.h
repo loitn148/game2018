@@ -2,7 +2,7 @@
 #ifndef __ENEMYONEGUN__H__
 #define __ENEMYONEGUN__H__
 
-#include "GameEnemy.h"
+#include "GameObject.h"
 #include "GameTime.h"
 #include "Animation.h"
 #include "Camera.h"
@@ -17,7 +17,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-class EnemyOneGun : public GameEnemy
+class EnemyOneGun : public GameObject
 {
 	EnemyOneGunData* enemyOneGunData;
 	OneGunStates currentState;

@@ -1,7 +1,7 @@
 #pragma once
 #ifndef __ENEMYSWEEPING__H__
 #define __ENEMYSWEEPING__H__
-#include "GameEnemy.h"
+#include "GameObject.h"
 #include "GameTime.h"
 #include "Animation.h"
 #include "Camera.h"
@@ -16,7 +16,7 @@
 #include <map>
 
 class EnemySweeping :
-	public GameEnemy
+	public GameObject
 {
 	EnemySweepingData* enemySweepingData;
 	EnemySweepingStates currentState;

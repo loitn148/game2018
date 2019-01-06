@@ -17,24 +17,24 @@ void EnemyRocket::Init(VT3 position, int width, int height, Direct direct)
 	this->width = width;
 	this->height = height;
 	this->listAnimation = new Animation[4];
-	this->SetBasePos(position);
+	//this->/*SetBasePos*/(position);
 	this->enemyRocketData = new EnemyRocketData();
 	this->enemyRocketData->m_EnemyRocket = this;
 	this->SetState(new EnemyRocketAttack1State(this->enemyRocketData));
-	SetDead(false);
+	SetIsDead(false);
 	this->UpdateRect();
 	this->SetListAnimation();
-	nLife = 3;
+	SetLife(3);
 }
 void EnemyRocket::Draw(double time)
 {
-	if (!GetDead() && checkCamera(time))
+	if (!GetIsDead() && checkCamera())
 	{
 		this->transform.positionInViewport = this->GetPositionInViewport();
 		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 		this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-		this->listAnimation[currentState].Draw(transform.positionInViewport, this->direct, time, VT2(3, 3), transform.translation);
+		this->listAnimation[currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2.5, 2.5), transform.translation);
 	}
 	if (rocket != NULL && !rocket->GetIsDead())
 	{
@@ -43,7 +43,7 @@ void EnemyRocket::Draw(double time)
 }
 void EnemyRocket::Update(double time)
 {
-	if (!GetDead() && checkCamera(time))
+	if (!GetIsDead() && checkCamera())
 	{
 		vector<GameObject*> listCollision;
 		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
@@ -56,13 +56,13 @@ void EnemyRocket::Update(double time)
 			{
 				if (listCollision[i]->GetId() != Object::BULLET)
 				{
-					if (nLife > 0)
+					if (GetLife() > 0)
 					{
-						nLife--;
+						SubLife(1);
 					}
-					if (nLife == 0)
+					if (GetLife() == 0)
 					{
-						SetDead(true);
+						SetIsDead(true);
 
 					}
 				}
@@ -98,14 +98,14 @@ void EnemyRocket::SetListAnimation()
 {
 	std::vector<Rect> temp;
 	temp.push_back(Rect(0, 0, 45, 38));
-	this->listAnimation[ENEMYROCKETSTANDING].Create(ENEMIES_ROCKET_STAND, temp.size(), temp, 0.01f, LEFT);
+	this->listAnimation[ENEMYROCKETSTANDING].Create(ENEMIES_ROCKET_STAND, temp.size(), temp, 0.001f, LEFT);
 
 	temp.clear();
 	temp.push_back(Rect(0, 42, 45, 80));
 	temp.push_back(Rect(0, 81, 45, 119));
 	temp.push_back(Rect(46, 0, 91, 38));
 	temp.push_back(Rect(0, 0, 45, 41));
-	this->listAnimation[ENEMYROCKETATTACK1].Create(ENEMIES_ROCKET_SHOOTING, temp.size(), temp, 0.1f, LEFT);
+	this->listAnimation[ENEMYROCKETATTACK1].Create(ENEMIES_ROCKET_SHOOTING, temp.size(), temp, 0.001f, LEFT);
 
 
 

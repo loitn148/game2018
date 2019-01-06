@@ -1,5 +1,5 @@
 #include "EnemyOneGun.h"
-
+#include "EnemyOneGunAttack1State.h"
 
 EnemyOneGun::EnemyOneGun()
 {
@@ -15,35 +15,36 @@ void EnemyOneGun::Init(VT3 position, int width, int height)
 	this->width = width;
 	this->height = height;
 	this->listAnimation = new Animation[4];
-	this->SetBasePos(position);
+	//this->SetBasePos(position);
 	this->enemyOneGunData = new EnemyOneGunData();
 	this->enemyOneGunData->m_EnemyOneGun = this;
-	this->SetState(new EnemyOneGunJumpState(this->enemyOneGunData));
-	SetDead(false);
-	nLife = 3;
+	SetIsDead(false);
+	SetLife(3);
 	this->UpdateRect();
 	this->SetListAnimation();
 	if (this->enemyOneGunData->m_EnemyOneGun->GetPosition().x > MegaManCharacters::GetInstance()->GetPosition().x)
 	{
 		SetDirect(Direct::LEFT);
-		SetVx(-600);
+		//SetVx(-600);
 	}
 	else
 	{
 		SetDirect(Direct::RIGHT);
-		SetVx(600);
+		//SetVx(600);
 
 	}
+	this->SetState(new EnemyOneGunAttack1State(this->enemyOneGunData));
+
 }
 void EnemyOneGun::Draw(double time)
 {
-	if (!GetDead() && checkCamera(time))
+	if (!GetIsDead() && checkCamera())
 	{
 		this->transform.positionInViewport = this->GetPositionInViewport();
 		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 		this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-		this->listAnimation[currentState].Draw(transform.positionInViewport, this->direct, time, VT2(3, 3), transform.translation);
+		this->listAnimation[currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2.5, 2.5), transform.translation);
 	}
 	for (int i = 0; i < vtRocket.size(); i++)
 	{
@@ -53,11 +54,11 @@ void EnemyOneGun::Draw(double time)
 }
 void EnemyOneGun::Update(double time)
 {
-	if (!GetDead() && checkCamera(time))
+	if (!GetIsDead() && checkCamera())
 	{
-		if (nLife == 0)
+		if (GetLife() == 0)
 		{
-			SetDead(true);
+			SetIsDead(true);
 		}
 		vector<GameObject*> listCollision;
 		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
@@ -71,9 +72,9 @@ void EnemyOneGun::Update(double time)
 			{
 				if (listCollision[i]->GetId() == Object::BULLET)
 				{
-					if (nLife > 0)
+					if (GetLife() > 0)
 					{
-						nLife--;
+						SubLife(1);
 					}
 
 				}
@@ -82,7 +83,10 @@ void EnemyOneGun::Update(double time)
 				case BOTTOM:
 					//if (listCollision[i]->GetId() == Object::STATICOBJECT)
 					//{
+					if (listCollision[i]->GetId() == Object::STATICOBJECT)
+					{
 						position.y += vy*staticCollision.entryTime;
+						//position.x += vx*staticCollision.entryTime;
 						if (this->currentState == ENEMYJUMPING) {
 							this->vy = 0;
 							this->ay = 0;
@@ -97,15 +101,29 @@ void EnemyOneGun::Update(double time)
 
 							}
 						}
+						UpdateRect();
+					}
 						
 					//}
 					
 					break;
 				case LEFT:
-				case RIGHT:
-					if (listCollision[i]->GetId() != Object::MEGAMAN)
+					if (listCollision[i]->GetId() == Object::STATICOBJECT)
 					{
-						this->enemyOneGunData->m_EnemyOneGun->SetVx(0);
+						position.x -= vx*staticCollision.entryTime;
+						vx = 0;
+						ax = 0;
+						UpdateRect();
+					}
+					break;
+				case RIGHT:
+					//position.y += vy*staticCollision.entryTime;
+					if (listCollision[i]->GetId() == Object::STATICOBJECT)
+					{
+						position.x -= 2*vx*staticCollision.entryTime;
+						vx = 0;
+						ax = 0;
+						UpdateRect();
 					}
 					break;
 				default:
@@ -131,9 +149,11 @@ void EnemyOneGun::Update(double time)
 	{
 		for (int i = 0; i < vtRocket.size(); i++)
 		{
-			
-			delete vtRocket[i];
-	
+			if (vtRocket[i] != NULL)
+			{
+				delete vtRocket[i];
+				vtRocket[i] = NULL;
+			}
 		}
 		vtRocket.clear();
 	}
@@ -158,7 +178,7 @@ void EnemyOneGun::SetListAnimation()
 	temp.push_back(Rect(74, 0, 105, 40));
 	temp.push_back(Rect(93, 41, 125, 80));
 
-	this->listAnimation[ENEMYJUMPING].Create(ENEMIES_1_JUMP, temp.size(), temp, 0.01f, LEFT);
+	this->listAnimation[ENEMYJUMPING].Create(ENEMIES_1_JUMP, temp.size(), temp, 0.005f, LEFT);
 	temp.clear();
 	temp.push_back(Rect(0, 0, 39, 37));
 	temp.push_back(Rect(0, 76, 44, 110));

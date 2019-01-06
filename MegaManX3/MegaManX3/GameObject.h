@@ -20,6 +20,8 @@ protected:
 	Direct direct;
 	Rect rectBound;
 	Transform transform;
+	int Life;
+
 public:
 	Object GetId();
 	double GetV0();
@@ -32,7 +34,12 @@ public:
 	int GetWidth();
 	int GetHeight();
 	bool GetIsDead();
-
+	bool checkCamera();
+	void SubLife(int sub){ Life -= sub; };
+	void SetLife(int sub){ Life = sub; };
+	int GetLife(){
+		return Life;
+	};
 	VT3 GetPosition();
 	VT3 GetCenterPosition();
 
@@ -50,8 +57,8 @@ public:
 	void UpdateRect();
 	void SetIsDead(bool isDead);
 
-	void Update(double time);
-	void Draw(double time);
+	virtual void Update(double time);
+	virtual void Draw(double time);
 
 	void Create(VT3 position, int width, int height, Rect rect);
 

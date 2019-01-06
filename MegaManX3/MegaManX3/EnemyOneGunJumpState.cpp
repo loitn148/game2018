@@ -11,7 +11,7 @@ EnemyOneGunJumpState::EnemyOneGunJumpState(EnemyOneGunData * enemyOneGunData)
 {
 	this->enemyOneGunData = enemyOneGunData;
 	this->enemyOneGunData->m_EnemyOneGun->SetVy(1100);
-	this->enemyOneGunData->m_EnemyOneGun->SetAy(-200);
+	this->enemyOneGunData->m_EnemyOneGun->SetAy(-400);
 	this->enemyOneGunData->m_EnemyOneGun->listAnimation[OneGunStates::ENEMYJUMPING].SetIndex(0);
 	if (this->enemyOneGunData->m_EnemyOneGun->GetPosition().x > MegaManCharacters::GetInstance()->GetPosition().x)
 	{

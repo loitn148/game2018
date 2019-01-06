@@ -16,24 +16,24 @@ void EnemySweeping::Init(VT3 position, int width, int height, Direct direct)
 	this->width = width;
 	this->height = height;
 	this->listAnimation = new Animation[4];
-	this->SetBasePos(position);
+	//this->SetBasePos(position);
 	this->enemySweepingData = new EnemySweepingData();
 	this->enemySweepingData->enemySweeping = this;
 	this->SetState(new EnemySweepingNormalState(this->enemySweepingData));
-	SetDead(false);
+	SetIsDead(false);
 	this->UpdateRect();
 	this->SetListAnimation();
-	nLife = 3;
+	SetLife(3);
 }
 void EnemySweeping::Draw(double time)
 {
-	if (!GetDead() && checkCamera(time))
+	if (!GetIsDead() && checkCamera())
 	{
 		this->transform.positionInViewport = this->GetPositionInViewport();
 		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 		this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-		this->listAnimation[currentState].Draw(transform.positionInViewport, this->direct, time, VT2(3, 3), transform.translation);
+		this->listAnimation[currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2, 2), transform.translation);
 	}
 	if (rocket != NULL && !rocket->GetIsDead())
 	{
@@ -42,7 +42,7 @@ void EnemySweeping::Draw(double time)
 }
 void EnemySweeping::Update(double time)
 {
-	if (!GetDead() && checkCamera(time))
+	if (!GetIsDead() && checkCamera())
 	{
 
 
@@ -57,13 +57,13 @@ void EnemySweeping::Update(double time)
 			{
 				if (listCollision[i]->GetId() == Object::BULLET)
 				{
-					if (nLife > 0)
+					if (GetLife() > 0)
 					{
-						nLife--;
+						SubLife(1);
 					}
-					if (nLife == 0)
+					if (GetLife() == 0)
 					{
-						SetDead(true);
+						SetIsDead(true);
 
 					}
 				}

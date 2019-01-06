@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "EnemyOneGun.h"
 #include "EnemyRocket.h"
+#include "EnemySweeping.h"
 
 GameMap::GameMap(){
 }
@@ -115,8 +116,12 @@ void GameMap::LoadMap(char *filePath)
 				EnemyOneGun* enemyOneGun = new EnemyOneGun();
 				VT3 position(posX, posY, 0);
 				enemyOneGun->SetId(Object::ONEGUN);
-				enemyOneGun->Init(position, 0, 0);
-				vecOneGun.push_back(enemyOneGun);
+				enemyOneGun->Init(position, MEGAMAN_WIDTH, MEGAMAN_HEIGHT);
+				if (object->GetType() == "1")
+				{
+					enemyOneGun->SetDirect(RIGHT);
+				}
+				vecEnemy.push_back(enemyOneGun);
 				quadtree->InsertObject(enemyOneGun);
 			}
 		}
@@ -140,13 +145,37 @@ void GameMap::LoadMap(char *filePath)
 				VT3 position(posX, posY, 0);
 				enemyOneGun->SetId(Object::ENEMYROCKET);
 				if (j!=1)
-					enemyOneGun->Init(position, 0, 0,LEFT);
+					enemyOneGun->Init(position, MEGAMAN_WIDTH, MEGAMAN_HEIGHT, LEFT);
 				else
 				{
 
-					enemyOneGun->Init(position, 0, 0, RIGHT);
+					enemyOneGun->Init(position, MEGAMAN_WIDTH, MEGAMAN_HEIGHT, RIGHT);
 				}
-				vecEnemyRocket.push_back(enemyOneGun);
+				vecEnemy.push_back(enemyOneGun);
+				quadtree->InsertObject(enemyOneGun);
+			}
+		}
+	}
+#pragma endregion
+#pragma region -Bee-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "Bee")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				EnemySweeping* enemyOneGun = new EnemySweeping();
+				VT3 position(posX, posY, 0);
+				enemyOneGun->SetId(Object::ENEMYROCKET);
+				enemyOneGun->Init(position, MEGAMAN_WIDTH, MEGAMAN_HEIGHT, RIGHT);
+				vecEnemy.push_back(enemyOneGun);
 				quadtree->InsertObject(enemyOneGun);
 			}
 		}

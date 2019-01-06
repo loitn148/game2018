@@ -2,7 +2,7 @@
 #ifndef __ENEMYROCKET__H__
 #define __ENEMYROCKET__H__
 
-#include "GameEnemy.h"
+#include "GameObject.h"
 #include "GameTime.h"
 #include "Animation.h"
 #include "Camera.h"
@@ -15,7 +15,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-class EnemyRocket : public GameEnemy
+class EnemyRocket : public GameObject
 {
 	EnemyRocketData* enemyRocketData;
 	EnemyRocketStates currentState;

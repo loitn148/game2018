@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Camera.h"
 
 
 GameObject::GameObject() {
@@ -52,6 +53,11 @@ int GameObject::GetHeight() {
 
 bool GameObject::GetIsDead() {
 	return this->isDead;
+}
+
+bool GameObject::checkCamera()
+{
+	return Collision::IsColliding(rectBound, Camera::GetInstance()->GetRect());
 }
 
 VT3 GameObject::GetPosition() {
