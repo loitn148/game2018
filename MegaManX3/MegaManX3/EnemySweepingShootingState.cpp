@@ -20,7 +20,7 @@ void EnemySweepingShootingState::Update(double time)
 {
 	if (this->enemySweepingData->enemySweeping->rocket == NULL)
 	{
-		this->enemySweepingData->enemySweeping->rocket = new Rocket(VT3(this->enemySweepingData->enemySweeping->GetPosition().x, this->enemySweepingData->enemySweeping->GetPosition().y, 0),
+		this->enemySweepingData->enemySweeping->rocket = new RocketEnemy3(VT3(this->enemySweepingData->enemySweeping->GetPosition().x, this->enemySweepingData->enemySweeping->GetPosition().y, 0),
 			500 * this->enemySweepingData->enemySweeping->GetDirect(),
 			this->enemySweepingData->enemySweeping->GetDirect());
 	}

@@ -1,20 +1,21 @@
-#include "Rocket.h"
+#include "RocketEnemy3.h"
 
 
-Rocket::Rocket()
+RocketEnemy3::RocketEnemy3()
 {
 }
 
-Rocket::Rocket(D3DXVECTOR3 position, double vx, Direct direct)
+RocketEnemy3::RocketEnemy3(D3DXVECTOR3 position, double vx, Direct direct)
 {
 	animation = new Animation();
 
 	std::vector<Rect> temp;
 
-	temp.push_back(Rect(8, 0, 13, 21));
-	temp.push_back(Rect(0, 0, 7, 23));
 
-	animation->Create("Assets/enemies/bullet.png", temp.size(), temp, 0.005f, RIGHT);
+	temp.push_back(Rect(0, 0, 10, 15));
+
+
+	animation->Create("Assets/enemies/RocketEnemy3.png", temp.size(), temp, 0.005f, RIGHT);
 	temp.clear();
 	vy = 0;
 	this->id = BULLETENEMY;
@@ -37,7 +38,7 @@ Rocket::Rocket(D3DXVECTOR3 position, double vx, Direct direct)
 	UpdateRect();
 }
 
-void Rocket::Update(double time)
+void RocketEnemy3::Update(double time)
 {
 	if (!isDead)
 	{
@@ -72,7 +73,7 @@ void Rocket::Update(double time)
 	}
 }
 
-void Rocket::Draw(double time)
+void RocketEnemy3::Draw(double time)
 {
 	if (!isDead)
 	{
@@ -83,6 +84,6 @@ void Rocket::Draw(double time)
 		this->animation->Draw(transform.positionInViewport, this->direct, time, VT2(2, 2), transform.translation);
 	}
 }
-Rocket::~Rocket()
+RocketEnemy3::~RocketEnemy3()
 {
 }

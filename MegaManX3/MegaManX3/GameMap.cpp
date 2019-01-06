@@ -1,7 +1,8 @@
 #include "GameMap.h"
 #include "Viewport.h"
 #include "Camera.h"
-
+#include "EnemyOneGun.h"
+#include "EnemyRocket.h"
 
 GameMap::GameMap(){
 }
@@ -82,6 +83,60 @@ void GameMap::LoadMap(char *filePath)
 				staticObj->SetRect(StaticRect);
 				
 				quadtree->InsertObject(staticObj);
+			}
+		}
+	}
+#pragma endregion
+#pragma region -One Gun-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "OneGun")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				EnemyOneGun* enemyOneGun = new EnemyOneGun();
+				VT3 position(posX, posY, 0);
+				enemyOneGun->SetId(Object::ONEGUN);
+				enemyOneGun->Init(position, 0, 0);
+				vecOneGun.push_back(enemyOneGun);
+				quadtree->InsertObject(enemyOneGun);
+			}
+		}
+	}
+#pragma endregion
+#pragma region -Enemy Rocket-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "EnemyRocket")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				EnemyRocket* enemyOneGun = new EnemyRocket();
+				VT3 position(posX, posY, 0);
+				enemyOneGun->SetId(Object::ENEMYROCKET);
+				if (j!=1)
+					enemyOneGun->Init(position, 0, 0,LEFT);
+				else
+				{
+
+					enemyOneGun->Init(position, 0, 0, RIGHT);
+				}
+				vecEnemyRocket.push_back(enemyOneGun);
+				quadtree->InsertObject(enemyOneGun);
 			}
 		}
 	}

@@ -176,13 +176,13 @@ void EnemyOneGun::SetListAnimation()
 	temp.clear();
 	temp.push_back(Rect(0, 36, 44, 70));
 	temp.push_back(Rect(0, 0, 43, 35));
-	this->listAnimation[ENEMYATTACK1].Create(ENEMIES_1_ATTACK1, temp.size(), temp, 0.5f, LEFT);
+	this->listAnimation[ENEMYATTACK1].Create(ENEMIES_1_ATTACK1, temp.size(), temp, 0.2f, LEFT);
 
 	temp.clear();
 	temp.push_back(Rect(0, 29, 48, 56));
 	temp.push_back(Rect(0, 0, 48, 28));
 
-	this->listAnimation[ENEMYATTACK2].Create(ENEMIES_1_ATTACK2, temp.size(), temp, 0.5f, LEFT);
+	this->listAnimation[ENEMYATTACK2].Create(ENEMIES_1_ATTACK2, temp.size(), temp, 0.2f, LEFT);
 
 }
 

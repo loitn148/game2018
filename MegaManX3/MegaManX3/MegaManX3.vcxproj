@@ -195,6 +195,7 @@
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Rocket.cpp" />
+    <ClCompile Include="RocketEnemy3.cpp" />
     <ClCompile Include="RunningAttackState.cpp" />
     <ClCompile Include="RunningState.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Rocket.h" />
+    <ClInclude Include="RocketEnemy3.h" />
     <ClInclude Include="RunningAttackState.h" />
     <ClInclude Include="RunningState.h" />
     <ClInclude Include="SceneManager.h" />

@@ -10,9 +10,9 @@ EnemySweepingNormalState::EnemySweepingNormalState()
 EnemySweepingNormalState::EnemySweepingNormalState(EnemySweepingData * enemyOneGunData)
 {
 	this->enemySweepingData = enemyOneGunData;
-	this->enemySweepingData->enemySweeping->SetVy(-50);
+	this->enemySweepingData->enemySweeping->SetVy(-100);
 	this->enemySweepingData->enemySweeping->SetVx(0);
-	this->enemySweepingData->enemySweeping->SetAy(-10);
+	this->enemySweepingData->enemySweeping->SetAy(-30);
 	this->enemySweepingData->enemySweeping->SetAx(0);
 	MoveTimes = 0;
 	Term = true;
@@ -21,7 +21,7 @@ EnemySweepingNormalState::EnemySweepingNormalState(EnemySweepingData * enemyOneG
 	{
 		this->enemySweepingData->enemySweeping->SetVy(-this->enemySweepingData->enemySweeping->GetVy());
 		this->enemySweepingData->enemySweeping->SetVx(-this->enemySweepingData->enemySweeping->GetVx());
-		this->enemySweepingData->enemySweeping->SetAy(10);
+		this->enemySweepingData->enemySweeping->SetAy(30);
 
 	}
 }
@@ -44,7 +44,7 @@ void EnemySweepingNormalState::Update(double time)
 	}
 	if (this->enemySweepingData->enemySweeping->GetPosition().y >= this->enemySweepingData->enemySweeping->oldPosition.y - 50)
 	{
-		this->enemySweepingData->enemySweeping->SetAy(-10);
+		this->enemySweepingData->enemySweeping->SetAy(-30);
 		Term = false;
 	}
 
