@@ -39,8 +39,14 @@ void Camera::CameraOnWorld() {
 		position.y = height;
 	
 	//camera flow pipe map
-	if (position.x > 3920 && position.y == 2200) {
-		if (position.x < 5737) {
+	if (position.x > 6237) {
+		allowMove(true, true);
+		if (position.y < 2200) {
+			position.y = 2200;
+		}
+	}
+	if (position.x > 3920) {
+		if (position.x < 6237) {
 			allowMove(true, false);
 		}
 	}
@@ -59,25 +65,6 @@ void Camera::CameraOnWorld() {
 			allowMove(true, false);
 		}
 	}
-
-	////Part 5
-	//if (position.x > 3300 && position.x < 4550 && position.y < 3910) {
-	//	if (position.x < 3405) {
-	//		position.x = 3405;
-	//	}
-	//	if (position.x > 4520) {
-	//		position.x = 4520;
-	//	}
-	//}
-	////Part 4
-	//if (position.x > 1705 && position.x < 3405) {
-	//	if (position.y < 3910) {
-	//		position.y = 3910;
-	//	}
-	//	if (position.y > 4520) {
-	//		position.y = 4520;
-	//	}
-	//}
 
 	//Part 3
 	if (position.y == 3910) {
