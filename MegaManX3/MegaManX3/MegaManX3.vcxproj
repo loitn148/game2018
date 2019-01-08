@@ -126,6 +126,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BossFinal.cpp" />
+    <ClCompile Include="BossFinalCallEnemies.cpp" />
+    <ClCompile Include="BossFinalData.cpp" />
+    <ClCompile Include="BossFinalPrickState.cpp" />
+    <ClCompile Include="BossFinalStartState.cpp" />
+    <ClCompile Include="BossFinalState.cpp" />
     <ClCompile Include="BossNormal.cpp" />
     <ClCompile Include="BulletLv1.cpp" />
     <ClCompile Include="BulletLv2.cpp" />
@@ -133,6 +139,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Elevator1.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyOneGun.cpp" />
     <ClCompile Include="EnemyOneGunAttack1State.cpp" />
     <ClCompile Include="EnemyOneGunAttack2State.cpp" />
@@ -213,10 +220,17 @@
     <ClCompile Include="SweepingWallState.cpp" />
     <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Wings.cpp" />
     <ClCompile Include="WriteLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="BossFinal.h" />
+    <ClInclude Include="BossFinalCallEnemies.h" />
+    <ClInclude Include="BossFinalData.h" />
+    <ClInclude Include="BossFinalPrickState.h" />
+    <ClInclude Include="BossFinalStartState.h" />
+    <ClInclude Include="BossFinalState.h" />
     <ClInclude Include="BossNormal.h" />
     <ClInclude Include="BulletLv1.h" />
     <ClInclude Include="BulletLv2.h" />
@@ -224,6 +238,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Elevator1.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOneGun.h" />
     <ClInclude Include="EnemyOneGunAttack1State.h" />
     <ClInclude Include="EnemyOneGunAttack2State.h" />
@@ -308,6 +323,7 @@
     <ClInclude Include="SweepingWallAttackState.h" />
     <ClInclude Include="SweepingWallState.h" />
     <ClInclude Include="Viewport.h" />
+    <ClInclude Include="Wings.h" />
     <ClInclude Include="WriteLog.h" />
   </ItemGroup>
   <ItemGroup>

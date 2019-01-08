@@ -285,6 +285,30 @@
     <ClCompile Include="HoldAttackEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BossFinal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFinalCallEnemies.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFinalData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFinalPrickState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFinalStartState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFinalState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -564,6 +588,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HoldAttackEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFinal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFinalData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFinalCallEnemies.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFinalPrickState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFinalStartState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFinalState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
