@@ -195,6 +195,7 @@ struct CollisionResult
 
 #define BOSSFINAL_PATH "Assets/bossfinal/fly.png"
 #define BOSSFINAL_PRICK_PATH "Assets/bossfinal/prick.png"
+#define BOSSFINAL_DEAD_PATH "Assets/bossfinal/dead.png"
 #define BOSSFINAL_CALL_ENEMIES_PATH "Assets/bossfinal/call_enemies.png"
 #define WINGS_PATH "Assets/bossfinal/wing.png"
 #define ENEMIES_PATH "Assets/bossfinal/enemies.png"
