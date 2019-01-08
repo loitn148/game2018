@@ -1,6 +1,5 @@
 #include "RocketEnemy3.h"
 
-
 RocketEnemy3::RocketEnemy3()
 {
 }
@@ -69,7 +68,6 @@ void RocketEnemy3::Update(double time)
 
 		vector<GameObject*> listCollision;
 		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
-		CollisionResult staticCollision;
 		double entryTime = time;
 		for (int i = 0; i < listCollision.size(); i++) {
 			staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);

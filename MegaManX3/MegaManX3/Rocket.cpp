@@ -27,11 +27,11 @@ Rocket::Rocket(D3DXVECTOR3 position, double vx, Direct direct)
 	this->height = 15;
 	if (this->GetPosition().y > MegaManCharacters::GetInstance()->GetPosition().y)
 	{
-		this->SetVy(-100);
+		this->SetVy(-200);
 	}
 	else
 	{
-		this->SetVy(100);
+		this->SetVy(200);
 
 	}
 	UpdateRect();
@@ -68,7 +68,6 @@ void Rocket::Update(double time)
 
 		vector<GameObject*> listCollision;
 		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
-		CollisionResult staticCollision;
 		double entryTime = time;
 		for (int i = 0; i < listCollision.size(); i++) {
 			staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
