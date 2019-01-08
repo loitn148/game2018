@@ -33,14 +33,17 @@ void EnemySweepingNormalState::Update(double time)
 	{
 		this->enemySweepingData->enemySweeping->SetVy(-this->enemySweepingData->enemySweeping->GetVy());
 		this->enemySweepingData->enemySweeping->SetVx(-this->enemySweepingData->enemySweeping->GetVx());
-		if (this->enemySweepingData->enemySweeping->rocket == NULL)
-		{
-			MoveTimes++;
-		}
+		MoveTimes++;
+
 	}
 	if (MoveTimes>2)
 	{
-		this->enemySweepingData->enemySweeping->SetState(new EnemySweepingShootingState(enemySweepingData));
+		if (this->enemySweepingData->enemySweeping->rocket->GetIsDead())
+			this->enemySweepingData->enemySweeping->SetState(new EnemySweepingShootingState(enemySweepingData));
+		else
+		{
+			--MoveTimes;
+		}
 	}
 	if (this->enemySweepingData->enemySweeping->GetPosition().y >= this->enemySweepingData->enemySweeping->oldPosition.y - 50)
 	{

@@ -23,6 +23,9 @@ void EnemySweeping::Init(VT3 position, int width, int height, Direct direct)
 	SetIsDead(false);
 	this->UpdateRect();
 	this->SetListAnimation();
+	rocket = new RocketEnemy3(VT3(this->enemySweepingData->enemySweeping->GetPosition().x, this->enemySweepingData->enemySweeping->GetPosition().y, 0),
+		500 * this->enemySweepingData->enemySweeping->GetDirect(),
+		this->enemySweepingData->enemySweeping->GetDirect());
 	SetLife(3);
 }
 void EnemySweeping::Draw(double time)
@@ -94,11 +97,12 @@ void EnemySweeping::Update(double time)
 	if (rocket != NULL && !rocket->GetIsDead())
 	{
 		rocket->Update(time);
-	}
-	else
-	{
-		delete rocket;
-		rocket = NULL;
+		int term = std::abs(rocket->GetPosition().x - position.x);
+		if (term > 400)
+		{
+			rocket->SetIsDead(true);
+			rocket->isCollision = true;
+		}
 	}
 }
 void EnemySweeping::SetState(EnemySweepingState* state)

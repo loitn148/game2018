@@ -25,7 +25,7 @@ Rocket::Rocket(D3DXVECTOR3 position, double vx, Direct direct)
 	this->direct = direct;
 	this->width = 15;
 	this->height = 15;
-	if (this->GetPosition().y > MegaManCharacters::GetInstance()->GetPosition().y)
+	if (this->GetPosition().y >= MegaManCharacters::GetInstance()->GetPosition().y)
 	{
 		this->SetVy(-200);
 	}
@@ -51,6 +51,7 @@ void Rocket::Update(double time)
 		{
 
 			MegaManCharacters::GetInstance()->SubLife(2);
+			this->isCollision = true;
 
 		}
 		position.x += vx*time;

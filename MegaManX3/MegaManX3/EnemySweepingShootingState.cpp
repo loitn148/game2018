@@ -18,11 +18,21 @@ EnemySweepingShootingState::EnemySweepingShootingState(EnemySweepingData * enemy
 
 void EnemySweepingShootingState::Update(double time)
 {
-	if (this->enemySweepingData->enemySweeping->rocket == NULL)
+	if (this->enemySweepingData->enemySweeping->rocket->GetIsDead())
 	{
-		this->enemySweepingData->enemySweeping->rocket = new RocketEnemy3(VT3(this->enemySweepingData->enemySweeping->GetPosition().x, this->enemySweepingData->enemySweeping->GetPosition().y, 0),
-			500 * this->enemySweepingData->enemySweeping->GetDirect(),
-			this->enemySweepingData->enemySweeping->GetDirect());
+		this->enemySweepingData->enemySweeping->rocket->SetPosition(VT3(this->enemySweepingData->enemySweeping->GetPosition().x, this->enemySweepingData->enemySweeping->GetPosition().y, 0));
+		this->enemySweepingData->enemySweeping->rocket->SetVx(400 * this->enemySweepingData->enemySweeping->GetDirect());
+		this->enemySweepingData->enemySweeping->rocket->SetDirect(this->enemySweepingData->enemySweeping->GetDirect());
+		if (this->enemySweepingData->enemySweeping->rocket->GetPosition().y > MegaManCharacters::GetInstance()->GetPosition().y)
+		{
+			this->enemySweepingData->enemySweeping->rocket->SetVy(-100);
+		}
+		else
+		{
+			this->enemySweepingData->enemySweeping->rocket->SetVy(100);
+		}
+		this->enemySweepingData->enemySweeping->rocket->SetIsDead(false);
+		this->enemySweepingData->enemySweeping->rocket->isCollision = false;
 	}
 	if (this->enemySweepingData->enemySweeping->listAnimation[ENEMYSWEEPINGSHOOTING].GetIndex() == (this->enemySweepingData->enemySweeping->listAnimation[ENEMYSWEEPINGSHOOTING].GetTotalFrame() - 1))
 	{

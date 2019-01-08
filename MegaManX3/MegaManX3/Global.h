@@ -32,6 +32,10 @@
 #define MEGAMAN_WIDTH 50
 #define MEGAMAN_HEIGHT 80
 #define DELTA_CAMERA 20
+#define BIGBOSS_POSITION_CALL_ENEMIES_LEFT_X 100
+#define BIGBOSS_POSITION_CALL_ENEMIES_LEFT_Y 2600
+#define BIGBOSS_POSITION_CALL_ENEMIES_RIGHT_X 500
+#define BIGBOSS_POSITION_CALL_ENEMIES_RIGHT_Y 2600
 
 //MEGAMAN SPEED
 #define RUN_SPEED 500
@@ -77,6 +81,15 @@ enum CharactersStates {
 	HURT = 16
 };
 
+//BossFinal State
+enum BigBossStates {
+	START = 0,
+	FLY = 1,
+	PRICK = 2,
+	CALL_ENEMIES = 3,
+	DEAD = 4
+};
+
 //Object Game
 enum Object {
 	MEGAMAN,
@@ -90,7 +103,10 @@ enum Object {
 	ELEVATOR,
 	BULLETENEMY,
 	SMOKE,
-	HOLDATTACK
+	HOLDATTACK,
+	BOSSFINAL,
+	WINGS,
+	ENEMY
 };
 
 enum OneGunStates{
@@ -174,5 +190,11 @@ struct CollisionResult
 
 #define ENEMIES_SWEEPING_NORMAL		 "Assets/enemies/normal.png"
 #define ENEMIES_SWEEPING_SHOOTING	 "Assets/enemies/Sweepingshooting.png"
+
+#define BOSSFINAL_PATH "Assets/bossfinal/fly.png"
+#define BOSSFINAL_PRICK_PATH "Assets/bossfinal/prick.png"
+#define BOSSFINAL_CALL_ENEMIES_PATH "Assets/bossfinal/call_enemies.png"
+#define WINGS_PATH "Assets/bossfinal/wing.png"
+#define ENEMIES_PATH "Assets/bossfinal/enemies.png"
 
 
