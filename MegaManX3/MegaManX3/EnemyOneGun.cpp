@@ -1,7 +1,5 @@
 #include "EnemyOneGun.h"
 #include "EnemyOneGunAttack1State.h"
-#include <stdlib.h> 
-#include <time.h> 
 
 EnemyOneGun::EnemyOneGun()
 {
@@ -24,7 +22,6 @@ void EnemyOneGun::Init(VT3 position, int width, int height)
 	SetLife(3);
 	this->UpdateRect();
 	this->SetListAnimation();
-
 	if (this->enemyOneGunData->m_EnemyOneGun->GetPosition().x > MegaManCharacters::GetInstance()->GetPosition().x)
 	{
 		SetDirect(Direct::LEFT);
@@ -37,6 +34,7 @@ void EnemyOneGun::Init(VT3 position, int width, int height)
 
 	}
 	this->SetState(new EnemyOneGunAttack1State(this->enemyOneGunData));
+
 }
 void EnemyOneGun::Draw(double time)
 {
@@ -53,22 +51,13 @@ void EnemyOneGun::Draw(double time)
 		if (!vtRocket[i]->GetIsDead())
 			vtRocket[i]->Draw(time);
 	}
-	if (blood != NULL&& !blood->GetIsDead())
-	{
-		blood->Draw(time);
-	}
 }
 void EnemyOneGun::Update(double time)
 {
 	if (!GetIsDead() && checkCamera())
 	{
-		if (GetLife() <= 0)
+		if (GetLife() == 0)
 		{
-			int iSecret = rand() % 10 + 1;
-			if (iSecret < 5)
-			{
-				blood = new Blood(VT3(position.x, position.y + 50, 0));
-			}
 			SetIsDead(true);
 		}
 		vector<GameObject*> listCollision;
@@ -83,7 +72,6 @@ void EnemyOneGun::Update(double time)
 		{
 			
 			MegaManCharacters::GetInstance()->SubLife(2);
-			SetLife(0);
 
 		}
 		double entryTime = time;
@@ -172,10 +160,6 @@ void EnemyOneGun::Update(double time)
 			}
 		}
 		vtRocket.clear();
-	}
-	if (blood != NULL&& !blood->GetIsDead())
-	{
-		blood->Update(time);
 	}
 }
 void EnemyOneGun::SetState(EnemyOneGunState* state)

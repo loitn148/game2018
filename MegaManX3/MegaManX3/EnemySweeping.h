@@ -10,7 +10,6 @@
 #include "EnemySweepingState.h"
 
 #include "RocketEnemy3.h"
-#include "Blood.h"
 
 #include <iostream>
 #include <vector>
@@ -21,7 +20,6 @@ class EnemySweeping :
 {
 	EnemySweepingData* enemySweepingData;
 	EnemySweepingStates currentState;
-	Blood* blood;
 	void UpdatePosition(double time);
 public:
 	RocketEnemy3* rocket;

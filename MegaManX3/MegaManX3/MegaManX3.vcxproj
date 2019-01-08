@@ -126,7 +126,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="Blood.cpp" />
     <ClCompile Include="BossFinal.cpp" />
     <ClCompile Include="BossFinalCallEnemies.cpp" />
     <ClCompile Include="BossFinalData.cpp" />
@@ -228,7 +227,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="Blood.h" />
     <ClInclude Include="BossFinal.h" />
     <ClInclude Include="BossFinalCallEnemies.h" />
     <ClInclude Include="BossFinalData.h" />

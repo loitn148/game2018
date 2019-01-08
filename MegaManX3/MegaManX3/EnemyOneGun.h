@@ -7,7 +7,6 @@
 #include "Animation.h"
 #include "Camera.h"
 
-#include "Blood.h"
 #include "EnemyOneGunData.h"
 #include "EnemyOneGunState.h"
 #include "EnemyOneGunJumpState.h"
@@ -22,7 +21,6 @@ class EnemyOneGun : public GameObject
 {
 	EnemyOneGunData* enemyOneGunData;
 	OneGunStates currentState;
-	Blood* blood;
 	void UpdatePosition(double time);
 public:
 	vector<OneGunBullet*> vtRocket;

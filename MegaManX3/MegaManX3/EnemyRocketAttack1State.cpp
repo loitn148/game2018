@@ -27,14 +27,14 @@ void EnemyRocketAttack1State::Update(double time)
 			this->enemyRocketData->m_EnemyRocket->rocket->isCollision = false;
 			this->enemyRocketData->m_EnemyRocket->rocket->SetPosition(VT3(this->enemyRocketData->m_EnemyRocket->GetPosition().x - 10 * this->enemyRocketData->m_EnemyRocket->GetDirect(),
 																		this->enemyRocketData->m_EnemyRocket->GetPosition().y + 70, 0));
-			this->enemyRocketData->m_EnemyRocket->rocket->SetVx(400 * this->enemyRocketData->m_EnemyRocket->GetDirect());
+			this->enemyRocketData->m_EnemyRocket->rocket->SetVx(600 * this->enemyRocketData->m_EnemyRocket->GetDirect());
 			if (this->enemyRocketData->m_EnemyRocket->rocket->GetPosition().y >= MegaManCharacters::GetInstance()->GetPosition().y)
 			{
-				this->enemyRocketData->m_EnemyRocket->rocket->SetVy(-150);
+				this->enemyRocketData->m_EnemyRocket->rocket->SetVy(-200);
 			}
 			else
 			{
-				this->enemyRocketData->m_EnemyRocket->rocket->SetVy(150);
+				this->enemyRocketData->m_EnemyRocket->rocket->SetVy(200);
 
 			}
 			
