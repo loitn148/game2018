@@ -45,14 +45,23 @@ void EnemyRocket::Draw(double time)
 	{
 		rocket->Draw(time);
 	}
+	if (blood != NULL&& !blood->GetIsDead())
+	{
+		blood->Draw(time);
+	}
 
 }
 void EnemyRocket::Update(double time)
 {
 	if (!GetIsDead() && checkCamera())
 	{
-		if (GetLife() == 0)
+		if (GetLife() <= 0)
 		{
+			int iSecret = rand() % 10 + 1;
+			if (iSecret < 11)
+			{
+				blood = new Blood(VT3(position.x, position.y + 50, 0));
+			}
 			SetIsDead(true);
 		}
 		vector<GameObject*> listCollision;
@@ -102,6 +111,10 @@ void EnemyRocket::Update(double time)
 			rocket->SetIsDead(true);
 			rocket->isCollision = true;
 		}
+	}
+	if (blood != NULL&& !blood->GetIsDead())
+	{
+		blood->Update(time);
 	}
 }
 void EnemyRocket::SetState(EnemyRocketState* state)

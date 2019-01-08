@@ -5,19 +5,18 @@
 #include "SmokeEffect.h"
 #include "Camera.h"
 #include "Global.h"
-class Rocket: public PlayerBullets
+class Blood: public PlayerBullets
 {
 protected:
-	vector<SmokeEffect*> listSmokeEff;
+	int Level;
 public:
-	float duration;
-	Rocket(D3DXVECTOR3 position, double vx, Direct direct);
+	Blood(D3DXVECTOR3 position);
 	void Draw(double time);
 	void Update(double time);
 	bool isCollision;
+	Animation* listAnimation;
 	Animation* animation;
-	void AddSmokeEffect(VT3 smokePosition);
-	Rocket();
-	~Rocket();
+	Blood();
+	~Blood();
 };
 
