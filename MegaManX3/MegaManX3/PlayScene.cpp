@@ -1,7 +1,6 @@
 #include "PlayScene.h"
 
 
-
 void PlayScene::LoadContent() {
 	this->camera = Camera::GetInstance();
 	this->camera->Create(VT3(CAMERA_START_X, CAMERA_START_Y, 0), WIDTH, HEIGHT);
@@ -10,7 +9,10 @@ void PlayScene::LoadContent() {
 	mMap = GameMap::GetInstance();
 	mMap->Init("Assets/map/map.tmx");
 	elevator1 = new Elevator1(VT3(1987, 2320, 0), 0, 0);
-	bossNormal = new BossNormal(VT3(1400, 2200, 0), 0, 0);
+	bossNormal = new BossNormal(VT3(0, 2385, 0), 0, 0);
+
+	Sound::getInstance()->loadSound("Assets/Megaman_X3_Blast_Hornet_mp3co.info_1.wav", "background");
+	Sound::getInstance()->play("background", true, 0);
 }
 
 void PlayScene::Update(double time) {

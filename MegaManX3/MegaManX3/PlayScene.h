@@ -10,6 +10,7 @@
 #include "GameMap.h"
 #include "BossNormal.h"
 #include "Elevator1.h"
+#include "Sound.h"
 #include <map>
 
 class PlayScene : public GameScene
@@ -25,6 +26,7 @@ private:
 	GameMap *mMap;
 	Elevator1 *elevator1;
 	BossNormal *bossNormal;
+	Sound* sound;
 
 public:
 	void LoadContent();
