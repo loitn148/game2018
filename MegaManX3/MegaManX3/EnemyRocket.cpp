@@ -45,26 +45,33 @@ void EnemyRocket::Update(double time)
 {
 	if (!GetIsDead() && checkCamera())
 	{
+		if (GetLife() == 0)
+		{
+			SetIsDead(true);
+		}
 		vector<GameObject*> listCollision;
 		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
 		CollisionResult staticCollision;
+		staticCollision = Collision::SweptAABB(rectBound,
+			VT2(this->vx, this->vy),
+			MegaManCharacters::GetInstance()->GetRect(),
+			VT2(MegaManCharacters::GetInstance()->GetVx(), MegaManCharacters::GetInstance()->GetVy()),
+			time);
+		if (staticCollision.isCollision)
+		{
+
+			MegaManCharacters::GetInstance()->SubLife(2);
+
+		}
 		double entryTime = time;
 		for (int i = 0; i < listCollision.size(); i++)
 		{
 			staticCollision = Collision::SweptAABB(rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
 			if (staticCollision.isCollision)
 			{
-				if (listCollision[i]->GetId() != Object::BULLET)
+				if (listCollision[i]->GetId() == Object::MEGAMAN)
 				{
-					if (GetLife() > 0)
-					{
-						SubLife(1);
-					}
-					if (GetLife() == 0)
-					{
-						SetIsDead(true);
-
-					}
+					MegaManCharacters::GetInstance()->SubLife(2);
 				}
 				if (listCollision[i]->GetId() != Object::STATICOBJECT)
 				{

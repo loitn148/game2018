@@ -41,6 +41,18 @@ void Rocket::Update(double time)
 {
 	if (!isDead)
 	{
+		CollisionResult staticCollision;
+		staticCollision = Collision::SweptAABB(rectBound,
+			VT2(this->vx, this->vy),
+			MegaManCharacters::GetInstance()->GetRect(),
+			VT2(MegaManCharacters::GetInstance()->GetVx(), MegaManCharacters::GetInstance()->GetVy()),
+			time);
+		if (staticCollision.isCollision)
+		{
+
+			MegaManCharacters::GetInstance()->SubLife(2);
+
+		}
 		position.x += vx*time;
 		position.y += vy*time;
 

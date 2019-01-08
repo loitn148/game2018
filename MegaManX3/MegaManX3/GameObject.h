@@ -35,7 +35,7 @@ public:
 	int GetHeight();
 	bool GetIsDead();
 	bool checkCamera();
-	void SubLife(int sub){ Life -= sub; };
+	virtual void SubLife(int sub){ Life -= sub; };
 	void SetLife(int sub){ Life = sub; };
 	int GetLife(){
 		return Life;

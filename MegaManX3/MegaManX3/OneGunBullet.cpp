@@ -72,6 +72,18 @@ void OneGunBullet::Draw(double time)
 {
 	if (!isDead)
 	{
+		CollisionResult staticCollision;
+		staticCollision = Collision::SweptAABB(rectBound,
+			VT2(this->vx, this->vy),
+			MegaManCharacters::GetInstance()->GetRect(),
+			VT2(MegaManCharacters::GetInstance()->GetVx(), MegaManCharacters::GetInstance()->GetVy()),
+			time);
+		if (staticCollision.isCollision)
+		{
+
+			MegaManCharacters::GetInstance()->SubLife(2);
+
+		}
 		this->transform.positionInViewport = this->GetPositionInViewport();
 		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 		this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
