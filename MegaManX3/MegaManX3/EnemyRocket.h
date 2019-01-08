@@ -11,6 +11,7 @@
 #include "EnemyRocketState.h"
 
 #include "Rocket.h"
+#include "Blood.h"
 
 #include <iostream>
 #include <vector>
@@ -20,6 +21,8 @@ class EnemyRocket : public GameObject
 	EnemyRocketData* enemyRocketData;
 	EnemyRocketStates currentState;
 	void UpdatePosition(double time);
+	Blood* blood;
+
 public:
 	Rocket* rocket;
 

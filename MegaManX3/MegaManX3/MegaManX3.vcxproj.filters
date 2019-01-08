@@ -288,6 +288,7 @@
     <ClCompile Include="BossFinal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Blood.cpp">
     <ClCompile Include="BossFinalCallEnemies.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -593,6 +594,7 @@
     <ClInclude Include="BossFinal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Blood.h">
     <ClInclude Include="BossFinalData.h">
       <Filter>Header Files</Filter>
     </ClInclude>

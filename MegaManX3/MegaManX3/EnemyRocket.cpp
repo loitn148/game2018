@@ -51,8 +51,13 @@ void EnemyRocket::Update(double time)
 {
 	if (!GetIsDead() && checkCamera())
 	{
-		if (GetLife() == 0)
+		if (GetLife() <= 0)
 		{
+			int iSecret = rand() % 10 + 1;
+			if (iSecret < 5)
+			{
+				blood = new Blood(VT3(position.x, position.y + 50, 0));
+			}
 			SetIsDead(true);
 		}
 		vector<GameObject*> listCollision;
