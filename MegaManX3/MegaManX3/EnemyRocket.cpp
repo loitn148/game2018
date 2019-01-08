@@ -24,6 +24,11 @@ void EnemyRocket::Init(VT3 position, int width, int height, Direct direct)
 	SetIsDead(false);
 	this->UpdateRect();
 	this->SetListAnimation();
+	rocket = new Rocket(VT3(this->enemyRocketData->m_EnemyRocket->GetPosition().x, this->enemyRocketData->m_EnemyRocket->GetPosition().y + 85, 0),
+		400 * this->enemyRocketData->m_EnemyRocket->GetDirect(),
+		this->enemyRocketData->m_EnemyRocket->GetDirect());
+	rocket->SetIsDead(true);
+	rocket->isCollision = true;
 	SetLife(3);
 }
 void EnemyRocket::Draw(double time)
@@ -40,6 +45,7 @@ void EnemyRocket::Draw(double time)
 	{
 		rocket->Draw(time);
 	}
+
 }
 void EnemyRocket::Update(double time)
 {
@@ -90,6 +96,12 @@ void EnemyRocket::Update(double time)
 	if (rocket != NULL && !rocket->GetIsDead())
 	{
 		rocket->Update(time);
+		int term = std::abs(rocket->GetPosition().x - position.x);
+		if (term > 400)
+		{
+			rocket->SetIsDead(true);
+			rocket->isCollision = true;
+		}
 	}
 }
 void EnemyRocket::SetState(EnemyRocketState* state)
