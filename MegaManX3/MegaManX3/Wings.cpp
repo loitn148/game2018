@@ -5,6 +5,7 @@
 Wings::Wings()
 {
 	this->id = WINGS;
+	this->isDead = false;
 }
 
 
@@ -36,27 +37,33 @@ Wings::Wings(D3DXVECTOR3 position, float vx, float vy)
 
 void Wings::Update(VT3 bossPosition, BigBossStates currentState)
 {
-	CollisionResult result;
-	if (currentState == PRICK)
+	if (currentState != DEAD)
 	{
-		position.x = bossPosition.x + 10;
-		position.y = bossPosition.y + 100;
-	}
-	else
-	{
-		position.x = bossPosition.x;
-		position.y = bossPosition.y + 120;
-	}
-	
+		CollisionResult result;
+		if (currentState == PRICK)
+		{
+			position.x = bossPosition.x + 10;
+			position.y = bossPosition.y + 100;
+		}
+		else
+		{
+			position.x = bossPosition.x;
+			position.y = bossPosition.y + 120;
+		}
 
-	UpdateRect();
+
+		UpdateRect();
+	}
 }
 
-void Wings::Draw(float time)
+void Wings::Draw(float time, BigBossStates currentState)
 {
-	this->transform.positionInViewport = this->GetPositionInViewport();
-	VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
-	this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
+	if (currentState != DEAD)
+	{
+		this->transform.positionInViewport = this->GetPositionInViewport();
+		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
+		this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-	this->wings->Draw(transform.positionInViewport, this->direct, time, VT2(2.5, 2.5), transform.translation);
+		this->wings->Draw(transform.positionInViewport, this->direct, time, VT2(2.5, 2.5), transform.translation);
+	}
 }

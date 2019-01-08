@@ -10,7 +10,7 @@
 class Wings : public GameObject
 {
 public:
-	void Draw(float time);
+	void Draw(float time, BigBossStates currentState);
 	void Update(VT3 bossPosition, BigBossStates currentState);
 	Wings(D3DXVECTOR3 position, float vx, float vy);
 	bool isDead;
