@@ -141,6 +141,20 @@ void BossFinal::Update(double time)
 				this->SetState(new BossFinalStartState(this->bossFinalData));
 			}
 		}
+
+		if (this->currentState == DEAD)
+		{
+			if (this->position.y <= 2300)
+			{
+				this->vx = 0;
+				this->vy = 0;
+			}
+			else
+			{
+				this->vx = 0;
+				this->vy = -300;
+			}
+		}
 	}
 	
 
@@ -171,20 +185,22 @@ void BossFinal::SetState(BossFinalState *newState)
 
 void BossFinal::Draw(double time)
 {
-	if(!isDead)
-	this->transform.positionInViewport = this->GetPositionInViewport();
-	VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
-	this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
-	this->wings->Draw(time);
-	if (isCallEnemies)
+	if (!isDead)
 	{
-		for (int i = 0; i < 3; i++)
+		this->transform.positionInViewport = this->GetPositionInViewport();
+		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
+		this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
+		this->wings->Draw(time, this->currentState);
+		if (isCallEnemies)
 		{
-			enemies[i].Draw(time);
+			for (int i = 0; i < 3; i++)
+			{
+				enemies[i].Draw(time);
+			}
 		}
+
+		this->listAnimation[this->currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2.2, 2.5), transform.translation);
 	}
-	
-	this->listAnimation[this->currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2.2, 2.5), transform.translation);
 }
 
 void BossFinal::SetListAnimation() {
@@ -227,6 +243,12 @@ void BossFinal::SetListAnimation() {
 	temp.push_back(Rect(0, 149, 72, 195));
 
 	listAnimation[CALL_ENEMIES].Create(BOSSFINAL_CALL_ENEMIES_PATH, temp.size(), temp, 0.05f, LEFT);
+	temp.clear();
+
+	//BOSS FINAL DEAD
+	temp.push_back(Rect(0, 0, 48, 96));
+
+	listAnimation[DEAD].Create(BOSSFINAL_DEAD_PATH, temp.size(), temp, 0.05f, LEFT);
 	temp.clear();
 }
 
