@@ -159,8 +159,8 @@ void Camera::CameraOnWorld() {
 	else if (state == 7) {
 		if (position.x > 12550) {
 			allowMove(true, false);
-			if (position.x > 13750) {
-				position.x = 13750;
+			if (position.x >= 13770) {
+				position.x = 13770;
 			}
 		}
 		else {
@@ -185,16 +185,23 @@ void Camera::CameraOnWorld() {
 		}
 	}
 	else if (state == 9) {
+		position.x = 13770;
 		allowMove(false, true);
 		if (position.y >= 2200) {
 			position.y = 2200;
 		}
-		if (position.y <= 500) {
+		if (position.y <= 550) {
 			position.y = 500;
 		}
 	}
 	else if (state == 10) {
 		allowMove(true, false);
+		if (position.x > 18300) {
+			position.x = 18300;
+		}
+		if (position.x < 13770) {
+			position.x = 13770;
+		}
 	}
 
 	MegaManHealth::GetInstance()->SetPosition(VT3(position.x + 40, position.y - 150, 0));
@@ -232,6 +239,7 @@ void Camera::Update(MegaManCharacters* megaMan)
 		if (megaManPosition.y > cameraYCenter + DELTA_CAMERA)
 			vy = megaManPosition.y - cameraYCenter - DELTA_CAMERA;
 	}
+
 	if(position.x < 1705 && position.y != 3910) {
 		state = 1;
 	}
@@ -250,19 +258,19 @@ void Camera::Update(MegaManCharacters* megaMan)
 	else if (position.x >= 4000 && position.x < 6350 && position.y == 2200) {
 		state = 6;
 	}
-	else if (position.x >= 6350 && position.x < 13750 && position.y >= 2200) {
+	else if (position.x >= 6350 && position.x < 13770 && position.y >= 2200) {
 		state = 7;
 
 		if (megaManPosition.y < 1800) {
 			state = 8;
 		}
 	}
-	else if (position.x == 13750 && position.y == 2200) {
+	else if (position.x == 13770 && position.y == 2200) {
 		if (megaMan->GetVy() < 0) {
 			state = 9;
 		}
 	}
-	else if (position.x == 13750 && position.y == 500) {
+	else if (position.x == 13770 && position.y == 500) {
 		state = 10;
 	}
 
@@ -299,7 +307,7 @@ void Camera::Create(VT3 position, int width, int height)
 	this->height = height;
 	allowMoveX = true;
 	allowMoveY = false;
-	state = 1;
+	//state = 1;
 }
 
 Camera::Camera() {

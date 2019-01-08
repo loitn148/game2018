@@ -75,7 +75,11 @@ void MegaManCharacters::Update(double time)
 				if (listCollision[i]->GetId() == ONEGUN || listCollision[i]->GetId() == ENEMYROCKET) {
 					if (currentState != HURT) {
 						this->SubLife(2);
-						this->SetState(new HurtState(this->megaManData));
+					}
+				}
+				else if (listCollision[i]->GetId() == ONEHITOBJECT) {
+					if (currentState != HURT) {
+						this->SubLife(16);
 					}
 				}
 				else {
@@ -611,12 +615,27 @@ void MegaManCharacters::AddPosition(VT3 distance) {
 void MegaManCharacters::SubLife(int sub) {
 	if (currentState != HURT) {
 		this->Life -= sub;
+		if (this->Life <= 0) {
+			this->Life = 0;
+		}
 		this->healthDraw->SetHealth(this->Life);
 	}
-
 	if (this->Life == 0) {
 		this->isDestroying = true;
 		this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y + 40, 0));
+	}
+	else {
+		this->SetState(new HurtState(this->megaManData));
+	}
+}
+
+void MegaManCharacters::AddLife(int sub) {
+	if (currentState != HURT) {
+		this->Life += sub;
+		if (this->Life >= 16) {
+			this->Life = 16;
+		}
+		this->healthDraw->SetHealth(this->Life);
 	}
 }
 

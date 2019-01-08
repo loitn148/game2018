@@ -70,6 +70,7 @@ public:
 	void AddSmokeEffect(VT3 smokePosition);
 	void AddPosition(VT3 distance);
 	void SubLife(int sub);
+	void AddLife(int sub);
 	//void AddPosition
 
 	Animation* GetListAnimation();
