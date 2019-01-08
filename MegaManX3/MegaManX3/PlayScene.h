@@ -8,7 +8,12 @@
 #include "Map.h"
 #include "MegaManCharacters.h"
 #include "GameMap.h"
+#include "BossNormal.h"
+#include "Elevator1.h"
 #include <map>
+#include "EnemyOneGun.h"
+#include "EnemyRocket.h"
+#include "EnemySweeping.h"
 
 class PlayScene : public GameScene
 {
@@ -21,6 +26,9 @@ private:
 	MegaManCharacters *megaMan;
 	std::map<int, bool> keys;
 	GameMap *mMap;
+	Elevator1 *elevator1;
+	BossNormal *bossNormal;
+	EnemySweeping *Sweep;
 
 public:
 	void LoadContent();
@@ -28,6 +36,7 @@ public:
 	void Draw(double time);
 	void OnKeyDown(int keyCode);
 	void OnKeyUp(int keyCode);
+	CollisionResult CheckCollision(GameObject* obj1, GameObject* obj2, double time);
 	PlayScene(HWND hWnd, HINSTANCE hInstance);
 	PlayScene();
 	~PlayScene();

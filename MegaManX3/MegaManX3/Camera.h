@@ -18,8 +18,10 @@ private:
 	VT3 position;
 	int width, height;
 	double vx, vy;
+	bool allowMoveX;
+	bool allowMoveY;
+	int state;
 public:
-
 	void CameraOnWorld();
 	void Update(MegaManCharacters* megaMan);
 	void SetPosition(VT3 position);
@@ -27,6 +29,7 @@ public:
 	VT3 GetPosition();
 	void Create(VT3 position, int width, int height);
 	static Camera* GetInstance();
+	void allowMove(bool moveX, bool moveY);
 	Camera();
 	~Camera();
 };

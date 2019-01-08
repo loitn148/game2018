@@ -1,22 +1,23 @@
 #pragma once
-#ifndef __BULLETLV1__H__
-#define __BULLETLV1__H__
+#ifndef __BULLETLV3__H__
+#define __BULLETLV3__H__
 
 #include "GameObject.h"
 #include "Animation.h"
+#include "PlayerBullets.h"
 #include "Camera.h"
 #include "Global.h"
 
 class BulletLv3 :
-	public GameObject
+	public PlayerBullets
 {
 public:
-	void Draw(float time);
-	void Update(float time);
-	BulletLv3(D3DXVECTOR3 position, float vx, float vy);
-	bool isDead;
+	BulletLv3(D3DXVECTOR3 position, double vx, Direct direct);
+	void Draw(double time);
+	void Update(double time);
+	bool isCollision;
 	BulletLv3();
 	~BulletLv3();
-	Animation* bulletLv3;
+	Animation* animation;
 };
-#endif // !__BULLETLV1__H__
+#endif // !__BULLETLV3__H__

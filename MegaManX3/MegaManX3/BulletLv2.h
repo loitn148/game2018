@@ -4,19 +4,20 @@
 
 #include "GameObject.h"
 #include "Animation.h"
+#include "PlayerBullets.h"
 #include "Camera.h"
 #include "Global.h"
 
 class BulletLv2 :
-	public GameObject
+	public PlayerBullets
 {
 public:
-	void Draw(float time);
-	void Update(float time);
-	BulletLv2(D3DXVECTOR3 position, float vx, float vy);
-	bool isDead;
+	BulletLv2(D3DXVECTOR3 position, double vx, Direct direct);
+	void Draw(double time);
+	void Update(double time);
+	bool isCollision;
 	BulletLv2();
 	~BulletLv2();
-	Animation* bulletLv2;
+	Animation* animation;
 };
 #endif // !__BULLETLV2__H__

@@ -5,11 +5,18 @@
 
 SweepingWallState::SweepingWallState(MegaManData *megaManData, bool isStart) {
 	this->megaManData = megaManData;
+	if (this->megaManData->megaMan->GetDirect() == LEFT) {
+		this->megaManData->megaMan->SetDirect(RIGHT);
+	}
+	else {
+		this->megaManData->megaMan->SetDirect(LEFT);
+	}
+
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
 	if (isStart == true) {
 		listAnimation[SWEEPING_WALL].SetIndex(0);
 		this->megaManData->megaMan->SetVy(0);
-		this->megaManData->megaMan->SetAy(-100);
+		this->megaManData->megaMan->SetAy(ACCELERATION_SWEEP_Y);
 	}
 }
 
@@ -19,11 +26,11 @@ SweepingWallState::~SweepingWallState()
 
 void SweepingWallState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[VK_A]) {
+	/*if (keys[VK_A]) {
 		int index = listAnimation[SWEEPING_WALL].GetIndex();
 		listAnimation[SWEEPING_WALL_ATTACK].SetIndex(index);
 		this->megaManData->megaMan->SetState(new SweepingWallAttackState(this->megaManData, false));
-	}
+	}*/
 	if (keys[VK_SPACE]) {
 		this->megaManData->megaMan->SetState(new JumpingFromWallState(this->megaManData));
 	}

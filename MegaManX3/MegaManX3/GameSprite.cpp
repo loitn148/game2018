@@ -109,8 +109,8 @@ void GameSprite::Draw(VT3 position, VT2 translation, VT3 center, RECT rect, VT2 
 		&scalingCenter,
 		0,
 		&scale,
-		NULL,
-		0,
+		&rotationCenter,
+		angle,
 		&translation);
 
 	this->sprite->GetTransform(&oldMatrix);

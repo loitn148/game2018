@@ -10,41 +10,66 @@ BulletLv3::~BulletLv3()
 {
 }
 
-BulletLv3::BulletLv3(D3DXVECTOR3 position, float vx, float vy)
+BulletLv3::BulletLv3(D3DXVECTOR3 position, double vx, Direct direct)
 {
-	bulletLv3 = new Animation();
+	animation = new Animation();
 
-	std::vector<Rect> _temp;
+	std::vector<Rect> temp;
 
-	_temp.push_back(Rect(28, 51, 38, 58));
-	_temp.push_back(Rect(28, 30, 46, 50));
-	_temp.push_back(Rect(26, 0, 48, 29));
-	_temp.push_back(Rect(0, 0, 25, 31));
-	_temp.push_back(Rect(0, 32, 27, 62));
+	temp.push_back(Rect(0, 0, 31, 46, VT3(-10, 0, 0)));
+	temp.push_back(Rect(32, 0, 61, 45, VT3(-10, 0, 0)));
+	temp.push_back(Rect(0, 90, 20, 104));
+	temp.push_back(Rect(63, 62, 91, 86));
+	temp.push_back(Rect(63, 33, 91, 61));
+	temp.push_back(Rect(92, 33, 118, 59));
+	temp.push_back(Rect(32, 77, 60, 105));
+	temp.push_back(Rect(32, 46, 62, 76));
+	temp.push_back(Rect(62, 0, 94, 32));
 
-	bulletLv3->Create(BULLET_LV1_PATH, _temp.size(), _temp, 0.05f, RIGHT);
-	_temp.clear();
+	animation->Create(BULLET_LV3_PATH, temp.size(), temp, 0.005f, RIGHT);
+	temp.clear();
 
 	this->id = BULLET;
 	this->position = position;
 	this->vx = vx;
-	this->vy = vy;
 	this->isDead = false;
-	this->width = 10;
-	this->height = 10;
+	this->isCollision = false;
+	this->direct = direct;
+	this->width = 35;
+	this->height = 35;
 	UpdateRect();
 }
 
-void BulletLv3::Update(float time)
+void BulletLv3::Update(double time)
 {
-	CollisionResult result;
-	position.x += vx*time;
-	position.y += vy*time;
+	if (this->animation->GetIndex() == 1 && this->isCollision == false) {
+		this->animation->SetIndex(0);
+	}
+	if (this->isCollision == true) {
+		this->vx = 0;
+		if (this->animation->GetIndex() == 0) {
+			this->isDead = true;
+		}
+	}
+
+	vector<GameObject*> listCollision;
+	GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
+	CollisionResult staticCollision;
+	double entryTime = time;
+	for (int i = 0; i < listCollision.size(); i++) {
+		staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
+		if (staticCollision.isCollision) {
+			entryTime = staticCollision.entryTime;
+			this->isCollision = true;
+		}
+	}
+
+	position.x += vx*entryTime;
 
 	UpdateRect();
 }
 
-void BulletLv3::Draw(float time)
+void BulletLv3::Draw(double time)
 {
 	if (!isDead)
 	{
@@ -52,6 +77,8 @@ void BulletLv3::Draw(float time)
 		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 		this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-		this->bulletLv3->Draw(transform.positionInViewport, this->direct, time, VT2(2, 2), transform.translation);
+		this->animation->Draw(transform.positionInViewport, this->direct, time, VT2(2, 2), transform.translation);
 	}
 }
+
+

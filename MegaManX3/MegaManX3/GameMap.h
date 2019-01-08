@@ -12,7 +12,7 @@
 #include "Global.h"
 #include "Quadtree.h"
 #include "MegaManCharacters.h"
-
+class GameEnemy;
 class GameMap
 {
 protected:
@@ -29,7 +29,7 @@ public:
 	GameMap();
 
     Tmx::Map* GetMap();
-
+	vector<GameObject*> vecEnemy;
     int GetWidth();
     int GetHeight();
     int GetTileWidth();

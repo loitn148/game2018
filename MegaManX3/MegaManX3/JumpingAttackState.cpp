@@ -9,6 +9,7 @@ JumpingAttackState::JumpingAttackState(MegaManData *megaManData, bool isStart) {
 	if (isStart == true) {
 		listAnimation[JUMPING_ATTACK].SetIndex(0);
 		this->megaManData->megaMan->SetVy(JUMP_SPEED);
+		this->megaManData->megaMan->SetAy(ACCELERATION_Y);
 		this->megaManData->megaMan->isJumping = true;
 	}
 }
@@ -20,11 +21,11 @@ JumpingAttackState::~JumpingAttackState()
 
 void JumpingAttackState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (!keys[VK_A]) {
+	/*if (!keys[VK_A]) {
 		int index = listAnimation[JUMPING_ATTACK].GetIndex();
 		listAnimation[JUMPING].SetIndex(index);
 		this->megaManData->megaMan->SetState(new JumpingState(this->megaManData, false));
-	}
+	}*/
 }
 
 CharactersStates JumpingAttackState::GetState()
@@ -41,10 +42,10 @@ void JumpingAttackState::Update(double time) {
 	}
 	if (listAnimation[JUMPING_ATTACK].GetIndex() == (listAnimation[JUMPING_ATTACK].GetTotalFrame() - 1)) {
 		if (this->megaManData->megaMan->isRightLeftKeyDown == true) {
-			this->megaManData->megaMan->SetState(new RunningAttackState(this->megaManData));
+			this->megaManData->megaMan->SetState(new RunningState(this->megaManData));
 		}
 		else {
-			this->megaManData->megaMan->SetState(new StandingAttackState(this->megaManData));
+			this->megaManData->megaMan->SetState(new StandingState(this->megaManData));
 		}
 	}
 }

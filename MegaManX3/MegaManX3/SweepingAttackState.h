@@ -10,6 +10,7 @@ public:
 	SweepingAttackState(MegaManData *megaManData, bool isStart = true);
 	~SweepingAttackState();
 
+	double duration;
 	void Update(double time);
 
 	void HandleKeyboard(std::map<int, bool> keys);

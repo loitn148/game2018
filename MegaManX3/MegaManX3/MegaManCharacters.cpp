@@ -1,4 +1,6 @@
 #include "MegaManCharacters.h"
+#include "SmokeEffect.h"
+#include "HoldAttackEffect.h"
 
 
 
@@ -24,14 +26,15 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 	this->position = VT3(MEGAMAN_START_X, MEGAMAN_START_Y, 0);
 	this->vx = this->vy = 0;
 	this->ax = 0;
-	this->ay = -200;
+	this->ay = ACCELERATION_Y;
 	this->width = MEGAMAN_WIDTH;
 	this->height = MEGAMAN_HEIGHT;
 	this->isAttacking = false;
 	this->isJumping = false;
 	this->isFalling = false;
 	this->isRightLeftKeyDown = false;
-	this->listAnimation = new Animation[16];
+	this->holdAttack = 0.0f;
+	this->listAnimation = new Animation[17];
 
 	this->megaManData = new MegaManData();
 	this->megaManData->megaMan = this;
@@ -43,11 +46,8 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 
 void MegaManCharacters::UpdatePosition(double time)
 {
-	this->dx = this->vx * time;
-	this->dy = this->vy * time;
-
-	this->position.x += this->dx;
-	this->position.y += this->dy;
+	this->position.x += this->vx * time;
+	this->position.y += this->vy * time;
 
 	this->UpdateRect();
 
@@ -81,6 +81,8 @@ void MegaManCharacters::Update(double time)
 					deltaBottom = this->rectBound.right - listCollision[i]->GetRect().left;
 				}
 
+				this->ay = ACCELERATION_Y;
+				this->vy = 0;
 				//Start 1 -> Start2
 				if (this->currentState == START1) {
 					this->SetState(new Start2State(this->megaManData));
@@ -93,13 +95,18 @@ void MegaManCharacters::Update(double time)
 					this->isFalling = false;
 					this->isJumping = false;
 				}
-				//running, running attack -> falling
-				else if ((this->currentState == RUNNING_ATTACK || this->currentState == RUNNING || this->currentState == STANDING || this->currentState == STANDING_ATTACK)
-					&& deltaBottom <= MEGAMAN_WIDTH / 5) {
-					this->SetState(new FallingState(this->megaManData));
-				}
-				else if (this->currentState == RUNNING) {
-					this->vy = 0;
+				else if (this->currentState == RUNNING_ATTACK || this->currentState == RUNNING
+					|| this->currentState == STANDING || this->currentState == STANDING_ATTACK
+					|| this->currentState == SWEEPING || this->currentState == SWEEPING_ATTACK) {
+					if (deltaBottom <= MEGAMAN_WIDTH / 5) {
+						this->SetPosition(VT3(this->position.x + MEGAMAN_WIDTH / 5, this->position.y, 0));
+						if (listCollision[i]->GetId() != CAUTHANG) {
+							this->SetState(new FallingState(this->megaManData));
+						}
+					}
+					else {
+						this->vy = 0;
+					}
 				}
 				//else ->standing
 				else {
@@ -117,13 +124,19 @@ void MegaManCharacters::Update(double time)
 				this->position.x += this->vx * entryTime;
 				this->UpdateRect();
 
-				if (this->currentState == JUMPING) {
-					this->SetState(new SweepingWallState(this->megaManData));
+				if (listCollision[i]->GetId() == CAUTHANG) {
+					//this->position.x += this->direct * 3;
+					this->position.y += listCollision[i]->GetHeight() + 3;
+					this->UpdateRect();
 				}
-				else if (this->currentState == JUMPING_ATTACK) {
-					this->SetState(new SweepingWallAttackState(this->megaManData));
+				else {
+					if (this->currentState == JUMPING || this->currentState == JUMPING_ATTACK
+						|| this->currentState == JUMPING_FROM_WALL || this->currentState == JUMPING_FROM_WALL_ATTACK) {
+						this->SetState(new SweepingWallState(this->megaManData));
+					}
+					this->vx = 0;
 				}
-				this->vx = 0;
+				break;
 			default:
 				break;
 			}
@@ -131,6 +144,41 @@ void MegaManCharacters::Update(double time)
 	}
 
 	this->UpdatePosition(time);
+
+	if (this->listBullet.size() > 0)
+	{
+		for (size_t i = 0; i < this->listBullet.size(); i++)
+		{
+			if (!this->listBullet[i]->GetIsDead())
+			{
+				this->listBullet[i]->Update(time);
+				/*free(this->listBullet[i]);
+				this->listBullet[i] = nullptr;*/
+			}
+			/*else
+				this->listBullet[i]->Update(time);*/
+		}
+	}
+
+	if (this->listSmokeEff.size() > 0)
+	{
+		for (size_t i = 0; i < this->listSmokeEff.size(); i++)
+		{
+			if (!this->listSmokeEff[i]->GetIsDead())
+			{
+				this->listSmokeEff[i]->Update(time);
+			}
+		}
+	}
+
+	if (this->holdAttackEffect) {
+		this->holdAttackEffect->SetPosition(this->position);
+
+		if (this->holdAttackEffect->GetIsDead() == true) {
+			free(this->holdAttackEffect);
+			this->holdAttackEffect = nullptr;
+		}
+	}
 
 	if (this->megaManData->megaManState) {
 		this->megaManData->megaManState->Update(time);
@@ -176,18 +224,87 @@ void MegaManCharacters::OnKeyDown(int keyCode) {
 			}
 		}
 	}
+	if (keyCode == VK_A) {
+		this->holdAttack += 0.25f;
+
+		if (this->holdAttack >= 0.5f) {
+			if (!this->holdAttackEffect) {
+				this->holdAttackEffect = new HoldAttackEffect(VT3(this->position.x, this->position.y + 40, 0), 0);
+			}
+		}
+
+		if (this->holdAttack >= 3.5f) {
+			this->holdAttackEffect->ChangeAnimation(1);
+		}
+	}
+	if (keyCode == VK_UP) {
+		this->SetState(new HurtState(this->megaManData, currentState));
+	}
 }
 
 void MegaManCharacters::OnKeyUp(int keyCode) {
 	if (keyCode == VK_RIGHT || keyCode == VK_LEFT) {
 		this->isRightLeftKeyDown = false;
-		if (currentState == RUNNING)
+		if (currentState == RUNNING || currentState == RUNNING_ATTACK)
 		{
 			this->SetState(new StandingState(this->megaManData));
 		}
-		if (currentState == JUMPING || currentState == JUMPING_ATTACK)
+		if (currentState == JUMPING || currentState == JUMPING_ATTACK || 
+			currentState == JUMPING_FROM_WALL || currentState == JUMPING_FROM_WALL_ATTACK ||
+			currentState == FALLING || currentState == FALLING_ATTACK
+			)
 		{
 			this->vx = 0;
+		}
+	}
+
+	if (keyCode == VK_A) {
+		int index = listAnimation[currentState].GetIndex();
+		switch (currentState)
+		{
+		case STANDING:
+			this->SetState(new StandingAttackState(this->megaManData));
+			break;
+		case RUNNING:
+			this->listAnimation[RUNNING_ATTACK].SetIndex(index);
+			this->SetState(new RunningAttackState(this->megaManData, false));
+			break;
+		case JUMPING:
+			this->listAnimation[JUMPING_ATTACK].SetIndex(index);
+			this->SetState(new JumpingAttackState(this->megaManData, false));
+			break;
+		case SWEEPING:
+			this->listAnimation[SWEEPING_ATTACK].SetIndex(index);
+			this->SetState(new SweepingAttackState(this->megaManData, false));
+			break;
+		case SWEEPING_WALL:
+			this->listAnimation[SWEEPING_WALL_ATTACK].SetIndex(index);
+			this->SetState(new SweepingWallAttackState(this->megaManData, false));
+			break;
+		case JUMPING_FROM_WALL:
+			this->listAnimation[JUMPING_FROM_WALL_ATTACK].SetIndex(index);
+			this->SetState(new JumpingFromWallAttackState(this->megaManData, false));
+			break;
+		case FALLING:
+			this->listAnimation[FALLING_ATTACK].SetIndex(index);
+			this->SetState(new FallingAttackState(this->megaManData, false));
+			break;
+		default:
+			break;
+		}
+
+		if (this->holdAttack >= 3.5f) {
+			this->CreateBullet(3);
+		}
+		else if (this->holdAttack >= 1.0f) {
+			this->CreateBullet(2);
+		}
+		else if (this->holdAttack < 1.0f) {
+			this->CreateBullet(1);
+		}
+		this->holdAttack = 0.0f;
+		if (this->holdAttackEffect) {
+			this->holdAttackEffect->SetIsDead(true);
 		}
 	}
 }
@@ -197,7 +314,28 @@ void MegaManCharacters::Draw(double time) {
 	VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 	this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);
 
-	this->listAnimation[this->currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2.2, 2.5), transform.translation);
+	this->listAnimation[this->currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2.2, 2.5), transform.translation, C_XRGB(255, 255, 255));
+	
+	if (this->listBullet.size() > 0)
+	{
+		for (size_t i = 0; i < this->listBullet.size(); i++)
+		{
+			this->listBullet[i]->Draw(time);
+		}
+	}
+
+	if (this->listSmokeEff.size() > 0)
+	{
+		for (size_t i = 0; i < this->listSmokeEff.size(); i++)
+		{
+			this->listSmokeEff[i]->Draw(time);
+		}
+	}
+
+	if (this->holdAttackEffect)
+	{
+		this->holdAttackEffect->Draw(time);
+	}
 }
 
 void MegaManCharacters::SetListAnimation() {
@@ -233,7 +371,7 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(0, 0, 34, 30));
 	temp.push_back(Rect(0, 31, 34, 60));
 
-	this->listAnimation[STANDING_ATTACK].Create(STAND_ATTACK_PATH, temp.size(), temp, 0.005f, RIGHT);
+	this->listAnimation[STANDING_ATTACK].Create(STAND_ATTACK_PATH, temp.size(), temp, 0.05f, RIGHT);
 	temp.clear();
 
 
@@ -311,7 +449,7 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(0, 29, 43, 56));
 	temp.push_back(Rect(0, 0, 42, 28));
 
-	this->listAnimation[SWEEPING_WALL].Create(SWEEP_WALL_PATH, temp.size(), temp, 0.05f, RIGHT);
+	this->listAnimation[SWEEPING_WALL].Create(SWEEP_WALL_PATH, temp.size(), temp, 0.05f, LEFT);
 	temp.clear();
 
 	//SWEEPING_WALL_ATTACK
@@ -319,7 +457,7 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(0, 0, 43, 32));
 	temp.push_back(Rect(0, 33, 42, 65));
 
-	this->listAnimation[SWEEPING_WALL_ATTACK].Create(SWEEP_WALL_ATTACK_PATH, temp.size(), temp, 0.05f, RIGHT);
+	this->listAnimation[SWEEPING_WALL_ATTACK].Create(SWEEP_WALL_ATTACK_PATH, temp.size(), temp, 0.05f, LEFT);
 	temp.clear();
 
 	//JUMPING_FROM_WALL
@@ -357,7 +495,14 @@ void MegaManCharacters::SetListAnimation() {
 	temp.push_back(Rect(33, 0, 71, 30));
 	temp.push_back(Rect(0, 0, 32, 36));
 
-	this->listAnimation[FALLING_ATTACK].Create(JUMP_ATTACK_PATH, temp.size(), temp, 0.01f, RIGHT);
+	this->listAnimation[FALLING_ATTACK].Create(JUMP_ATTACK_PATH, temp.size(), temp, 0.05f, RIGHT);
+	temp.clear();
+
+	//HURT
+	temp.push_back(Rect(0, 0, 36, 26));
+	temp.push_back(Rect(0, 27, 36, 53));
+
+	this->listAnimation[HURT].Create(HURT_PATH, temp.size(), temp, 0.01f, RIGHT);
 	temp.clear();
 }
 
@@ -366,5 +511,58 @@ Animation* MegaManCharacters::GetListAnimation() {
 }
 
 MegaManCharacters::~MegaManCharacters() {
+}
+
+MegaManData* MegaManCharacters::GetMegaManData() {
+	return this->megaManData;
+}
+
+void MegaManCharacters::CreateBullet(int level) {
+	int distancey1, distancey2, distancey3, distancex;
+	switch (currentState)
+	{
+	case STANDING_ATTACK:
+		distancey1 = 43;
+		distancey2 = 35;
+		distancey3 = 25;
+		distancex = 10;
+		break;
+	case SWEEPING_ATTACK:
+		distancey1 = 25;
+		distancey2 = 15;
+		distancey3 = 5;
+		distancex = 35;
+		break;
+	default:
+		distancey1 = 50;
+		distancey2 = 40;
+		distancey3 = 30;
+		distancex = 10;
+		break;
+	}
+
+	PlayerBullets *bullet;
+	if (level == 1) {
+		bullet = new BulletLv1(VT3(this->position.x + direct * distancex, this->position.y + distancey1, 0), 1500 * direct, direct);
+		listBullet.push_back(bullet);
+	}
+	else if (level == 2) {
+		bullet = new BulletLv2(VT3(this->position.x + direct * distancex, this->position.y + distancey2, 0), 1500 * direct, direct);
+		listBullet.push_back(bullet);
+	}
+	else if (level == 3) {
+		bullet = new BulletLv3(VT3(this->position.x + direct * distancex, this->position.y + distancey3, 0), 1500 * direct, direct);
+		listBullet.push_back(bullet);
+	}
+}
+
+void MegaManCharacters::AddSmokeEffect(VT3 smokePosition) {
+	SmokeEffect *smoke = new SmokeEffect(smokePosition);
+	this->listSmokeEff.push_back(smoke);
+}
+
+void MegaManCharacters::AddPosition(VT3 distance) {
+	this->position.x += distance.x;
+	this->position.y += distance.y;
 }
 

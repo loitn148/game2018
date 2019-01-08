@@ -9,6 +9,7 @@ JumpingState::JumpingState(MegaManData *megaManData, bool isStart) {
 	if (isStart == true) {
 		listAnimation[JUMPING].SetIndex(0);
 		this->megaManData->megaMan->SetVy(JUMP_SPEED);
+		this->megaManData->megaMan->SetAy(ACCELERATION_Y);
 		this->megaManData->megaMan->isJumping = true;
 	}
 }
@@ -17,14 +18,10 @@ JumpingState::~JumpingState(){}
 
 void JumpingState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[VK_A]) {
+	/*if (keys[VK_A]) {
 		int index = listAnimation[JUMPING].GetIndex();
 		listAnimation[JUMPING_ATTACK].SetIndex(index);
 		this->megaManData->megaMan->SetState(new JumpingAttackState(this->megaManData, false));
-	}
-
-	/*if (keys[VK_SPACE]) {
-		this->megaManData->megaMan->SetState(new JumpingState(this->megaManData));
 	}*/
 }
 

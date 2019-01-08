@@ -12,7 +12,7 @@ class Collision
 {
 public:
 	static Rect GetSweptBroadphaseRect(Rect rect, VT2 velocity, double time);
-	static bool IsColliding(Rect rect1, Rect rect2);
+	static bool IsColliding(RECT rect1, RECT rect2);
 	static CollisionResult SweptAABB(Rect rect1, VT2 v1, Rect rect2, VT2 v2, double time);
 	Collision();
 	~Collision();
