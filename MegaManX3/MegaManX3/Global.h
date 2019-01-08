@@ -174,6 +174,8 @@ struct CollisionResult
 #define SMOKE_EFFECT_PATH "Assets/megaman/smoke_effect.png"
 #define HOLD_1_EFFECT_PATH "Assets/megaman/hold_bullet_2.png"
 #define HOLD_2_EFFECT_PATH "Assets/megaman/hold_bullet_3.png"
+#define HEALTH_PATH "Assets/megaman/health.png"
+#define DESTROYED_EFFECT_PATH "Assets/destroyed.png"
 
 #define ENEMIES_1 "Assets/enemies/running.png"
 

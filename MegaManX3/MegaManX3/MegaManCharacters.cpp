@@ -25,7 +25,7 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 	this->hWnd = hWnd;
 	this->id = MEGAMAN;
 	this->direct = RIGHT;
-	this->position = VT3(MEGAMAN_START_X, MEGAMAN_START_Y, 0);
+	this->position = VT3(13500, 2200, 0);
 	this->vx = this->vy = 0;
 	this->ax = 0;
 	this->ay = ACCELERATION_Y;

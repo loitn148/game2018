@@ -5,6 +5,7 @@
 GameObject::GameObject() {
 	this->vx = 0;
 	this->vy = 0;
+	this->isDead = false;
 }
 
 GameObject::~GameObject() {
@@ -36,6 +37,9 @@ double GameObject::GetAy() {
 }
 
 Rect GameObject::GetRect() {
+	if (this->isDead) {
+		return Rect(0, 0, 0, 0);
+	}
 	return this->rectBound;
 }
 

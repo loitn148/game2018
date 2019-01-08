@@ -58,10 +58,18 @@ void BulletLv3::Update(double time)
 	double entryTime = time;
 	for (int i = 0; i < listCollision.size(); i++) {
 		staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
-		if (staticCollision.isCollision) {
-			entryTime = staticCollision.entryTime;
-			this->isCollision = true;
-			listCollision[i]->SubLife(3);
+		if (listCollision[i]->GetId() == ONEGUN || listCollision[i]->GetId() == ENEMYROCKET) {
+			if (staticCollision.isCollision || Collision::IsColliding(this->rectBound, listCollision[i]->GetRect())) {
+				entryTime = staticCollision.entryTime;
+				this->isCollision = true;
+				listCollision[i]->SubLife(3);
+			}
+		}
+		else {
+			if (staticCollision.isCollision) {
+				entryTime = staticCollision.entryTime;
+				this->isCollision = true;
+			}
 		}
 	}
 
