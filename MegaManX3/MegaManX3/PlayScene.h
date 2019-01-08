@@ -29,6 +29,7 @@ private:
 	Elevator1 *elevator1;
 	BossNormal *bossNormal;
 	EnemySweeping *Sweep;
+	TEXTURE gameOverImages;
 
 public:
 	void LoadContent();
@@ -36,6 +37,8 @@ public:
 	void Draw(double time);
 	void OnKeyDown(int keyCode);
 	void OnKeyUp(int keyCode);
+	void InitGameOverImage();
+	void DrawOnGameOver();
 	CollisionResult CheckCollision(GameObject* obj1, GameObject* obj2, double time);
 	PlayScene(HWND hWnd, HINSTANCE hInstance);
 	PlayScene();

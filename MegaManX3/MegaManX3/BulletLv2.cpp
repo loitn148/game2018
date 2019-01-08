@@ -60,6 +60,7 @@ void BulletLv2::Update(double time)
 		if (staticCollision.isCollision) {
 			entryTime = staticCollision.entryTime;
 			this->isCollision = true;
+			listCollision[i]->SubLife(2);
 		}
 	}
 

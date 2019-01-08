@@ -184,6 +184,8 @@ void Camera::CameraOnWorld() {
 			position.y = 500;
 		}
 	}
+
+	MegaManHealth::GetInstance()->SetPosition(VT3(position.x + 40, position.y - 150, 0));
 }
 
 void Camera::Update(MegaManCharacters* megaMan)

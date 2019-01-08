@@ -146,7 +146,7 @@ void GameGraphic::Present() {
 }
 
 void GameGraphic::DrawTexture(TEXTURE texture, RECT rect, VT3 center,
-	VT3 position, VT2 scale, VT2 scalingCenter, VT2 translation) {
+	VT3 position, VT2 scale, VT2 scalingCenter, VT2 translation, COLOR transcolor) {
 
 	MATRIX oldMatrix;
 	MATRIX matrix;
@@ -170,7 +170,7 @@ void GameGraphic::DrawTexture(TEXTURE texture, RECT rect, VT3 center,
 		&rect,
 		&center,
 		&position,
-		D3DCOLOR_XRGB(255, 255, 255));
+		transcolor);
 	this->sprite->End();
 
 	this->sprite->SetTransform(&oldMatrix);

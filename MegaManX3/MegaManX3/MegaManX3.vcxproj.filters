@@ -285,6 +285,12 @@
     <ClCompile Include="HoldAttackEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MegaManHealth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DestroyedEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -564,6 +570,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HoldAttackEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MegaManHealth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DestroyedEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

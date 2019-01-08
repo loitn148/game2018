@@ -2,7 +2,7 @@
 #include "MegaManCharacters.h"
 
 
-HurtState::HurtState(MegaManData *megaManData, CharactersStates previousState) {
+HurtState::HurtState(MegaManData *megaManData) {
 	this->megaManData = megaManData;
 	this->megaManData->megaMan->SetAx(0);
 	this->megaManData->megaMan->SetVy(500);
