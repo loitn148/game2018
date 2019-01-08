@@ -7,7 +7,7 @@
 class HurtState : public MegaManState
 {
 public:
-	HurtState(MegaManData *megaManData, CharactersStates previousState);
+	HurtState(MegaManData *megaManData);
 	~HurtState();
 
 	void Update(double time);

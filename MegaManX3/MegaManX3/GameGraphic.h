@@ -23,7 +23,7 @@ public:
 	TEXTURE LoadTexture(char* filePath, COLOR transcolor = C_XRGB(0, 0, 0));
 	SURFACE LoadSurface(char* filePath, COLOR transcolor = C_XRGB(0, 0, 0));
 	void DrawTexture(TEXTURE texture, RECT rect, VT3 center, VT3 position,
-		VT2 scale, VT2 scalingCenter, VT2 translation = VT2(0, 0));
+		VT2 scale, VT2 scalingCenter, VT2 translation = VT2(0, 0), COLOR transcolor = C_XRGB(255, 255, 255));
 	void DrawSurface(SURFACE surface, RECT* sRect, RECT* dRect);
 	SPRITE GetSprite();
 	SURFACE GetBackBuffer();

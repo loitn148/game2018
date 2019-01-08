@@ -138,6 +138,7 @@
     <ClCompile Include="BulletLv3.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="DestroyedEffect.cpp" />
     <ClCompile Include="Elevator1.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyOneGun.cpp" />
@@ -196,6 +197,7 @@
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="MegaManCharacters.cpp" />
     <ClCompile Include="MegaManData.cpp" />
+    <ClCompile Include="MegaManHealth.cpp" />
     <ClCompile Include="MegaManState.cpp" />
     <ClCompile Include="OneGunBullet.cpp" />
     <ClCompile Include="PlayerBullets.cpp" />
@@ -237,6 +239,7 @@
     <ClInclude Include="BulletLv3.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DestroyedEffect.h" />
     <ClInclude Include="Elevator1.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOneGun.h" />
@@ -300,6 +303,7 @@
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="MegaManCharacters.h" />
     <ClInclude Include="MegaManData.h" />
+    <ClInclude Include="MegaManHealth.h" />
     <ClInclude Include="MegaManState.h" />
     <ClInclude Include="OneGunBullet.h" />
     <ClInclude Include="PlayerBullets.h" />

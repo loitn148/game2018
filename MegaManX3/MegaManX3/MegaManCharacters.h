@@ -40,6 +40,8 @@
 
 class SmokeEffect;
 class HoldAttackEffect;
+class MegaManHealth;
+class DestroyedEffect;
 
 class MegaManCharacters : public GameObject
 {
@@ -49,9 +51,11 @@ protected:
 	HINSTANCE hInstance;
 	Animation* listAnimation;
 	MegaManData* megaManData;
+	MegaManHealth* healthDraw;
 	CharactersStates currentState;
 	int positionBeforeJump;
 	HoldAttackEffect* holdAttackEffect;
+	DestroyedEffect* destroyedEffect;
 	vector<PlayerBullets*> listBullet;
 	vector<SmokeEffect*> listSmokeEff;
 public:
@@ -65,6 +69,7 @@ public:
 	void SetListAnimation();
 	void AddSmokeEffect(VT3 smokePosition);
 	void AddPosition(VT3 distance);
+	void SubLife(int sub);
 	//void AddPosition
 
 	Animation* GetListAnimation();
@@ -75,6 +80,7 @@ public:
 	bool isAttacking;
 	bool isJumping;
 	bool isFalling;
+	bool isDestroying;
 	double holdAttack;
 
 	MegaManData* GetMegaManData();

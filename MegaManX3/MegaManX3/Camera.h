@@ -5,6 +5,7 @@
 #include <DirectXMath.h>
 #include "GameGraphic.h"
 #include "MegaManCharacters.h"
+#include "MegaManHealth.h"
 
 class MegaManCharacters;
 
