@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Camera.h"
 
 
 GameObject::GameObject() {
@@ -54,6 +55,11 @@ bool GameObject::GetIsDead() {
 	return this->isDead;
 }
 
+bool GameObject::checkCamera()
+{
+	return Collision::IsColliding(rectBound, Camera::GetInstance()->GetRect());
+}
+
 VT3 GameObject::GetPosition() {
 	return this->position;
 }
@@ -93,6 +99,14 @@ void GameObject::SetAx(double ax) {
 
 void GameObject::SetAy(double ay) {
 	this->ay = ay;
+}
+
+void GameObject::SetHeight(int height) {
+	this->height = height;
+}
+
+void GameObject::SetWidth(int width) {
+	this->width = width;
 }
 
 void GameObject::SetRect(Rect rect) {

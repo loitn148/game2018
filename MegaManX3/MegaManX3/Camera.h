@@ -20,6 +20,7 @@ private:
 	double vx, vy;
 	bool allowMoveX;
 	bool allowMoveY;
+	int state;
 public:
 	void CameraOnWorld();
 	void Update(MegaManCharacters* megaMan);

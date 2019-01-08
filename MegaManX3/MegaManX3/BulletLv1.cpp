@@ -21,7 +21,7 @@ BulletLv1::BulletLv1(D3DXVECTOR3 position, double vx, Direct direct)
 	temp.push_back(Rect(0, 16, 13, 29));
 	temp.push_back(Rect(0, 0, 15, 15));
 
-	animation->Create("Assets/megaman/bullet_lv1.png", temp.size(), temp, 0.005f, RIGHT);
+	animation->Create(BULLET_LV1_PATH, temp.size(), temp, 0.005f, RIGHT);
 	temp.clear();
 
 	this->id = BULLET;
@@ -37,9 +37,6 @@ BulletLv1::BulletLv1(D3DXVECTOR3 position, double vx, Direct direct)
 
 void BulletLv1::Update(double time)
 {
-	position.x += vx*time;
-	position.y += vy*time;
-
 	if (this->animation->GetIndex() == 1 && this->isCollision == false) {
 		this->animation->SetIndex(0);
 	}

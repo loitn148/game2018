@@ -4,6 +4,7 @@
 
 
 SweepingAttackState::SweepingAttackState(MegaManData *megaManData, bool isStart) {
+	this->duration = 0.04f;
 	this->megaManData = megaManData;
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
 	if (isStart == true) {
@@ -33,6 +34,14 @@ CharactersStates SweepingAttackState::GetState()
 }
 
 void SweepingAttackState::Update(double time) {
+	if (duration >= 0.04f) {
+		VT3 megaManPosition = this->megaManData->megaMan->GetPosition();
+		VT3 smokePosition(megaManPosition.x - 40 * this->megaManData->megaMan->GetDirect(), megaManPosition.y - 8, 0);
+		this->megaManData->megaMan->AddSmokeEffect(smokePosition);
+		duration = 0.0f;
+	}
+	duration += time;
+
 	if (listAnimation[SWEEPING_ATTACK].GetIndex() == 0) {
 		listAnimation[SWEEPING_ATTACK].SetIndex(listAnimation[SWEEPING_ATTACK].GetTotalFrame() - 1);
 	}

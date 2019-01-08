@@ -1,7 +1,9 @@
 #include "GameMap.h"
 #include "Viewport.h"
 #include "Camera.h"
-
+#include "EnemyOneGun.h"
+#include "EnemyRocket.h"
+#include "EnemySweeping.h"
 
 GameMap::GameMap(){
 }
@@ -10,6 +12,7 @@ GameMap::~GameMap()
 {
 	delete map;
 
+	//static
 	for (size_t i = 0; i < vtStaticObject.size(); i++)
 	{
 		if (vtStaticObject[i])
@@ -61,7 +64,7 @@ void GameMap::LoadMap(char *filePath)
 	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
 	{
 		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
-		if (objectGroup->GetName() == "Static")
+		if (objectGroup->GetName() == "Static" || objectGroup->GetName() == "Onehit" || objectGroup->GetName() == "cauthang")
 		{
 			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
 			{
@@ -80,8 +83,100 @@ void GameMap::LoadMap(char *filePath)
 					posX + object->GetWidth() * 3
 				};
 				staticObj->SetRect(StaticRect);
+				if (objectGroup->GetName() == "Static") {
+					staticObj->SetId(STATICOBJECT);
+				}
+				else if (objectGroup->GetName() == "Onehit") {
+					staticObj->SetId(ONEHITOBJECT);
+				}
+				else if (objectGroup->GetName() == "cauthang") {
+					staticObj->SetHeight(object->GetHeight() * 3);
+					staticObj->SetId(CAUTHANG);
+				}
 				
 				quadtree->InsertObject(staticObj);
+			}
+		}
+	}
+#pragma endregion
+#pragma region -One Gun-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "OneGun")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				EnemyOneGun* enemyOneGun = new EnemyOneGun();
+				VT3 position(posX, posY, 0);
+				enemyOneGun->SetId(Object::ONEGUN);
+				enemyOneGun->Init(position, MEGAMAN_WIDTH, MEGAMAN_HEIGHT);
+				if (object->GetType() == "1")
+				{
+					enemyOneGun->SetDirect(RIGHT);
+				}
+				vecEnemy.push_back(enemyOneGun);
+				quadtree->InsertObject(enemyOneGun);
+			}
+		}
+	}
+#pragma endregion
+#pragma region -Enemy Rocket-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "EnemyRocket")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				EnemyRocket* enemyOneGun = new EnemyRocket();
+				VT3 position(posX, posY, 0);
+				enemyOneGun->SetId(Object::ENEMYROCKET);
+				if (j!=1)
+					enemyOneGun->Init(position, MEGAMAN_WIDTH, MEGAMAN_HEIGHT, LEFT);
+				else
+				{
+
+					enemyOneGun->Init(position, MEGAMAN_WIDTH, MEGAMAN_HEIGHT, RIGHT);
+				}
+				vecEnemy.push_back(enemyOneGun);
+				quadtree->InsertObject(enemyOneGun);
+			}
+		}
+	}
+#pragma endregion
+#pragma region -Bee-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "Bee")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				//lay object group chu khong phai layer
+				//object group se chua nhung body
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				EnemySweeping* enemyOneGun = new EnemySweeping();
+				VT3 position(posX, posY, 0);
+				enemyOneGun->SetId(Object::ENEMYROCKET);
+				enemyOneGun->Init(position, MEGAMAN_WIDTH, MEGAMAN_HEIGHT, RIGHT);
+				vecEnemy.push_back(enemyOneGun);
+				quadtree->InsertObject(enemyOneGun);
 			}
 		}
 	}

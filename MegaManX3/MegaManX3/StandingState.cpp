@@ -6,6 +6,8 @@
 StandingState::StandingState(MegaManData *megaManData, bool isStart) {
 	this->megaManData = megaManData;
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
+	this->megaManData->megaMan->isFalling = false;
+	this->megaManData->megaMan->isJumping = false;
 	if (isStart == true) {
 		this->megaManData->megaMan->SetVx(0);
 		//this->megaManData->megaMan->SetVy(0);

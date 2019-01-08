@@ -16,15 +16,7 @@ BulletLv2::BulletLv2(D3DXVECTOR3 position, double vx, Direct direct)
 
 	std::vector<Rect> temp;
 
-	/*temp.push_back(Rect(43, 33, 45, 35));
-	temp.push_back(Rect(61, 65, 75, 79));
-	temp.push_back(Rect(52, 0, 76, 24));
-	temp.push_back(Rect(23, 39, 35, 67));
-	temp.push_back(Rect(43, 0, 51, 32));
-	temp.push_back(Rect(17, 0, 29, 38));
-	temp.push_back(Rect(0, 39, 22, 75));
-	temp.push_back(Rect(30, 0, 42, 38));*/
-	temp.push_back(Rect(0, 0, 16, 38));
+	temp.push_back(Rect(0, 0, 16, 38, VT3(-7, 0, 0)));
 	temp.push_back(Rect(42, 89, 56, 103));
 	temp.push_back(Rect(36, 39, 60, 63));
 	temp.push_back(Rect(61, 48, 77, 64));
@@ -33,7 +25,7 @@ BulletLv2::BulletLv2(D3DXVECTOR3 position, double vx, Direct direct)
 	temp.push_back(Rect(61, 25, 83, 47));
 	temp.push_back(Rect(36, 64, 60, 88));
 
-	animation->Create("Assets/megaman/bullet_lv2.png", temp.size(), temp, 0.005f, RIGHT);
+	animation->Create(BULLET_LV2_PATH, temp.size(), temp, 0.005f, RIGHT);
 	temp.clear();
 
 	this->id = BULLET;
@@ -42,8 +34,8 @@ BulletLv2::BulletLv2(D3DXVECTOR3 position, double vx, Direct direct)
 	this->isDead = false;
 	this->isCollision = false;
 	this->direct = direct;
-	this->width = 20;
-	this->height = 20;
+	this->width = 25;
+	this->height = 25;
 	UpdateRect();
 }
 

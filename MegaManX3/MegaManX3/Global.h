@@ -32,10 +32,14 @@
 #define MEGAMAN_WIDTH 50
 #define MEGAMAN_HEIGHT 80
 #define DELTA_CAMERA 20
+#define BIGBOSS_POSITION_CALL_ENEMIES_LEFT_X 100
+#define BIGBOSS_POSITION_CALL_ENEMIES_LEFT_Y 2600
+#define BIGBOSS_POSITION_CALL_ENEMIES_RIGHT_X 500
+#define BIGBOSS_POSITION_CALL_ENEMIES_RIGHT_Y 2600
 
 //MEGAMAN SPEED
 #define RUN_SPEED 500
-#define JUMP_SPEED 1300
+#define JUMP_SPEED 1500
 #define SWEEP_SPEED 1600
 #define SWEEP_WALL_SPEED 500
 #define START_SPEED_Y -1300
@@ -73,18 +77,58 @@ enum CharactersStates {
 	JUMPING_FROM_WALL = 12,
 	JUMPING_FROM_WALL_ATTACK = 13,
 	FALLING = 14,
-	FALLING_ATTACK = 15
+	FALLING_ATTACK = 15,
+	HURT = 16
+};
+
+//BossFinal State
+enum BigBossStates {
+	START = 0,
+	FLY = 1,
+	PRICK = 2,
+	CALL_ENEMIES = 3,
+	DEAD = 4
 };
 
 //Object Game
 enum Object {
 	MEGAMAN,
 	STATICOBJECT,
+	ONEHITOBJECT,
+	CAUTHANG,
 	BULLET,
 	NORMALBOSS,
-	ELEVATOR
+	ONEGUN,
+	ENEMYROCKET,
+	ELEVATOR,
+	BULLETENEMY,
+	SMOKE,
+	HOLDATTACK,
+	BOSSFINAL,
+	WINGS,
+	ENEMY
 };
 
+enum OneGunStates{
+	ENEMYJUMPING = 0,
+	ENEMYSTANDING,
+	ENEMYATTACK1,
+	ENEMYATTACK2,
+
+};
+
+enum EnemyRocketStates{
+	ENEMYROCKETSTANDING = 0,
+	ENEMYROCKETATTACK1,
+	ENEMYROCKETATTACK2,
+
+};
+
+enum EnemySweepingStates{
+	ENEMYSWEEPINGNORMAL = 0,
+	ENEMYSWEEPINGSHOOTING,
+
+};
 //Object Direct
 enum Direct {
 	LEFT = -1,
@@ -121,12 +165,36 @@ struct CollisionResult
 #define SWEEP_WALL_ATTACK_PATH "Assets/megaman/sweep_wall_attack.png"
 #define JUMP_FROM_WALL_PATH "Assets/megaman/jump_from_wall.png"
 #define JUMP_FROM_WALL_ATTACK_PATH "Assets/megaman/jump_from_wall_attack.png"
+#define HURT_PATH "Assets/megaman/hurt.png"
 
-#define BULLET_LV1_PATH ""
-#define BULLET_LV2_PATH ""
-#define BULLET_LV3_PATH ""
+#define BULLET_LV1_PATH "Assets/megaman/bullet_lv1.png"
+#define BULLET_LV2_PATH "Assets/megaman/bullet_lv2.png"
+#define BULLET_LV3_PATH "Assets/megaman/bullet_lv3.png"
+
+#define SMOKE_EFFECT_PATH "Assets/megaman/smoke_effect.png"
+#define HOLD_1_EFFECT_PATH "Assets/megaman/hold_bullet_2.png"
+#define HOLD_2_EFFECT_PATH "Assets/megaman/hold_bullet_3.png"
 
 #define ENEMIES_1 "Assets/enemies/running.png"
 
 #define BOSSNORMAL "Assets/boss/boss_normal.png"
 #define ELEVATOR1 "Assets/map/elevator1.png"
+
+#define ENEMIES_1_JUMP		 "Assets/enemies/jump.png"
+#define ENEMIES_1_STAND		 "Assets/enemies/stand.png"
+#define ENEMIES_1_ATTACK1	 "Assets/enemies/attack1.png"
+#define ENEMIES_1_ATTACK2	 "Assets/enemies/attack2.png"
+
+#define ENEMIES_ROCKET_SHOOTING		 "Assets/enemies/shooting.png"
+#define ENEMIES_ROCKET_STAND		 "Assets/enemies/EnemyRocketStand.png"
+
+#define ENEMIES_SWEEPING_NORMAL		 "Assets/enemies/normal.png"
+#define ENEMIES_SWEEPING_SHOOTING	 "Assets/enemies/Sweepingshooting.png"
+
+#define BOSSFINAL_PATH "Assets/bossfinal/fly.png"
+#define BOSSFINAL_PRICK_PATH "Assets/bossfinal/prick.png"
+#define BOSSFINAL_CALL_ENEMIES_PATH "Assets/bossfinal/call_enemies.png"
+#define WINGS_PATH "Assets/bossfinal/wing.png"
+#define ENEMIES_PATH "Assets/bossfinal/enemies.png"
+
+

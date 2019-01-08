@@ -1,7 +1,7 @@
 #include "Collision.h"
 #include <math.h>
 
-bool Collision::IsColliding(Rect rect1, Rect rect2) {
+bool Collision::IsColliding(RECT rect1, RECT rect2) {
 	double left = rect2.left - rect1.right;
 	double top = rect2.top - rect1.bottom;
 	double right = rect2.right - rect1.left;

@@ -36,19 +36,20 @@ Elevator1::Elevator1(VT3 position, double vx, double vy) {
 }
 
 void Elevator1::Update(double time) {
-	position.x += vx*time;
-	position.y += vy*time;
-	if (position.y >= 3463 && this->isStop == false) {
-		this->vy = 0;
-		this->isStop = true;
-		Camera::GetInstance()->SetPosition(VT3(1705, 3910, 0));
-		Camera::GetInstance()->allowMove(true, false);
-		if (MegaManCharacters::GetInstance()->GetAy() == 0) {
-			MegaManCharacters::GetInstance()->SetVy(0);
-			MegaManCharacters::GetInstance()->SetAy(ACCELERATION_Y);
+	if (isActive) {
+		position.y += vy*time;
+		if (position.y >= 3463 && this->isStop == false) {
+			this->vy = 0;
+			this->isStop = true;
+			Camera::GetInstance()->SetPosition(VT3(1705, 3910, 0));
+			Camera::GetInstance()->allowMove(true, false);
+			if (MegaManCharacters::GetInstance()->GetAy() == 0) {
+				MegaManCharacters::GetInstance()->SetVy(0);
+				MegaManCharacters::GetInstance()->SetAy(ACCELERATION_Y);
+			}
 		}
+		UpdateRect();
 	}
-	UpdateRect();
 }
 
 void Elevator1::Draw(double time)

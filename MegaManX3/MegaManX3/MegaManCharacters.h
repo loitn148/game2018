@@ -25,6 +25,7 @@
 #include "JumpingFromWallAttackState.h"
 #include "FallingState.h"
 #include "FallingAttackState.h"
+#include "HurtState.h"
 #include "PlayerBullets.h"
 #include "BulletLv1.h"
 #include "BulletLv2.h"
@@ -37,6 +38,9 @@
 #include <vector>
 #include <map>
 
+class SmokeEffect;
+class HoldAttackEffect;
+
 class MegaManCharacters : public GameObject
 {
 protected:
@@ -47,7 +51,9 @@ protected:
 	MegaManData* megaManData;
 	CharactersStates currentState;
 	int positionBeforeJump;
-	PlayerBullets* myBullet;
+	HoldAttackEffect* holdAttackEffect;
+	vector<PlayerBullets*> listBullet;
+	vector<SmokeEffect*> listSmokeEff;
 public:
 	static MegaManCharacters* GetInstance();
 
@@ -57,6 +63,8 @@ public:
 	void Update(double time);
 	void SetState(MegaManState* state);
 	void SetListAnimation();
+	void AddSmokeEffect(VT3 smokePosition);
+	void AddPosition(VT3 distance);
 	//void AddPosition
 
 	Animation* GetListAnimation();

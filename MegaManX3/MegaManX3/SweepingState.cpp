@@ -4,6 +4,7 @@
 
 
 SweepingState::SweepingState(MegaManData *megaManData, bool isStart) {
+	this->duration = 0.04f;
 	this->megaManData = megaManData;
 	listAnimation = this->megaManData->megaMan->GetListAnimation();
 	if (isStart == true) {
@@ -19,11 +20,7 @@ SweepingState::~SweepingState()
 
 void SweepingState::HandleKeyboard(std::map<int, bool> keys)
 {
-	/*if (keys[VK_A]) {
-		int index = listAnimation[SWEEPING].GetIndex();
-		listAnimation[SWEEPING_ATTACK].SetIndex(index);
-		this->megaManData->megaMan->SetState(new SweepingAttackState(this->megaManData, false));
-	}*/
+	
 }
 
 CharactersStates SweepingState::GetState()
@@ -32,6 +29,14 @@ CharactersStates SweepingState::GetState()
 }
 
 void SweepingState::Update(double time) {
+	if(duration >= 0.04f) {
+		VT3 megaManPosition = this->megaManData->megaMan->GetPosition();
+		VT3 smokePosition(megaManPosition.x - 40 * this->megaManData->megaMan->GetDirect(), megaManPosition.y - 8, 0);
+		this->megaManData->megaMan->AddSmokeEffect(smokePosition);
+		duration = 0.0f;
+	}
+	duration += time;
+
 	if (listAnimation[SWEEPING].GetIndex() == 0) {
 		listAnimation[SWEEPING].SetIndex(listAnimation[SWEEPING].GetTotalFrame() - 1);
 	}
