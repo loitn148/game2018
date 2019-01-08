@@ -209,6 +209,9 @@
   <object id="217" x="578" y="765" width="172" height="18"/>
   <object id="218" x="2343" y="1336" width="85" height="11"/>
   <object id="220" x="4771" y="1251" width="13" height="60"/>
+  <object id="374" x="4592" y="1499" width="85" height="4"/>
+  <object id="375" x="5027" y="1498" width="85" height="5"/>
+  <object id="376" x="1195" y="950" width="85" height="11"/>
  </objectgroup>
  <objectgroup id="11" name="OneGun">
   <object id="261" x="336" y="671" width="12" height="5"/>
@@ -237,6 +240,10 @@
   <object id="398" x="5144" y="1465" width="9" height="3"/>
   <object id="399" x="5293" y="1465" width="9" height="4"/>
   <object id="400" x="5454" y="1465" width="9" height="5"/>
+  <object id="377" x="3552" y="896" width="8" height="6"/>
+  <object id="379" x="3747" y="896" width="8" height="6"/>
+  <object id="380" x="3977" y="896" width="8" height="6"/>
+  <object id="381" x="4497" y="896" width="8" height="6"/>
  </objectgroup>
  <objectgroup id="12" name="Bee">
   <object id="382" x="2255" y="672" width="9" height="6"/>
@@ -247,5 +254,10 @@
   <object id="390" x="2966" y="640" width="9" height="6"/>
   <object id="391" x="3136" y="642" width="9" height="6"/>
   <object id="392" x="3329" y="640" width="9" height="6"/>
+ </objectgroup>
+ <objectgroup id="12" name="Box">
+  <object id="382" x="5055" y="1497" width="8" height="4"/>
+  <object id="383" x="5208" y="1478" width="8" height="4"/>
+  <object id="384" x="5359" y="1478" width="8" height="4"/>
  </objectgroup>
 </map>
