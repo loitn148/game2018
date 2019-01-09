@@ -12,7 +12,9 @@
 #include "Global.h"
 #include "Quadtree.h"
 #include "MegaManCharacters.h"
+
 class GameEnemy;
+class Enemy;
 class GameMap
 {
 protected:
@@ -35,8 +37,11 @@ public:
     int GetTileWidth();
     int GetTileHeight();
 	vector<GameObject*> vtStaticObject;
+	vector<Enemy*> vecEnemyBoss;
     void Draw();
 	Quadtree* GetQuadtree();
+
+	void CreateEnemyBoss();
 
     ~GameMap();
 };

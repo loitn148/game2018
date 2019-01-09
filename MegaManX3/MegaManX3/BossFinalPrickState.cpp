@@ -34,9 +34,10 @@ void BossFinalPrickState::Update(double time) {
 		this->listAnimation[PRICK].SetIndex(5);
 
 		this->bossFinalData->bossFinal->SetVy(-500);
-		this->bossFinalData->bossFinal->SetVx(this->bossFinalData->bossFinal->GetDirect() * this->angleAttack * abs(this->bossFinalData->bossFinal->GetVy()));
+		this->bossFinalData->bossFinal->SetVx(500 * this->bossFinalData->bossFinal->GetDirect());
+		//this->bossFinalData->bossFinal->SetVx(this->bossFinalData->bossFinal->GetDirect() * this->angleAttack * abs(this->bossFinalData->bossFinal->GetVy()));
 	}
-
+	
 	if (this->bossFinalData->bossFinal->GetPosition().y < this->positionMegan.y)
 	{
 		this->bossFinalData->bossFinal->isJustPrick = true;

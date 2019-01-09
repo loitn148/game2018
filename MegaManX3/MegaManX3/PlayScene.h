@@ -14,6 +14,8 @@
 #include "EnemyOneGun.h"
 #include "EnemyRocket.h"
 #include "EnemySweeping.h"
+#include "Sound.h"
+#include "BossFinal.h"
 
 class PlayScene : public GameScene
 {
@@ -30,7 +32,8 @@ private:
 	BossNormal *bossNormal;
 	EnemySweeping *Sweep;
 	TEXTURE gameOverImages;
-
+	Sound* sound;
+	BossFinal* bossfinal;
 public:
 	void LoadContent();
 	void Update(double time);

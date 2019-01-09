@@ -180,6 +180,7 @@ struct CollisionResult
 #define ENEMIES_1 "Assets/enemies/running.png"
 
 #define BOSSNORMAL "Assets/boss/boss_normal.png"
+#define BOSSHEALTH "Assets/bossfinal/health.png"
 #define ELEVATOR1 "Assets/map/elevator1.png"
 
 #define ENEMIES_1_JUMP		 "Assets/enemies/jump.png"

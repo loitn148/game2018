@@ -203,8 +203,14 @@ void Camera::CameraOnWorld() {
 			position.x = 13770;
 		}
 	}
+	else if (state == 11) {
+		position.x = 17750;
+		position.y = 500;
+		allowMove(false, false);
+	}
 
 	MegaManHealth::GetInstance()->SetPosition(VT3(position.x + 40, position.y - 150, 0));
+	BossFinalHealth::GetInstance()->SetPosition(VT3(position.x + 525, position.y - 220, 0));
 }
 
 void Camera::Update(MegaManCharacters* megaMan)
@@ -274,6 +280,10 @@ void Camera::Update(MegaManCharacters* megaMan)
 		state = 10;
 	}
 
+	else if (position.x >= 17750 && position.y == 500) {
+		state = 11;
+	}
+
 	position.x += vx;
 	position.y += vy;
 
@@ -307,7 +317,7 @@ void Camera::Create(VT3 position, int width, int height)
 	this->height = height;
 	allowMoveX = true;
 	allowMoveY = false;
-	//state = 1;
+	state = 10;
 }
 
 Camera::Camera() {

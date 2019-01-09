@@ -23,5 +23,6 @@ public:
 	BossNormal();
 	~BossNormal();
 	Animation* animation;
+	void SubLife(int sub);
 };
 #endif // !__BOSSNORMAL__H__#pragma once

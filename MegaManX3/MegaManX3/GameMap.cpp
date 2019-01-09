@@ -4,6 +4,7 @@
 #include "EnemyOneGun.h"
 #include "EnemyRocket.h"
 #include "EnemySweeping.h"
+#include "Enemy.h"
 
 GameMap::GameMap(){
 }
@@ -181,6 +182,8 @@ void GameMap::LoadMap(char *filePath)
 		}
 	}
 #pragma endregion
+	this->CreateEnemyBoss();
+
 }
 
 Tmx::Map* GameMap::GetMap()
@@ -285,4 +288,14 @@ void GameMap::Draw()
 
 Quadtree* GameMap::GetQuadtree() {
 	return quadtree;
+}
+
+void GameMap::CreateEnemyBoss() {
+	for (int i = 0; i < 3; i++) {
+		Enemy* enemyBoss = new Enemy(VT3(0, 0, 0), 10, 10, RIGHT);
+		enemyBoss->SetId(Object::ENEMY);
+		enemyBoss->SetIsDead(true);
+		vecEnemyBoss.push_back(enemyBoss);
+		quadtree->InsertObject(enemyBoss);
+	}
 }

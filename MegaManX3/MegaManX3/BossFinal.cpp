@@ -3,6 +3,7 @@
 #include "BossFinalPrickState.h"
 #include "BossFinalCallEnemies.h"
 #include "Enemy.h"
+#include "BossFinalHealth.h"
 
 
 BossFinal::BossFinal()
@@ -47,6 +48,9 @@ BossFinal::BossFinal(D3DXVECTOR3 position, float vx, float vy)
 	this->isCallEnemies = false;
 	this->width = 70;
 	this->height = 100;
+	this->Life = 14;
+	this->healthDraw = BossFinalHealth::GetInstance();
+	this->healthDraw->SetHealth(this->Life);
 	listAnimation = new Animation[5];
 
 	wings = new Wings(VT3(this->position.x, this->position.y + 120, 0), this->vx, this->vy);
@@ -57,119 +61,129 @@ BossFinal::BossFinal(D3DXVECTOR3 position, float vx, float vy)
 
 	this->UpdateRect();
 	this->SetListAnimation();
+	this->megaMan = MegaManCharacters::GetInstance();
 }
 
 void BossFinal::Update(double time)
 {
-	CollisionResult result;
+	if (checkCamera()) {
+		CollisionResult result;
 
-	if (this->isIntro)
-	{
-		if (this->currentState == START)
+		if (this->isIntro)
 		{
-			if (this->position.y < 2300)
+			if (this->currentState == START)
 			{
-				this->vx = 0;
-				this->vy = 500;
+				if (this->position.y < 100)
+				{
+					this->vx = 0;
+					this->vy = 500;
+				}
+
+				else if (this->position.y > 200)
+				{
+					this->currentState = CALL_ENEMIES;
+					this->vx = 0;
+					this->vy = 0;
+				}
 			}
 
-			else if (this->position.y > 2500)
+			if (this->currentState == CALL_ENEMIES)
 			{
-				this->currentState = CALL_ENEMIES;
-				this->vx = 0;
-				this->vy = 0;
+				if (this->listAnimation[this->currentState].GetIndex() == 4)
+				{
+					this->currentState = PRICK;
+					this->vx = 0;
+					this->vy = 0;
+				}
+			}
+
+			if (this->currentState == PRICK)
+			{
+				if (this->listAnimation[this->currentState].GetIndex() == 11)
+				{
+					this->isIntro = false;
+					this->SetState(new BossFinalStartState(this->bossFinalData));
+					this->vx = 0;
+					this->vy = 200;
+				}
 			}
 		}
-
-		if (this->currentState == CALL_ENEMIES)
+		else
 		{
-			if (this->listAnimation[this->currentState].GetIndex() == 4)
+			if (this->currentState == START)
 			{
-				this->currentState = PRICK;
-				this->vx = 0;
-				this->vy = 0;
+				if (this->position.y >= 300)
+				{
+					if (this->isJustPrick)
+					{
+						this->listAnimation[this->currentState].SetIndex(0);
+						this->SetState(new BossFinalCallEnemies(this->bossFinalData));
+					}
+					else
+					{
+						this->listAnimation[this->currentState].SetIndex(0);
+						this->SetState(new BossFinalPrickState(this->bossFinalData));
+					}
+				}
 			}
-		}
 
-		if (this->currentState == PRICK)
-		{
-			if (this->listAnimation[this->currentState].GetIndex() == 11)
+			if (this->currentState == CALL_ENEMIES)
 			{
-				this->isIntro = false;
-				this->SetState(new BossFinalStartState(this->bossFinalData));
-				this->vx = 0;
-				this->vy = 200;
+				if (this->listAnimation[this->currentState].GetIndex() == 4)
+				{
+					this->listAnimation[this->currentState].SetIndex(0);
+					this->SetState(new BossFinalStartState(this->bossFinalData));
+					this->vx = 0;
+					this->vy = 0;
+					CallEnemy();
+				}
 			}
-		}
-	}
-	else
-	{
-		if (this->currentState == START)
-		{
-			if (this->position.y >= 2600)
+
+			if (this->currentState == PRICK)
 			{
 				if (this->isJustPrick)
 				{
 					this->listAnimation[this->currentState].SetIndex(0);
-					this->SetState(new BossFinalCallEnemies(this->bossFinalData));
+					this->SetState(new BossFinalStartState(this->bossFinalData));
+				}
+			}
+
+			if (this->currentState == DEAD)
+			{
+				if (this->position.y <= 100)
+				{
+					this->vx = 0;
+					this->vy = 0;
 				}
 				else
 				{
-					this->listAnimation[this->currentState].SetIndex(0);
-					this->SetState(new BossFinalPrickState(this->bossFinalData));
+					this->vx = 0;
+					this->vy = -300;
 				}
 			}
 		}
 
-		if (this->currentState == CALL_ENEMIES)
+		if (Collision::IsColliding(this->rectBound, megaMan->GetRect()) && !megaMan->isUndying) {
+			megaMan->SubLife(2);
+		}
+
+		this->UpdatePosition(time);
+
+		if (this->bossFinalData->bossFinalState) {
+			this->bossFinalData->bossFinalState->Update(time);
+		}
+
+		this->wings->Update(this->position, this->currentState);
+		if (isCallEnemies)
 		{
-			if (this->listAnimation[this->currentState].GetIndex() == 4)
+			for (int i = 0; i < GameMap::GetInstance()->vecEnemyBoss.size(); i++)
 			{
-				this->listAnimation[this->currentState].SetIndex(0);
-				this->SetState(new BossFinalStartState(this->bossFinalData));
-				this->vx = 0;
-				this->vy = 0;
-				CallEnemy();
+				GameMap::GetInstance()->vecEnemyBoss[i]->Update(time, megaMan);
 			}
 		}
 
-		if (this->currentState == PRICK)
-		{
-			if (this->isJustPrick)
-			{
-				this->listAnimation[this->currentState].SetIndex(0);
-				this->SetState(new BossFinalStartState(this->bossFinalData));
-			}
-		}
-
-		if (this->currentState == DEAD)
-		{
-			if (this->position.y <= 2300)
-			{
-				this->vx = 0;
-				this->vy = 0;
-			}
-			else
-			{
-				this->vx = 0;
-				this->vy = -300;
-			}
-		}
-	}
-	
-
-	this->UpdatePosition(time);
-
-	if (this->bossFinalData->bossFinalState) {
-		this->bossFinalData->bossFinalState->Update(time);
-	}
-
-	this->wings->Update(this->position, this->currentState);
-	if (isCallEnemies)
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			enemies[i].Update(time, megaMan->GetInstance());
+		if (this->healthDraw) {
+			this->healthDraw->Update(time);
 		}
 	}
 }
@@ -185,7 +199,7 @@ void BossFinal::SetState(BossFinalState *newState)
 
 void BossFinal::Draw(double time)
 {
-	if (!isDead)
+	if (!isDead && checkCamera())
 	{
 		this->transform.positionInViewport = this->GetPositionInViewport();
 		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
@@ -193,13 +207,17 @@ void BossFinal::Draw(double time)
 		this->wings->Draw(time, this->currentState);
 		if (isCallEnemies)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < GameMap::GetInstance()->vecEnemyBoss.size(); i++)
 			{
-				enemies[i].Draw(time);
+				GameMap::GetInstance()->vecEnemyBoss[i]->Draw(time);
 			}
 		}
 
 		this->listAnimation[this->currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2.2, 2.5), transform.translation);
+
+		if (this->healthDraw) {
+			this->healthDraw->Draw(time);
+		}
 	}
 }
 
@@ -258,13 +276,38 @@ Animation* BossFinal::GetListAnimation() {
 
 void BossFinal::CallEnemy()
 {
-	if (sizeof(enemies) > 0)
+	for (int i = 0; i < GameMap::GetInstance()->vecEnemyBoss.size(); i++)
 	{
-		delete[] enemies;
+		if (!GameMap::GetInstance()->vecEnemyBoss[i]->GetIsDead()) {
+			return;
+		}
 	}
-	enemies = new Enemy[3];
+
+	for (int i = 0; i < GameMap::GetInstance()->vecEnemyBoss.size(); i++) {
+		GameMap::GetInstance()->vecEnemyBoss[i]->SetIsDead(false);
+		GameMap::GetInstance()->vecEnemyBoss[i]->SetDirect(this->direct);
+		GameMap::GetInstance()->vecEnemyBoss[i]->SetVx(10);
+		GameMap::GetInstance()->vecEnemyBoss[i]->SetVy(10);
+		if (i == 0) {
+			GameMap::GetInstance()->vecEnemyBoss[i]->SetPosition(VT3(this->position.x + this->direct * 90, this->position.y + 100, 0));
+		}
+		else if (i == 1) {
+			GameMap::GetInstance()->vecEnemyBoss[i]->SetPosition(VT3(this->position.x + this->direct * 120, this->position.y + 70, 0));
+		}
+		else if (i == 2) {
+			GameMap::GetInstance()->vecEnemyBoss[i]->SetPosition(VT3(this->position.x + this->direct * 60, this->position.y + 60, 0));
+		}
+	}
+	
 	this->isCallEnemies = true;
-	enemies[0] = Enemy(VT3(this->position.x + this->direct * 90, this->position.y + 100, 0), 10, 10, this->direct);
-	enemies[1] = Enemy(VT3(this->position.x + this->direct * 120, this->position.y + 70, 0), 10, 10, this->direct);
-	enemies[2] = Enemy(VT3(this->position.x + this->direct * 60, this->position.y + 60, 0), 10, 10, this->direct);
+}
+
+void BossFinal::SubLife(int sub) {
+	this->Life -= sub;
+	if (this->Life <= 0) {
+		this->Life = 0;
+		this->currentState = DEAD;
+	}
+
+	this->healthDraw->SetHealth(this->Life);
 }

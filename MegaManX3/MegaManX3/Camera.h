@@ -6,6 +6,7 @@
 #include "GameGraphic.h"
 #include "MegaManCharacters.h"
 #include "MegaManHealth.h"
+#include "BossFinalHealth.h"
 
 class MegaManCharacters;
 

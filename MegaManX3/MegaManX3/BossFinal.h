@@ -12,6 +12,8 @@
 #include "MegaManCharacters.h"
 #include "Enemy.h"
 
+class BossFinalHealth;
+
 class BossFinal : public GameObject
 {
 public:
@@ -19,6 +21,7 @@ public:
 	BossFinalData * bossFinalData;
 	BossFinalState *bossFinalState;
 	MegaManCharacters *megaMan;
+	BossFinalHealth* healthDraw;
 	bool isDead;
 	bool isIntro;
 	bool isCallEnemies;
@@ -27,7 +30,7 @@ public:
 	BossFinal();
 	~BossFinal();
 	Wings *wings;
-	Enemy* enemies;
+	vector<Enemy*> enemies;
 	Enemy* enemy1;
 	Enemy* enemy2;
 	Enemy* enemy3;
@@ -39,6 +42,7 @@ public:
 	void SetState(BossFinalState* state);
 	void SetListAnimation();
 	void CallEnemy();
+	void SubLife(int sub);
 	//void AddPosition
 
 	Animation* GetListAnimation();

@@ -59,8 +59,9 @@ protected:
 	vector<PlayerBullets*> listBullet;
 	vector<SmokeEffect*> listSmokeEff;
 public:
+	bool isUndying;
+	double undyingDuration;
 	static MegaManCharacters* GetInstance();
-
 	void Init(HINSTANCE hInstance, HWND hWnd);
 	void UpdatePosition(double time);
 	void Draw(double time);

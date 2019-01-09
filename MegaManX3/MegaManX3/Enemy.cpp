@@ -33,17 +33,30 @@ Enemy::Enemy(D3DXVECTOR3 position, float vx, float vy, Direct direct)
 	this->isDead = false;
 	this->width = 10;
 	this->height = 10;
+	this->Life = 1;
 	UpdateRect();
+
+	GameMap::GetInstance()->GetQuadtree()->InsertObject(this);
 }
 
 void Enemy::Update(float time, MegaManCharacters *megaman)
 {
-	CollisionResult result;
-	Attack(megaman);
-	position.x += vx*time;
-	position.y += vy*time;
+	if (!isDead) {
+		CollisionResult result;
+		Attack(megaman);
+		position.x += vx*time;
+		position.y += vy*time;
 
-	UpdateRect();
+		if (Collision::IsColliding(this->rectBound, megaman->GetRect()) && !megaman->isUndying) {
+			megaman->SubLife(2);
+		}
+
+		UpdateRect();
+
+		if (Life <= 0) {
+			this->isDead = true;
+		}
+	}
 }
 
 void Enemy::Draw(float time)
@@ -62,7 +75,7 @@ void Enemy::Attack(MegaManCharacters *megaman)
 {
 	if (this->position.y < megaman->GetPosition().y)
 	{
-		this->vy = 0;
+		this->vy = 200;
 		this->vx = this->direct * abs(this->vx);
 	}
 	else if (this->position.y > megaman->GetPosition().y)
@@ -85,7 +98,7 @@ void Enemy::Attack(MegaManCharacters *megaman)
 		if (this->position.x = megaman->GetPosition().x)
 		{
 			this->vx = 0;
-			this->vy = 0;
+			this->vy = 200;
 		}
 	}
 }

@@ -25,7 +25,7 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 	this->hWnd = hWnd;
 	this->id = MEGAMAN;
 	this->direct = RIGHT;
-	this->position = VT3(13500, 2200, 0);
+	this->position = VT3(MEGAMAN_START_X, MEGAMAN_START_Y, 0);
 	this->vx = this->vy = 0;
 	this->ax = 0;
 	this->ay = ACCELERATION_Y;
@@ -41,6 +41,8 @@ void MegaManCharacters::Init(HINSTANCE hInstance, HWND hWnd) {
 	this->Life = 16;
 	this->healthDraw = MegaManHealth::GetInstance();
 	this->healthDraw->SetHealth(this->Life);
+	this->isUndying = true;
+	this->undyingDuration = 0.0f;
 
 	this->megaManData = new MegaManData();
 	this->megaManData->megaMan = this;
@@ -70,14 +72,17 @@ void MegaManCharacters::Update(double time)
 		double entryTime = time;
 		int deltaBottom = MEGAMAN_WIDTH;
 		for (int i = 0; i < listCollision.size(); i++) {
-			staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
-			if (staticCollision.isCollision) {
-				if (listCollision[i]->GetId() == ONEGUN || listCollision[i]->GetId() == ENEMYROCKET) {
-					if (currentState != HURT) {
-						this->SubLife(2);
-					}
+			if (listCollision[i]->GetId() == ONEGUN || listCollision[i]->GetId() == ENEMYROCKET
+				|| listCollision[i]->GetId() == BOSSFINAL || listCollision[i]->GetId() == NORMALBOSS
+				|| listCollision[i]->GetId() == ENEMY) {
+				if (Collision::IsColliding(this->rectBound, listCollision[i]->GetRect()) && !isUndying){
+					this->SubLife(2);
 				}
-				else if (listCollision[i]->GetId() == ONEHITOBJECT) {
+			}
+			else {
+				staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
+			if (staticCollision.isCollision) {
+				if (listCollision[i]->GetId() == ONEHITOBJECT) {
 					if (currentState != HURT) {
 						this->SubLife(16);
 					}
@@ -160,6 +165,7 @@ void MegaManCharacters::Update(double time)
 					}
 				}
 			}
+			}
 		}
 
 		this->UpdatePosition(time);
@@ -196,6 +202,14 @@ void MegaManCharacters::Update(double time)
 			if (this->holdAttackEffect->GetIsDead() == true) {
 				free(this->holdAttackEffect);
 				this->holdAttackEffect = nullptr;
+			}
+		}
+
+		if (this->isUndying) {
+			this->undyingDuration += time;
+			if (this->undyingDuration >= 1.5f) {
+				this->isUndying = false;
+				this->undyingDuration = 0.0f;
 			}
 		}
 
@@ -613,12 +627,13 @@ void MegaManCharacters::AddPosition(VT3 distance) {
 }
 
 void MegaManCharacters::SubLife(int sub) {
-	if (currentState != HURT) {
+	if (!this->isUndying) {
 		this->Life -= sub;
 		if (this->Life <= 0) {
 			this->Life = 0;
 		}
 		this->healthDraw->SetHealth(this->Life);
+		this->isUndying = true;
 	}
 	if (this->Life == 0) {
 		this->isDestroying = true;

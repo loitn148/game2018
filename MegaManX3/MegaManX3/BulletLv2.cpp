@@ -41,40 +41,50 @@ BulletLv2::BulletLv2(D3DXVECTOR3 position, double vx, Direct direct)
 
 void BulletLv2::Update(double time)
 {
-	if (this->animation->GetIndex() == 1 && this->isCollision == false) {
-		this->animation->SetIndex(0);
+	if ((this->direct == RIGHT && this->position.x > Camera::GetInstance()->GetRect().right + 50)
+		|| (this->direct == LEFT && this->position.x < Camera::GetInstance()->GetRect().left - 50)
+		|| this->position.y > Camera::GetInstance()->GetRect().top + 50
+		|| this->position.y < Camera::GetInstance()->GetRect().bottom - 50) {
+		this->isDead = true;
 	}
-	if (this->isCollision == true) {
-		this->vx = 0;
-		if (this->animation->GetIndex() == 0) {
-			this->isDead = true;
+	else {
+		if (this->animation->GetIndex() == 1 && this->isCollision == false) {
+			this->animation->SetIndex(0);
 		}
-	}
-
-	vector<GameObject*> listCollision;
-	GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
-	CollisionResult staticCollision;
-	double entryTime = time;
-	for (int i = 0; i < listCollision.size(); i++) {
-		staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
-		if (listCollision[i]->GetId() == ONEGUN || listCollision[i]->GetId() == ENEMYROCKET) {
-			if (staticCollision.isCollision || Collision::IsColliding(this->rectBound, listCollision[i]->GetRect())) {
-				entryTime = staticCollision.entryTime;
-				this->isCollision = true;
-				listCollision[i]->SubLife(2);
+		if (this->isCollision == true) {
+			this->vx = 0;
+			if (this->animation->GetIndex() == 0) {
+				this->isDead = true;
 			}
 		}
-		else {
-			if (staticCollision.isCollision) {
-				entryTime = staticCollision.entryTime;
-				this->isCollision = true;
+
+		vector<GameObject*> listCollision;
+		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
+		CollisionResult staticCollision;
+		double entryTime = time;
+		for (int i = 0; i < listCollision.size(); i++) {
+			staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
+			if (listCollision[i]->GetId() == ONEGUN || listCollision[i]->GetId() == ENEMYROCKET
+				|| listCollision[i]->GetId() == BOSSFINAL || listCollision[i]->GetId() == NORMALBOSS
+				|| listCollision[i]->GetId() == ENEMY) {
+				if (staticCollision.isCollision || Collision::IsColliding(this->rectBound, listCollision[i]->GetRect())) {
+					entryTime = staticCollision.entryTime;
+					this->isCollision = true;
+					listCollision[i]->SubLife(2);
+				}
+			}
+			else {
+				if (staticCollision.isCollision) {
+					entryTime = staticCollision.entryTime;
+					this->isCollision = true;
+				}
 			}
 		}
+
+		position.x += vx*entryTime;
+
+		UpdateRect();
 	}
-
-	position.x += vx*entryTime;
-
-	UpdateRect();
 }
 
 void BulletLv2::Draw(double time)

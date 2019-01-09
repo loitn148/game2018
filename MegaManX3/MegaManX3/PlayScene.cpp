@@ -4,12 +4,23 @@
 
 void PlayScene::LoadContent() {
 	this->camera = Camera::GetInstance();
-	this->camera->Create(VT3(13500, 2200, 0), WIDTH, HEIGHT);
+	this->camera->Create(VT3(CAMERA_START_X, CAMERA_START_Y, 0), WIDTH, HEIGHT);
 	this->megaMan = MegaManCharacters::GetInstance();
 	this->megaMan->Init(this->hInstance, this->hWnd);
+
 	mMap = GameMap::GetInstance();
 	mMap->Init("Assets/map/map.tmx");
+	
+	bossfinal = new BossFinal(VT3(18200, 300, 0), 0, 0);
+	bossNormal = new BossNormal(VT3(5300, 2180, 0), 0, 0);
+	mMap->GetQuadtree()->InsertObject(bossfinal);
+
 	elevator1 = new Elevator1(VT3(1987, 2315, 0), 0, 0);
+
+	sound = new Sound(this->hWnd);
+	sound->loadSound("Assets/soundtrack.wav", "background");
+	sound->play("background", true, 0);
+
 	this->InitGameOverImage();
 }
 
@@ -36,6 +47,8 @@ void PlayScene::Update(double time) {
 		this->megaMan->Update(time);
 		this->elevator1->Update(time);
 		this->camera->Update(this->megaMan);
+		this->bossfinal->Update(time);
+		this->bossNormal->Update(time);
 		this->megaMan->HandleKeyboard(this->keys);
 	}
 }
@@ -51,6 +64,8 @@ void PlayScene::Draw(double time) {
 		{
 			mMap->vecEnemy[i]->Draw(time);
 		}
+		this->bossfinal->Draw(time);
+		this->bossNormal->Draw(time);
 		this->megaMan->Draw(time);
 		this->elevator1->Draw(time);
 	}

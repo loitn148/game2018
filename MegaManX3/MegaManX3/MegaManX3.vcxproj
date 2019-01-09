@@ -130,6 +130,7 @@
     <ClCompile Include="BossFinal.cpp" />
     <ClCompile Include="BossFinalCallEnemies.cpp" />
     <ClCompile Include="BossFinalData.cpp" />
+    <ClCompile Include="BossFinalHealth.cpp" />
     <ClCompile Include="BossFinalPrickState.cpp" />
     <ClCompile Include="BossFinalStartState.cpp" />
     <ClCompile Include="BossFinalState.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="RunningState.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SmokeEffect.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StandingAttackState.cpp" />
     <ClCompile Include="StandingState.cpp" />
@@ -232,6 +234,7 @@
     <ClInclude Include="BossFinal.h" />
     <ClInclude Include="BossFinalCallEnemies.h" />
     <ClInclude Include="BossFinalData.h" />
+    <ClInclude Include="BossFinalHealth.h" />
     <ClInclude Include="BossFinalPrickState.h" />
     <ClInclude Include="BossFinalStartState.h" />
     <ClInclude Include="BossFinalState.h" />
@@ -318,6 +321,7 @@
     <ClInclude Include="RunningState.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SmokeEffect.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StandingAttackState.h" />
     <ClInclude Include="StandingState.h" />

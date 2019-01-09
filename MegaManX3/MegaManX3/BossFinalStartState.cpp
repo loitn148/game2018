@@ -14,13 +14,13 @@ BossFinalStartState::BossFinalStartState(BossFinalData *bossFinalData)
 		{
 			this->bossFinalData->bossFinal->SetDirect(RIGHT);
 			this->bossFinalData->bossFinal->SetVy(200);
-			this->bossFinalData->bossFinal->SetVx(abs(500 - this->bossFinalData->bossFinal->GetPosition().x) / abs(2600 - this->bossFinalData->bossFinal->GetPosition().y) * this->bossFinalData->bossFinal->GetVy());
+			this->bossFinalData->bossFinal->SetVx(abs(18200 - this->bossFinalData->bossFinal->GetPosition().x) / abs(300 - this->bossFinalData->bossFinal->GetPosition().y) * this->bossFinalData->bossFinal->GetVy());
 		}
 		else
 		{
 			this->bossFinalData->bossFinal->SetDirect(LEFT);
 			this->bossFinalData->bossFinal->SetVy(200);
-			this->bossFinalData->bossFinal->SetVx(- abs(100 - this->bossFinalData->bossFinal->GetPosition().x) / abs(2600 - this->bossFinalData->bossFinal->GetPosition().y) * this->bossFinalData->bossFinal->GetVy());
+			this->bossFinalData->bossFinal->SetVx(- abs(17800 - this->bossFinalData->bossFinal->GetPosition().x) / abs(300 - this->bossFinalData->bossFinal->GetPosition().y) * this->bossFinalData->bossFinal->GetVy());
 		}
 
 	}
