@@ -197,6 +197,7 @@ void GameMap::LoadMap(char *filePath)
 				int posY = WORLD_Y - object->GetY() * 3;
 				VT3 position(posX, posY, 0);
 				bossNormal = new BossNormal(position, 0, 0);
+				quadtree->InsertObject(bossNormal);
 			}
 		}
 	}

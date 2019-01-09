@@ -1,5 +1,5 @@
 #include "BossNormal.h"
-
+#include "MegaManCharacters.h"
 BossNormal::BossNormal()
 {
 	this->id = NORMALBOSS;
@@ -37,8 +37,8 @@ BossNormal::BossNormal(D3DXVECTOR3 position, double vx, double vy)
 	this->ax = 0;
 	this->ay = 0;
 	this->isDead = false;
-	this->width = 98;
-	this->height = 98;
+	this->width = 70;
+	this->height = 100;
 	this->Life = 10;
 	this->isAttack1 = false;
 	this->isAttack2 = false;
@@ -64,8 +64,16 @@ void BossNormal::UpdatePosition(double time)
 
 void BossNormal::Update(double time)
 {
-	CollisionResult result;
-	if (checkCamera()) {
+	if (isIntro == true &&
+		(this->position.x - MegaManCharacters::GetInstance()->GetPosition().x) <= 400)
+	{
+		isIntro = false;
+	}
+	if (Collision::IsColliding(this->rectBound, MegaManCharacters::GetInstance()->GetRect()) 
+		&& !MegaManCharacters::GetInstance()->isUndying) {
+		MegaManCharacters::GetInstance()->SubLife(2);
+	}
+	if (!isIntro) {
 
 		if (this->isAttack1)
 		{
@@ -173,7 +181,6 @@ void BossNormal::Update(double time)
 				this->vx = -800;
 				this->vy = -50;
 				this->isAttack1 = true;
-				this->isIntro = false;
 			}
 		}
 
@@ -183,7 +190,7 @@ void BossNormal::Update(double time)
 
 void BossNormal::Draw(double time)
 {
-	if (!isDead && checkCamera())
+	if (!isDead /*&& checkCamera()*/)
 	{
 		this->transform.positionInViewport = this->GetPositionInViewport();
 		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
