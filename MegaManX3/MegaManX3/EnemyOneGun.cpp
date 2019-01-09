@@ -50,16 +50,30 @@ void EnemyOneGun::Draw(double time)
 	}
 	for (int i = 0; i < vtRocket.size(); i++)
 	{
-		if (!vtRocket[i]->GetIsDead())
+		if (vtRocket[i])
 			vtRocket[i]->Draw(time);
 	}
 	if (blood != NULL&& !blood->GetIsDead())
 	{
 		blood->Draw(time);
 	}
+	if (destroyedEffect)
+	{
+		destroyedEffect->Draw(time);
+	}
 }
 void EnemyOneGun::Update(double time)
 {
+	if (destroyedEffect !=NULL)
+	{
+
+		destroyedEffect->Update(time);
+		if (destroyedEffect->GetIsDead())
+		{
+			delete destroyedEffect;
+			destroyedEffect = NULL;
+		}
+	} 
 	if (!GetIsDead() && checkCamera())
 	{
 		if (GetLife() <= 0)
@@ -69,6 +83,7 @@ void EnemyOneGun::Update(double time)
 			{
 				blood = new Blood(VT3(position.x, position.y + 50, 0));
 			}
+			this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y + 40, 0));
 			SetIsDead(true);
 		}
 		vector<GameObject*> listCollision;
@@ -154,7 +169,7 @@ void EnemyOneGun::Update(double time)
 	int a = 0;
 	for (int i = 0; i < vtRocket.size(); i++)
 	{
-		if (!vtRocket[i]->GetIsDead())
+		if (vtRocket[i])
 			vtRocket[i]->Update(time);
 		else
 		{

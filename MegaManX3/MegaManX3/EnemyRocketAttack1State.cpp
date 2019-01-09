@@ -20,12 +20,12 @@ void EnemyRocketAttack1State::Update(double time)
 {
 	if (this->enemyRocketData->m_EnemyRocket->listAnimation[ENEMYROCKETATTACK1].GetIndex() == (this->enemyRocketData->m_EnemyRocket->listAnimation[ENEMYROCKETATTACK1].GetTotalFrame() - 1))
 	{
-		if (this->enemyRocketData->m_EnemyRocket->rocket == NULL || this->enemyRocketData->m_EnemyRocket->rocket->GetIsDead())
+		if (this->enemyRocketData->m_EnemyRocket->rocket->GetIsDead())
 		{
 			
 			this->enemyRocketData->m_EnemyRocket->rocket->SetIsDead(false);
 			this->enemyRocketData->m_EnemyRocket->rocket->isCollision = false;
-			this->enemyRocketData->m_EnemyRocket->rocket->SetPosition(VT3(this->enemyRocketData->m_EnemyRocket->GetPosition().x - 10 * this->enemyRocketData->m_EnemyRocket->GetDirect(),
+			this->enemyRocketData->m_EnemyRocket->rocket->SetPosition(VT3(this->enemyRocketData->m_EnemyRocket->GetPosition().x + 30 * this->enemyRocketData->m_EnemyRocket->GetDirect(),
 																		this->enemyRocketData->m_EnemyRocket->GetPosition().y + 70, 0));
 			this->enemyRocketData->m_EnemyRocket->rocket->SetVx(400 * this->enemyRocketData->m_EnemyRocket->GetDirect());
 			if (this->enemyRocketData->m_EnemyRocket->rocket->GetPosition().y >= MegaManCharacters::GetInstance()->GetPosition().y)

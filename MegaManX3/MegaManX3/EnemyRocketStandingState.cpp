@@ -19,7 +19,8 @@ EnemyRocketStandingState::EnemyRocketStandingState(EnemyRocketData * enemyOneGun
 
 void EnemyRocketStandingState::Update(double time)
 {
-	if (this->enemyRocketData->m_EnemyRocket->rocket->GetIsDead())
+	if (this->enemyRocketData->m_EnemyRocket->rocket->GetIsDead()&&
+		this->enemyRocketData->m_EnemyRocket->listAnimation[EnemyRocketStates::ENEMYROCKETSTANDING].GetIndex()>0)
 	{
 		this->enemyRocketData->m_EnemyRocket->SetState(new EnemyRocketAttack1State(enemyRocketData));
 	}

@@ -55,10 +55,10 @@ void Blood::Update(double time)
 	{
 		
 		CollisionResult staticCollision;
-		staticCollision = Collision::SweptAABB(rectBound,
-			VT2(this->vx, this->vy),
+		staticCollision = Collision::SweptAABB(
 			MegaManCharacters::GetInstance()->GetRect(),
-			VT2(MegaManCharacters::GetInstance()->GetVx(), MegaManCharacters::GetInstance()->GetVy()),
+			VT2(MegaManCharacters::GetInstance()->GetVx(), MegaManCharacters::GetInstance()->GetVy()), rectBound,
+			VT2(this->vx, this->vy),
 			time);
 		if (staticCollision.isCollision)
 		{

@@ -38,11 +38,17 @@ Rocket::Rocket(D3DXVECTOR3 position, double vx, Direct direct)
 
 void Rocket::Update(double time)
 {
+	if (destroyedEffect != NULL)
+	{
+
+		destroyedEffect->Update(time);
+
+	}
 	if (!isDead)
 	{
-		if (duration >= 0.04f) {
+		if (duration >= 0.06f) {
 			VT3 megaManPosition = this->GetPosition();
-			VT3 smokePosition(megaManPosition.x - 40 * this->GetDirect(), megaManPosition.y - 8, 0);
+			VT3 smokePosition(megaManPosition.x - 10 * this->GetDirect(), megaManPosition.y - 8, 0);
 			this->AddSmokeEffect(smokePosition);
 			duration = 0.0f;
 		}
@@ -58,59 +64,67 @@ void Rocket::Update(double time)
 		}
 		duration += time;
 		CollisionResult staticCollision;
-		staticCollision = Collision::SweptAABB(rectBound,
-			VT2(this->vx, this->vy),
+		staticCollision = Collision::SweptAABB(
 			MegaManCharacters::GetInstance()->GetRect(),
 			VT2(MegaManCharacters::GetInstance()->GetVx(), MegaManCharacters::GetInstance()->GetVy()),
+			rectBound,
+			VT2(this->vx, this->vy),
 			time);
 		if (staticCollision.isCollision)
 		{
 
-			MegaManCharacters::GetInstance()->SubLife(2);
+			if (this->isCollision == false)
+			{
+				delete destroyedEffect;
+				this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y, 0));
+				MegaManCharacters::GetInstance()->SubLife(2);
+			}
 			this->isCollision = true;
+			this->isDead = true;
+			vx = vy = 0;
 
 		}
 		position.x += vx*time;
 		position.y += vy*time;
-
 		if (this->animation->GetIndex() == 1 && this->isCollision == false) {
 			this->animation->SetIndex(0);
-		}
-		if (this->isCollision == true) {
-			this->vx = 0;
-			if (this->animation->GetIndex() == 0) {
-				this->isDead = true;
-			}
 		}
 
 		vector<GameObject*> listCollision;
 		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
 		double entryTime = time;
 		for (int i = 0; i < listCollision.size(); i++) {
-			staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
-			if (staticCollision.isCollision) {
-				entryTime = staticCollision.entryTime;
-				this->isCollision = true;
+			if (listCollision[i]->GetId() == Object::STATICOBJECT && i != 9)
+			{
+				staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
+				if (staticCollision.isCollision) {
+					entryTime = staticCollision.entryTime;
+					if (this->isCollision == false)
+					{
+						delete destroyedEffect;
+						this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y, 0));
+						vx = vy = 0;
+						this->isCollision = true;
+						this->isDead = true;
+					}
+				}
 			}
+			
 		}
 
 		position.x += vx*entryTime;
 
 		UpdateRect();
 	}
-	else
-	{
-		for (int i = 0; i < listSmokeEff.size(); i++)
-		{
-			delete listSmokeEff[i];
-			listSmokeEff[i] = NULL;
-		}
-		listSmokeEff.clear();
-	}
+	RemoveSmokeEffect();
 }
 
 void Rocket::Draw(double time)
 {
+	if (destroyedEffect)
+	{
+		destroyedEffect->Draw(time);
+	}
 	if (!isDead)
 	{
 		if (this->listSmokeEff.size() > 0)
@@ -132,6 +146,23 @@ void Rocket::AddSmokeEffect(VT3 smokePosition) {
 	SmokeEffect *smoke = new SmokeEffect(smokePosition);
 	this->listSmokeEff.push_back(smoke);
 }
+
+void Rocket::RemoveSmokeEffect() {
+	if (isDead)
+	{
+		for (int i = 0; i < listSmokeEff.size(); i++)
+		{
+			delete listSmokeEff[i];
+			listSmokeEff[i] = NULL;
+		}
+		listSmokeEff.clear();
+	}
+}
+void Rocket::SetDestroyEffect() {
+	delete destroyedEffect;
+	this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y, 0));
+}
+
 
 Rocket::~Rocket()
 {

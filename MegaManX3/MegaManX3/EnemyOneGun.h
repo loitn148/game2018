@@ -14,7 +14,7 @@
 #include "EnemyOneGunStandState.h"
 #include "Rocket.h"
 #include "OneGunBullet.h"
-
+#include "DestroyedEffect.h"
 #include <iostream>
 #include <vector>
 #include <map>
@@ -22,11 +22,12 @@ class EnemyOneGun : public GameObject
 {
 	EnemyOneGunData* enemyOneGunData;
 	OneGunStates currentState;
+
 	Blood* blood;
 	void UpdatePosition(double time);
 public:
 	vector<OneGunBullet*> vtRocket;
-
+	DestroyedEffect*destroyedEffect;
 	Animation* listAnimation;
 	void Init(VT3 position, int width, int height);
 	void Draw(double time);

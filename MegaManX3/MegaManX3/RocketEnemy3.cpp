@@ -4,6 +4,11 @@ RocketEnemy3::RocketEnemy3()
 {
 }
 
+void RocketEnemy3::SetDestroyEffect() {
+	delete destroyedEffect;
+	this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y, 0));
+}
+
 RocketEnemy3::RocketEnemy3(D3DXVECTOR3 position, double vx, Direct direct)
 {
 	animation = new Animation();
@@ -51,7 +56,7 @@ void RocketEnemy3::Update(double time)
 		{
 
 			MegaManCharacters::GetInstance()->SubLife(2);
-
+			SetDestroyEffect();
 		}
 		position.x += vx*time;
 		position.y += vy*time;
@@ -74,6 +79,7 @@ void RocketEnemy3::Update(double time)
 			if (staticCollision.isCollision) {
 				entryTime = staticCollision.entryTime;
 				this->isCollision = true;
+				SetDestroyEffect();
 			}
 		}
 

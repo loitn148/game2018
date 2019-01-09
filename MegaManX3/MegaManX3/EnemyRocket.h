@@ -12,7 +12,7 @@
 
 #include "Rocket.h"
 #include "Blood.h"
-
+#include "DestroyedEffect.h"
 #include <iostream>
 #include <vector>
 #include <map>
@@ -25,7 +25,7 @@ class EnemyRocket : public GameObject
 
 public:
 	Rocket* rocket;
-
+	DestroyedEffect*destroyedEffect;
 	Animation* listAnimation;
 	void Init(VT3 position, int width, int height, Direct direct);
 	void Draw(double time);

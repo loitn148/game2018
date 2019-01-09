@@ -23,7 +23,7 @@ void EnemyOneGunAttack1State::Update(double time)
 		//if (this->enemyOneGunData->m_EnemyOneGun->vtRocket.size()<4)
 		//{
 			OneGunBullet* rocket = new OneGunBullet(VT3(this->enemyOneGunData->m_EnemyOneGun->GetPosition().x + (35*this->enemyOneGunData->m_EnemyOneGun->GetDirect()), this->enemyOneGunData->m_EnemyOneGun->GetPosition().y + 80, 0),
-													1300, -200, 600,
+													900, -200, 600,
 													this->enemyOneGunData->m_EnemyOneGun->GetDirect());
 			this->enemyOneGunData->m_EnemyOneGun->listAnimation[OneGunStates::ENEMYATTACK1].SetIndex(0);
 			this->enemyOneGunData->m_EnemyOneGun->vtRocket.push_back(rocket);

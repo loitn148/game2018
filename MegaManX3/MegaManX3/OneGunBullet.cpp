@@ -26,7 +26,7 @@ OneGunBullet::OneGunBullet(D3DXVECTOR3 position, double vy, double ay, double vx
 	{
 		this->SetVx(vx);
 	}
-	this->id = BULLET;
+	this->id = BULLETENEMY;
 	this->position = position;
 	this->OldPosion = position;
 	this->isDead = false;
@@ -37,8 +37,16 @@ OneGunBullet::OneGunBullet(D3DXVECTOR3 position, double vy, double ay, double vx
 	UpdateRect();
 }
 
+void OneGunBullet::SetDestroyEffect() {
+	delete destroyedEffect;
+	this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y, 0));
+}
 void OneGunBullet::Update(double time)
 {
+	if (destroyedEffect)
+	{
+		destroyedEffect->Update(time);
+	}
 	if (!isDead)
 	{
 		if (this->animation->GetIndex() == 1 && this->isCollision == false) {
@@ -50,28 +58,6 @@ void OneGunBullet::Update(double time)
 				this->isDead = true;
 			}
 		}
-
-		vector<GameObject*> listCollision;
-		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
-		CollisionResult staticCollision;
-		double entryTime = time;
-		for (int i = 0; i < listCollision.size(); i++) {
-			staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
-			if (staticCollision.isCollision) {
-				entryTime = staticCollision.entryTime;
-				this->isCollision = true;
-			}
-		}
-		UpdatePosition(time);
-
-		UpdateRect();
-	}
-}
-
-void OneGunBullet::Draw(double time)
-{
-	if (!isDead)
-	{
 		CollisionResult staticCollision;
 		staticCollision = Collision::SweptAABB(rectBound,
 			VT2(this->vx, this->vy),
@@ -82,8 +68,38 @@ void OneGunBullet::Draw(double time)
 		{
 
 			MegaManCharacters::GetInstance()->SubLife(2);
+			vy = vx = 0;
+			SetDestroyEffect();
+			isDead = true;
 
 		}
+		vector<GameObject*> listCollision;
+		GameMap::GetInstance()->GetQuadtree()->GetEntitiesCollideAble(listCollision, this);
+		double entryTime = time;
+		for (int i = 0; i < listCollision.size(); i++) {
+			staticCollision = Collision::SweptAABB(this->rectBound, VT2(this->vx, this->vy), listCollision[i]->GetRect(), VT2(listCollision[i]->GetVx(), listCollision[i]->GetVy()), time);
+			if (staticCollision.isCollision) {
+				entryTime = staticCollision.entryTime;
+				isDead = true;
+				this->isCollision = true;
+				vy = vx = 0;
+				SetDestroyEffect();
+			}
+		}
+		UpdatePosition(time);
+
+		UpdateRect();
+	}
+}
+
+void OneGunBullet::Draw(double time)
+{
+	if (destroyedEffect)
+	{
+		destroyedEffect->Draw(time);
+	}
+	if (!isDead)
+	{
 		this->transform.positionInViewport = this->GetPositionInViewport();
 		VT3 cameraPosition = Viewport::GetInstance()->GetPositionInViewport(Camera::GetInstance()->GetPosition());
 		this->transform.translation = VT2(-cameraPosition.x, -cameraPosition.y);

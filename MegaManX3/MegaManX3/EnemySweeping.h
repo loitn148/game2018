@@ -11,7 +11,7 @@
 
 #include "RocketEnemy3.h"
 #include "Blood.h"
-
+#include "DestroyedEffect.h"
 #include <iostream>
 #include <vector>
 #include <map>
@@ -25,6 +25,7 @@ class EnemySweeping :
 	void UpdatePosition(double time);
 public:
 	RocketEnemy3* rocket;
+	DestroyedEffect*destroyedEffect;
 	VT3 oldPosition;
 	Animation* listAnimation;
 	void Init(VT3 position, int width, int height, Direct direct);

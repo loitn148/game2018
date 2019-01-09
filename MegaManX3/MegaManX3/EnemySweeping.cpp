@@ -46,9 +46,23 @@ void EnemySweeping::Draw(double time)
 	{
 		blood->Draw(time);
 	}
+	if (destroyedEffect)
+	{
+		destroyedEffect->Draw(time);
+	}
 }
 void EnemySweeping::Update(double time)
 {
+	if (destroyedEffect != NULL)
+	{
+
+		destroyedEffect->Update(time);
+		if (destroyedEffect->GetIsDead())
+		{
+			delete destroyedEffect;
+			destroyedEffect = NULL;
+		}
+	}
 	if (!GetIsDead() && checkCamera())
 	{
 
@@ -59,6 +73,7 @@ void EnemySweeping::Update(double time)
 			{
 				blood = new Blood(VT3(position.x, position.y + 50, 0));
 			}
+			this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y + 40, 0));
 			SetIsDead(true);
 		}
 		vector<GameObject*> listCollision;
@@ -107,9 +122,10 @@ void EnemySweeping::Update(double time)
 	{
 		rocket->Update(time);
 		int term = std::abs(rocket->GetPosition().x - position.x);
-		if (term > 400)
+		if (term > 400 && !rocket->GetIsDead())
 		{
 			rocket->SetIsDead(true);
+			rocket->SetDestroyEffect();
 			rocket->isCollision = true;
 		}
 	}

@@ -33,6 +33,7 @@ void EnemyRocket::Init(VT3 position, int width, int height, Direct direct)
 }
 void EnemyRocket::Draw(double time)
 {
+
 	if (!GetIsDead() && checkCamera())
 	{
 		this->transform.positionInViewport = this->GetPositionInViewport();
@@ -41,18 +42,31 @@ void EnemyRocket::Draw(double time)
 
 		this->listAnimation[currentState].Draw(transform.positionInViewport, this->direct, time, VT2(2.5, 2.5), transform.translation);
 	}
-	if (rocket != NULL && !rocket->GetIsDead())
+	if (rocket != NULL)
 	{
 		rocket->Draw(time);
 	}
-	if (blood != NULL&& !blood->GetIsDead())
+	if (blood != NULL)
 	{
 		blood->Draw(time);
 	}
-
+	if (destroyedEffect)
+	{
+		destroyedEffect->Draw(time);
+	}
 }
 void EnemyRocket::Update(double time)
 {
+	if (destroyedEffect != NULL)
+	{
+
+		destroyedEffect->Update(time);
+		if (destroyedEffect->GetIsDead())
+		{
+			delete destroyedEffect;
+			destroyedEffect = NULL;
+		}
+	}
 	if (!GetIsDead() && checkCamera())
 	{
 		if (GetLife() <= 0)
@@ -62,6 +76,7 @@ void EnemyRocket::Update(double time)
 			{
 				blood = new Blood(VT3(position.x, position.y + 50, 0));
 			}
+			this->destroyedEffect = new DestroyedEffect(VT3(position.x, position.y + 40, 0));
 			SetIsDead(true);
 		}
 		vector<GameObject*> listCollision;
@@ -102,14 +117,16 @@ void EnemyRocket::Update(double time)
 		this->enemyRocketData->m_EnemyRocketState->Update(time);
 		UpdatePosition(time);
 	}
-	if (rocket != NULL && !rocket->GetIsDead())
+	if (rocket != NULL)
 	{
 		rocket->Update(time);
 		int term = std::abs(rocket->GetPosition().x - position.x);
-		if (term > 400)
+		if (term > 400 && rocket->GetIsDead() == false)
 		{
 			rocket->SetIsDead(true);
+			rocket->SetDestroyEffect();
 			rocket->isCollision = true;
+			rocket->RemoveSmokeEffect();
 		}
 	}
 	if (blood != NULL&& !blood->GetIsDead())
@@ -130,7 +147,9 @@ void EnemyRocket::SetListAnimation()
 {
 	std::vector<Rect> temp;
 	temp.push_back(Rect(0, 0, 45, 38));
-	this->listAnimation[ENEMYROCKETSTANDING].Create(ENEMIES_ROCKET_STAND, temp.size(), temp, 0.001f, LEFT);
+	temp.push_back(Rect(0, 39, 45, 77));
+
+	this->listAnimation[ENEMYROCKETSTANDING].Create(ENEMIES_ROCKET_STAND, temp.size(), temp, 0.75f, LEFT);
 
 	temp.clear();
 	temp.push_back(Rect(0, 42, 45, 80));
