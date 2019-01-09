@@ -13,8 +13,10 @@
 #include "Quadtree.h"
 #include "MegaManCharacters.h"
 
+
 class GameEnemy;
 class Enemy;
+class BossNormal;
 class GameMap
 {
 protected:
@@ -29,7 +31,7 @@ public:
 	static GameMap* GetInstance();
     void Init(char* filePath);
 	GameMap();
-
+	BossNormal* bossNormal;
     Tmx::Map* GetMap();
 	vector<GameObject*> vecEnemy;
     int GetWidth();

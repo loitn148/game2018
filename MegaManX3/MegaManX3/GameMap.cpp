@@ -5,7 +5,7 @@
 #include "EnemyRocket.h"
 #include "EnemySweeping.h"
 #include "Enemy.h"
-
+#include "BossNormal.h"
 GameMap::GameMap(){
 }
 
@@ -183,6 +183,24 @@ void GameMap::LoadMap(char *filePath)
 	}
 #pragma endregion
 	this->CreateEnemyBoss();
+#pragma region -Boss Normal-
+
+	for (size_t i = 0; i < map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = map->GetObjectGroup(i);
+		if (objectGroup->GetName() == "BossNormal")
+		{
+			for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+			{
+				Tmx::Object *object = objectGroup->GetObjects().at(j);
+				int posX = object->GetX() * 3;
+				int posY = WORLD_Y - object->GetY() * 3;
+				VT3 position(posX, posY, 0);
+				bossNormal = new BossNormal(position, 0, 0);
+			}
+		}
+	}
+#pragma endregion
 
 }
 
