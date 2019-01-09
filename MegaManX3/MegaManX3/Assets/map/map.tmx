@@ -228,4 +228,7 @@
   <object id="383" x="5208" y="1478" width="8" height="4"/>
   <object id="384" x="5359" y="1478" width="8" height="4"/>
  </objectgroup>
+ <objectgroup id="12" name="BossNormal">
+  <object id="374" x="1860" y="816" width="12" height="14"/>
+ </objectgroup>
 </map>
